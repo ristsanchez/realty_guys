@@ -1,0 +1,725 @@
+{
+  "properties": [
+    {
+      "name": "Mediterranean Avenue",
+      "id": "mediterraneanave",
+      "position": 2,
+      "cost": 60,
+      "rent": 2,
+      "rentList": [
+        10,
+        30,
+        90,
+        160,
+        250
+      ],
+      "houseCost": 50,
+      "group": "purple",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Baltic Avenue",
+      "id": "balticave",
+      "posistion": 4,
+      "cost": 60,
+      "rent": 4,
+      "rentList": [
+        20,
+        60,
+        180,
+        320,
+        450
+      ],
+      "houseCost": 50,
+      "group": "purple",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Oriental Avenue",
+      "id": "orientalave",
+      "posistion": 7,
+      "cost": 100,
+      "rent": 6,
+      "rentList": [
+        30,
+        90,
+        270,
+        400,
+        550
+      ],
+      "houseCost": 50,
+      "group": "lightblue",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Vermont Avenue",
+      "id": "vermontave",
+      "posistion": 9,
+      "cost": 100,
+      "rent": 6,
+      "rentList": [
+        30,
+        90,
+        270,
+        400,
+        550
+      ],
+      "houseCost": 50,
+      "group": "lightblue",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Connecticut Avenue",
+      "id": "connecticutave",
+      "posistion": 10,
+      "cost": 120,
+      "rent": 8,
+      "rentList": [
+        40,
+        100,
+        300,
+        450,
+        600
+      ],
+      "houseCost": 50,
+      "group": "lightblue",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "St. Charles Place",
+      "id": "stcharlesplace",
+      "posistion": 12,
+      "cost": 140,
+      "rent": 10,
+      "rentList": [
+        50,
+        150,
+        450,
+        625,
+        750
+      ],
+      "houseCost": 100,
+      "group": "pink",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "States Avenue",
+      "id": "statesave",
+      "posistion": 14,
+      "cost": 140,
+      "rent": 10,
+      "rentList": [
+        50,
+        150,
+        450,
+        625,
+        750
+      ],
+      "houseCost": 100,
+      "group": "pink",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Virginia Avenue",
+      "id": "virginiaave",
+      "posistion": 15,
+      "cost": 160,
+      "rent": 12,
+      "rentList": [
+        60,
+        180,
+        500,
+        700,
+        900
+      ],
+      "houseCost": 100,
+      "group": "pink",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "St. James Place",
+      "id": "stjamesplace",
+      "posistion": 17,
+      "cost": 180,
+      "rent": 14,
+      "rentList": [
+        70,
+        200,
+        550,
+        750,
+        950
+      ],
+      "houseCost": 100,
+      "group": "orange",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Tennessee Avenue",
+      "id": "tennesseeave",
+      "posistion": 19,
+      "cost": 180,
+      "rent": 14,
+      "rentList": [
+        70,
+        200,
+        550,
+        750,
+        950
+      ],
+      "houseCost": 100,
+      "group": "orange",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "New York Avenue",
+      "id": "newyorkave",
+      "posistion": 20,
+      "cost": 200,
+      "rent": 16,
+      "rentList": [
+        80,
+        220,
+        600,
+        800,
+        1000
+      ],
+      "houseCost": 100,
+      "group": "orange",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Kentucky Avenue",
+      "id": "kentuckyave",
+      "posistion": 22,
+      "cost": 220,
+      "rent": 18,
+      "rentList": [
+        90,
+        250,
+        700,
+        875,
+        1050
+      ],
+      "houseCost": 150,
+      "group": "red",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Indiana Avenue",
+      "id": "indianaave",
+      "posistion": 24,
+      "cost": 220,
+      "rent": 18,
+      "rentList": [
+        90,
+        250,
+        700,
+        875,
+        1050
+      ],
+      "houseCost": 150,
+      "group": "red",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Illinois Avenue",
+      "id": "illinoisave",
+      "posistion": 25,
+      "cost": 240,
+      "rent": 20,
+      "rentList": [
+        100,
+        300,
+        750,
+        925,
+        1100
+      ],
+      "houseCost": 150,
+      "group": "red",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Atlantic Avenue",
+      "id": "atlanticave",
+      "posistion": 27,
+      "cost": 260,
+      "rent": 22,
+      "rentList": [
+        110,
+        330,
+        800,
+        975,
+        1150
+      ],
+      "houseCost": 150,
+      "group": "yellow",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Ventnor Avenue",
+      "id": "ventnorave",
+      "posistion": 28,
+      "cost": 260,
+      "rent": 22,
+      "rentList": [
+        110,
+        330,
+        800,
+        975,
+        1150
+      ],
+      "houseCost": 150,
+      "group": "yellow",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Marvin Gardens",
+      "id": "marvingardens",
+      "posistion": 30,
+      "cost": 280,
+      "rent": 22,
+      "rentList": [
+        120,
+        360,
+        850,
+        1025,
+        1200
+      ],
+      "houseCost": 150,
+      "group": "yellow",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Pacific Avenue",
+      "id": "pacificave",
+      "posistion": 32,
+      "cost": 300,
+      "rent": 26,
+      "rentList": [
+        130,
+        390,
+        900,
+        1100,
+        1275
+      ],
+      "houseCost": 200,
+      "group": "green",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "North Carolina Avenue",
+      "id": "northcarolinaave",
+      "posistion": 33,
+      "cost": 300,
+      "rent": 26,
+      "rentList": [
+        130,
+        390,
+        900,
+        1100,
+        1275
+      ],
+      "houseCost": 200,
+      "group": "green",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Pennsylvania Avenue",
+      "id": "pennsylvaniaave",
+      "posistion": 35,
+      "cost": 320,
+      "rent": 28,
+      "rentList": [
+        150,
+        450,
+        1000,
+        1200,
+        1400
+      ],
+      "houseCost": 200,
+      "group": "green",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Park Place",
+      "id": "parkplace",
+      "posistion": 38,
+      "cost": 350,
+      "rent": 35,
+      "rentList": [
+        175,
+        500,
+        1100,
+        1300,
+        1500
+      ],
+      "houseCost": 200,
+      "group": "darkblue",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Boardwalk",
+      "id": "boardwalk",
+      "posistion": 40,
+      "cost": 400,
+      "rent": 50,
+      "rentList": [
+        200,
+        600,
+        1400,
+        1700,
+        2000
+      ],
+      "houseCost": 200,
+      "group": "darkblue",
+      "ownedBy": -1,
+      "buildings": 0,
+      "mortgaged": false
+    },
+    {
+      "name": "Electric Company",
+      "id": "electriccompany",
+      "posistion": 13,
+      "cost": 150,
+      "group": "utilities",
+      "ownedBy": -1,
+      "mortgaged": false
+    },
+    {
+      "name": "Water Works",
+      "id": "waterworks",
+      "posistion": 29,
+      "cost": 150,
+      "group": "utilities",
+      "ownedBy": -1,
+      "mortgaged": false
+    },
+    {
+      "name": "Reading Railroad",
+      "id": "readingrailroad",
+      "posistion": 6,
+      "cost": 200,
+      "group": "railroad",
+      "ownedBy": -1,
+      "mortgaged": false
+    },
+    {
+      "name": "Pennsylvania Railroad",
+      "id": "pennsylvaniarailroad",
+      "posistion": 16,
+      "cost": 200,
+      "group": "railroad",
+      "ownedBy": -1,
+      "mortgaged": false
+    },
+    {
+      "name": "B. & O. Railroad",
+      "id": "borailroad",
+      "posistion": 26,
+      "cost": 200,
+      "group": "railroad",
+      "ownedBy": -1,
+      "mortgaged": false
+    },
+    {
+      "name": "Short Line Railroad",
+      "id": "shortlinerailroad",
+      "posistion": 36,
+      "cost": 200,
+      "group": "railroad",
+      "ownedBy": -1,
+      "mortgaged": false
+    },
+    {
+      "name": "Go",
+      "id": "go",
+      "posistion": 0,
+      "group": "Special"
+    },
+    {
+      "name": "Income Tax",
+      "id": "incomeTax",
+      "posistion": 4,
+      "group": "Special"
+    },
+    {
+      "name": "Jail / Just Visiting",
+      "id": "jail",
+      "posistion": 10,
+      "group": "Special"
+    },
+    {
+      "name": "Chance",
+      "id": "chance",
+      "group": "Special"
+    },
+    {
+      "name": "Free Parking",
+      "id": "freeParking",
+      "group": "Special"
+    },
+    {
+      "name": "Community Chest",
+      "id": "communityChest",
+      "group": "Special"
+    },
+    {
+      "name": "Go To Jail",
+      "id": "goToJail",
+      "group": "Special",
+      "rel": "Go To Jail"
+    },
+    {
+      "name": "Luxury Tax",
+      "id": "luxuryTax",
+      "group": "Special"
+    }
+  ],
+  "tiles": {
+    "0": "go",
+    "1": "mediterraneanave",
+    "2": "communityChest",
+    "3": "balticave",
+    "4": "incomeTax",
+    "5": "readingrailroad",
+    "6": "orientalave",
+    "7": "chance",
+    "8": "vermontave",
+    "9": "connecticutave",
+    "10": "jail",
+    "11": "stcharlesplace",
+    "12": "electriccompany",
+    "13": "statesave",
+    "14": "virginiaave",
+    "15": "pennsylvaniarailroad",
+    "16": "stjamesplace",
+    "17": "communityChest",
+    "18": "tennesseeave",
+    "19": "newyorkave",
+    "20": "freeParking",
+    "21": "kentuckyave",
+    "22": "chance",
+    "23": "indianaave",
+    "24": "illinoisave",
+    "25": "borailroad",
+    "26": "atlanticave",
+    "27": "ventnorave",
+    "28": "waterworks",
+    "29": "marvingardens",
+    "30": "goToJail",
+    "31": "pacificave",
+    "32": "northcarolinaave",
+    "33": "communityChest",
+    "34": "pennsylvaniaave",
+    "35": "shortlinerailroad",
+    "36": "chance",
+    "37": "parkplace",
+    "38": "luxuryTax",
+    "39": "boardwalk"
+  },
+  "chance": [
+    {
+      "title": "Advance to Go (Collect $200)",
+      "action": "move",
+      "tileid": "go"
+    },
+    {
+      "title": "Advance to Illinois Avenue - If you pass Go, collect $200",
+      "action": "move",
+      "tileid": "illinoiseave"
+    },
+    {
+      "title": "Advance to St. Charles Place - If you pass Go, collect $200",
+      "action": "move",
+      "tileid": "stcharlesplace"
+    },
+    {
+      "title": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.",
+      "action": "movenearest",
+      "groupid": "utility",
+      "rentmultiplier": 10
+    },
+    {
+      "title": "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.",
+      "action": "movenearest",
+      "groupid": "railroad",
+      "rentmultiplier": 2
+    },
+    {
+      "title": "Bank pays you dividend of $50",
+      "action": "addFunds",
+      "amount": 50
+    },
+    {
+      "title": "Get out of Jail Free - This card may be kept until needed, or traded/sold",
+      "action": "jail",
+      "subaction": "getout"
+    },
+    {
+      "title": "Go Back 3 Spaces",
+      "action": "move",
+      "count": -3
+    },
+    {
+      "title": "Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200",
+      "action": "jail",
+      "subaction": "goto"
+    },
+    {
+      "title": "Make general repairs on all your property - For each house pay $25 - For each hotel $100",
+      "action": "propertycharges",
+      "buildings": 25,
+      "hotels": 100
+    },
+    {
+      "title": "Pay poor tax of $15",
+      "action": "removeFunds",
+      "amount": 15
+    },
+    {
+      "title": "Take a trip to Reading Railroad - If you pass Go, collect $200",
+      "action": "move",
+      "tileid": "readingrailroad"
+    },
+    {
+      "title": "Take a walk on the Boardwalk - Advance token to Boardwalk",
+      "action": "move",
+      "tileid": "boardwalk"
+    },
+    {
+      "title": "You have been elected Chairman of the Board - Pay each player $50",
+      "action": "removeFundsToPlayers",
+      "amount": 50
+    },
+    {
+      "title": "Your building loan matures - Collect $150",
+      "action": "addFunds",
+      "amount": 50
+    }
+  ],
+  "communityChest": [
+    {
+      "title": "Advance to Go (Collect $200)",
+      "action": "move",
+      "tileid": "go"
+    },
+    {
+      "title": "Bank error in your favor - Collect $200 ",
+      "action": "addFunds",
+      "amount": 200
+    },
+    {
+      "title": "Doctor fee - Pay $50",
+      "action": "removeFunds",
+      "amount": 50
+    },
+    {
+      "title": "From sale of stock you get $50",
+      "action": "addFunds",
+      "amount": 50
+    },
+    {
+      "title": "Get Out of Jail Free",
+      "action": "jail",
+      "subaction": "getout"
+    },
+    {
+      "title": "Go to Jail - Go directly to jail - Do not pass Go - Do not collect $200",
+      "action": "jail",
+      "subaction": "goto"
+    },
+    {
+      "title": "Grand Opera Night - Collect $50 from every player for opening night seats",
+      "action": "addFundsfromplayers",
+      "amount": 50
+    },
+    {
+      "title": "Holiday Fund matures - Receive $100",
+      "action": "addFunds",
+      "amount": 100
+    },
+    {
+      "title": "Income tax refund - Collect $20",
+      "action": "addFunds",
+      "amount": 20
+    },
+    {
+      "title": "Life insurance matures - Collect $100",
+      "action": "addFunds",
+      "amount": 100
+    },
+    {
+      "title": "Pay hospital fees of $100",
+      "action": "removeFunds",
+      "amount": 100
+    },
+    {
+      "title": "Pay school fees of $150",
+      "action": "removeFunds",
+      "amount": 150
+    },
+    {
+      "title": "Receive $25 consultancy fee",
+      "action": "addFunds",
+      "amount": 25
+    },
+    {
+      "title": "You are assessed for street repairs - $40 per house - $115 per hotel",
+      "action": "propertycharges",
+      "buildings": 40,
+      "hotels": 115
+    },
+    {
+      "title": "You have won second prize in a beauty contest - Collect $10",
+      "action": "addFunds",
+      "amount": 10
+    },
+    {
+      "title": "You inherit $100",
+      "action": "addFunds",
+      "amount": 100
+    }
+  ]
+}
