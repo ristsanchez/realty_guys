@@ -209,3 +209,63 @@ getActionsRow(BuildContext context) {
     ],
   );
 }
+
+topBar(BuildContext context) {
+  bool showOwner =
+      Provider.of<BoardProvider>(context, listen: true).ownerVisibility;
+  bool showCosts =
+      Provider.of<BoardProvider>(context, listen: true).costVisibility;
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        GestureDetector(
+          onTap: () {
+            Provider.of<BoardProvider>(context, listen: false)
+                .toggleCostsVisibility();
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 400),
+            height: 40,
+            width: 40,
+            decoration: BoxDecoration(
+              color: showCosts ? Colors.white24 : Colors.white10,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Center(
+              child: Icon(
+                showCosts
+                    ? Icons.attach_money_rounded
+                    : Icons.money_off_rounded,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        GestureDetector(
+          onTap: () {
+            Provider.of<BoardProvider>(context, listen: false)
+                .toggleOwnerVisibility();
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            height: 40,
+            width: 40,
+            decoration: BoxDecoration(
+              color: showOwner ? Colors.white24 : Colors.white10,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Center(
+              child: Icon(
+                showOwner
+                    ? Icons.remove_red_eye_outlined
+                    : Icons.horizontal_rule_rounded,
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
