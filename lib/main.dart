@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:realty_guys/boardUI.dart';
-import 'package:provider/provider.dart';
-import 'package:realty_guys/board_ui_provider.dart';
+import 'package:realty_guys/board_screen.dart';
+import 'package:realty_guys/set_game_screen.dart';
 
 void main() {
   runApp(const MyApp());
