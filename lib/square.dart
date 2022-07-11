@@ -1,13 +1,31 @@
-class Square {
-  Square(
+import 'package:realty_guys/player.dart';
+
+class SpecialTile {
+  SpecialTile(
+    this.id,
     this.name,
-    this.boardSpace,
     this.group,
   );
 
+  int id;
   String name;
-  int boardSpace; //id
   String group;
+
+  factory SpecialTile.fromJson(var jsonObject) {
+    return SpecialTile(
+      jsonObject['id'],
+      jsonObject['name'],
+      jsonObject['group'],
+    );
+  }
+
+  //Main use: debugging
+  @override
+  String toString() {
+    return 'Tile name: $name, Id/board space: $id, Type: $group';
+  }
+}
+
 class Property {
   final int _id;
   final int _cost;
