@@ -1070,3 +1070,30 @@ _getRightColumn() {
   );
 }
 
+getNine(bool condition) {
+  List<Widget> temp = [];
+  var colors = [
+    lightBlue,
+    pink,
+    orange,
+    red,
+    yellow,
+    green,
+    darkBlue,
+  ];
+
+  colors.forEach((element) {
+    temp.add(Expanded(
+      flex: 1,
+      child: Container(
+        color: element,
+      ),
+    ));
+  });
+  if (condition) {
+    temp.insert(0, const Expanded(flex: 1, child: const Center()));
+
+    temp.insert(temp.length, const Expanded(flex: 1, child: const Center()));
+  }
+  return temp;
+}
