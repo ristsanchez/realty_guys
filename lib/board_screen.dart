@@ -269,3 +269,16 @@ topBar(BuildContext context) {
     ),
   );
 }
+
+getPlayer() {
+  return ExpansionTile(
+    collapsedTextColor: Colors.white38,
+    textColor: Colors.white60,
+    collapsedBackgroundColor: Colors.white10,
+    backgroundColor: Colors.blue.shade200.withOpacity(0.15),
+    leading: const Icon(Icons.airplanemode_active_rounded),
+    title: const Text('Player Name'),
+    trailing: const Text('\$800'),
+    children: [const Text("properties")],
+  );
+}
