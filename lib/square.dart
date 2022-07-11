@@ -105,6 +105,8 @@ class Railroad extends Square {
   }
 }
 
+class Railroad extends Property {
+  int baseRent = 25;
 
   Railroad({
     required id,
