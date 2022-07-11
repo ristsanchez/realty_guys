@@ -52,25 +52,6 @@ class Property {
   }
 }
 
-class Property extends Square {
-  int cost;
-  int rent;
-  List<int> rentList;
-  int houseCost;
-  var owner;
-  int buildings;
-  bool isMortgaged;
-
-  Property({
-    required this.cost,
-    required this.rent,
-    required this.rentList,
-    required this.houseCost,
-    required this.owner,
-    required this.buildings,
-    required this.isMortgaged,
-    //
-    required boardSpace,
     required name,
     required group,
   }) : super(boardSpace, name, group);
