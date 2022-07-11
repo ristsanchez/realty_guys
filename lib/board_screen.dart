@@ -286,3 +286,18 @@ getPlayer() {
 setV(bool v) {
   showPrices = v;
 }
+
+_getBoard(BuildContext context) {
+  return Row(
+    children: [
+      //FIRST COLUMN
+      _getLeftColumn(context),
+
+      //MIDDLE COLUMN
+      _getCenterColumn(),
+
+      //LAST COLUMN
+      _getRightColumn(),
+    ],
+  );
+}
