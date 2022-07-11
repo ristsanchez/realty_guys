@@ -282,3 +282,7 @@ getPlayer() {
     children: [const Text("properties")],
   );
 }
+
+setV(bool v) {
+  showPrices = v;
+}
