@@ -97,6 +97,7 @@ class Land extends Property {
     this._rent,
     this._rentList,
     this._houseCost, {
+    required id,
     required name,
     required group,
     required cost,
