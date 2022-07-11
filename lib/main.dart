@@ -18,15 +18,13 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           toolbarHeight: 0,
         ),
-        body: MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => BoardProvider()),
-          ],
-          child: const Board(),
-        ),
+        body: const SetGameScreen(),
       ),
       // debugShowMaterialGrid: true,
       debugShowCheckedModeBanner: false,
+      routes: {
+        BoardScreen.routeName: (context) => const BoardScreen(),
+      },
     );
   }
 }
