@@ -112,7 +112,17 @@ class Railroad extends Property {
     required id,
     required name,
     required group,
-  }) : super(boardSpace, name, group);
+    required cost,
+  }) : super(id, name, group, cost);
+
+  factory Railroad.fromJson(var jsonObject) {
+    return Railroad(
+      id: jsonObject['id'],
+      name: jsonObject['name'],
+      group: jsonObject['group'],
+      cost: jsonObject['cost'],
+    );
+  }
 }
 
 class Utility extends Square {
