@@ -52,6 +52,14 @@ class Property {
   }
 }
 
+//Logic for property controller
+//When a different player lands of property
+//if not mortgaged
+//  if not has houses
+//    if owns all from group
+//      rent X 2
+//    else rent
+//  else get rent for # of houses
     required name,
     required group,
   }) : super(boardSpace, name, group);
