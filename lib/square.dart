@@ -62,8 +62,8 @@ class Property {
 //  else get rent for # of houses
     required name,
     required group,
-  }) : super(boardSpace, name, group);
-}
+    required cost,
+  }) : super(id, name, group, cost);
 
 class Railroad extends Square {
   int cost;
