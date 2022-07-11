@@ -60,6 +60,25 @@ class Property {
 //      rent X 2
 //    else rent
 //  else get rent for # of houses
+class Land extends Property {
+  final int _rent;
+  final int _houseCost;
+  final List<int> _rentList;
+  int houses = 0;
+
+  int get rent => _rent;
+
+  //should only be called when at least 1 house
+  int get rentWithHouses => _rentList[houses - 1];
+
+  int get houseCost => _houseCost;
+
+  bool get hasHouses => houses > 0;
+
+  Land(
+    this._rent,
+    this._rentList,
+    this._houseCost, {
     required name,
     required group,
     required cost,
@@ -68,6 +87,23 @@ class Property {
 class Railroad extends Square {
   int cost;
   int rent;
+  factory Land.fromJson(var jsonObject) {
+    return Land(
+      jsonObject['rent'],
+      jsonObject['rentList'].cast<int>(),
+      jsonObject['houseCost'],
+      id: jsonObject['id'],
+      name: jsonObject['name'],
+      group: jsonObject['group'],
+      cost: jsonObject['cost'],
+    );
+  }
+
+  @override
+  String toString() {
+    return '{Name: $name, Id: $id, Type: $group}';
+  }
+}
 
   bool isMortgaged;
   var owner;
