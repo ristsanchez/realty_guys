@@ -105,15 +105,9 @@ class Railroad extends Square {
   }
 }
 
-  bool isMortgaged;
-  var owner;
 
   Railroad({
-    required this.cost,
-    required this.rent,
-    required this.owner,
-    required this.isMortgaged,
-    required boardSpace,
+    required id,
     required name,
     required group,
   }) : super(boardSpace, name, group);
