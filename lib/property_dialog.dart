@@ -3,13 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:realty_guys/color_constants.dart';
 
-showPropertyDialog(BuildContext context) {
+showPropertyDialog(BuildContext context, var data) {
   return showDialog(
     barrierColor: Colors.black12,
     context: context,
     builder: (context) => SimpleDialog(
-      insetPadding: EdgeInsets.fromLTRB(48, 74, 48, 0),
-      titlePadding: EdgeInsets.all(0),
+      insetPadding: const EdgeInsets.fromLTRB(48, 74, 48, 0),
+      titlePadding: const EdgeInsets.all(0),
 
       alignment: Alignment.topCenter,
       backgroundColor: Colors.transparent,
@@ -41,13 +41,13 @@ showPropertyDialog(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Expanded(
+                  const Expanded(
                     flex: 1,
                     child: Center(
                         child: Text('Cost \$20',
                             style: TextStyle(color: Colors.white70))),
                   ),
-                  Expanded(
+                  const Expanded(
                     flex: 1,
                     child: Center(
                         child: Text('Rent \$2',
@@ -63,10 +63,10 @@ showPropertyDialog(BuildContext context) {
                     ),
                   ),
                   Expanded(flex: 5, child: Center(child: getHouseColumn(some))),
-                  Expanded(
+                  const Expanded(
                     flex: 1,
                     child:
-                        Center(child: Text('house cost \$50 / mortage \$30')),
+                        Center(child: Text('house cost \$50 / mortgage \$30')),
                   ),
                 ],
               ),
@@ -86,8 +86,8 @@ getHouseColumn(List rentList) {
     for (int j = 0; j < i + 1; j++) {
       temp.add(const Icon(Icons.house, color: Colors.white70));
     }
-    temp.insert(temp.length, Expanded(child: Center()));
-    temp.insert(temp.length, Text('\$'));
+    temp.insert(temp.length, const Expanded(child: const Center()));
+    temp.insert(temp.length, const Text('\$'));
 
     columnOfRows.insert(columnOfRows.length, Row(children: temp));
     // if (i < 4) {
