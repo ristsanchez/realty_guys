@@ -80,3 +80,132 @@ class BoardScreen extends StatelessWidget {
     );
   }
 }
+getActionsRow(BuildContext context) {
+  const double btnSize = 40;
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      Container(
+        height: btnSize,
+        width: btnSize,
+        decoration: BoxDecoration(
+          color: Colors.white10,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(0),
+            primary: Colors.transparent,
+          ),
+          onPressed: () {
+            getPropertyData();
+            //Call trade method from player?
+          },
+          child: const Icon(Icons.compare_arrows_rounded),
+        ),
+      ),
+      Container(
+        height: btnSize,
+        width: btnSize,
+        decoration: BoxDecoration(
+          color: Colors.white10,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(0),
+            primary: Colors.transparent,
+          ),
+          onPressed: () {
+            //Call trade method from player?
+          },
+          child: Icon(
+            Icons.add_home_outlined,
+            color: Colors.green.shade200,
+          ),
+        ),
+      ),
+      Container(
+        height: btnSize,
+        width: btnSize,
+        decoration: BoxDecoration(
+          color: Colors.white10,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(0),
+            primary: Colors.transparent,
+          ),
+          onPressed: () {
+            //Call trade method from player?
+          },
+          child: Stack(
+            children: [
+              Icon(
+                Icons.add_home_outlined,
+                color: Colors.red.shade200,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 12.0, top: 12),
+                child: Icon(
+                  Icons.remove_circle,
+                  color: Colors.red.shade200,
+                  size: 12,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      Container(
+        alignment: Alignment.center,
+        height: btnSize,
+        width: btnSize,
+        decoration: BoxDecoration(
+          color: Colors.white10,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(0),
+            primary: Colors.transparent,
+          ),
+          onPressed: () {
+            //Call trade method from player?
+          },
+          child: const Center(
+            child: Icon(
+              Icons.list_alt_rounded,
+              color: Colors.redAccent,
+            ),
+          ),
+        ),
+      ),
+      Container(
+        height: btnSize,
+        width: btnSize,
+        decoration: BoxDecoration(
+          color: Colors.white10,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(0),
+            primary: Colors.transparent,
+          ),
+          onPressed: () {
+            Provider.of<BoardProvider>(context, listen: false).increase();
+            //Call trade method from player?
+          },
+          child: const Center(
+            child: Icon(
+              Icons.account_balance,
+              color: Colors.greenAccent,
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}
