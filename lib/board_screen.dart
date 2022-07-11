@@ -80,6 +80,7 @@ class BoardScreen extends StatelessWidget {
     );
   }
 }
+
 getActionsRow(BuildContext context) {
   const double btnSize = 40;
   return Row(
@@ -301,3 +302,771 @@ _getBoard(BuildContext context) {
     ],
   );
 }
+
+_getLeftColumn(BuildContext context) {
+  return Expanded(
+    flex: 7,
+    child: Column(
+      children: [
+        //CORNER -----------------------------------------------
+        Expanded(
+          flex: 7,
+          child: GestureDetector(
+            onTap: () {
+              showPropertyDialog(context, '');
+            },
+            child: Container(
+              color: cornerBaseColor,
+              alignment: Alignment.center,
+              child: Transform.rotate(
+                angle: (45 + 90) / 180 * 3.1416,
+                child: const Text(
+                  'GO',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+        ),
+
+        //LEFT COLUMN ------------------------------------------
+        Expanded(
+          flex: majorFlex,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, 'data39');
+                  },
+                  child: Container(
+                    color: darkBlue,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        VerticalDivider(width: 15, thickness: 15)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: base,
+                  child: RotatedBox(
+                    quarterTurns: 2,
+                    child: Icon(
+                      Icons.toll,
+                      color: Colors.yellow.shade200.withOpacity(0.5),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: darkBlue,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [VerticalDivider(width: 15, thickness: 15)],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: base,
+                  child: const RotatedBox(
+                    quarterTurns: 1,
+                    child: Icon(
+                      Icons.question_mark_rounded,
+                      color: Colors.white70,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(0),
+                  color: trainBase,
+                  child: const RotatedBox(
+                    quarterTurns: 1,
+                    child: Icon(
+                      Icons.tram_rounded,
+                      color: Colors.black54,
+                      size: 28,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: green,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [VerticalDivider(width: 15, thickness: 15)],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: base,
+                  child: RotatedBox(
+                    quarterTurns: 3,
+                    child: Icon(
+                      Icons.question_mark_rounded,
+                      color: Colors.blue.shade100.withOpacity(0.8),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: green,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [VerticalDivider(width: 15, thickness: 15)],
+                  ),
+                ),
+              ),
+              const Divider(height: .2),
+              Expanded(
+                child: Container(
+                  color: green,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [VerticalDivider(width: 15, thickness: 15)],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // GO TO JAIL CORNER ---------------------------------------------------
+        Expanded(
+          flex: 7,
+          child: Container(
+            alignment: Alignment.center,
+            color: cornerBaseColor,
+            child: Transform.rotate(
+              angle: (45) / 180 * 3.1416,
+              child: Icon(
+                Icons.front_hand_outlined,
+                color: Colors.red.withOpacity(0.6),
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+_getCenterColumn() {
+  return Expanded(
+    flex: majorFlex,
+    child: Column(
+      children: [
+        //TOP ROW
+        Expanded(
+          flex: 7,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Container(
+                  color: brown,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Divider(
+                              height: constraints.maxHeight * 0.3,
+                              thickness: constraints.maxHeight * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: base,
+                  child: RotatedBox(
+                    quarterTurns: 0,
+                    child: Icon(
+                      Icons.question_mark_rounded,
+                      color: Colors.blue.shade100.withOpacity(0.8),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: brown,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Divider(
+                              height: constraints.maxHeight * 0.3,
+                              thickness: constraints.maxHeight * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(0),
+                  color: base,
+                  child: RotatedBox(
+                    quarterTurns: 2,
+                    child: Icon(
+                      Icons.payments,
+                      color: Colors.green.shade200.withOpacity(0.6),
+                      size: 22,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(0),
+                  color: trainBase,
+                  child: const RotatedBox(
+                    quarterTurns: 2,
+                    child: Icon(
+                      Icons.tram_rounded,
+                      color: Colors.black54,
+                      size: 28,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: lightBlue,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Divider(
+                              height: constraints.maxHeight * 0.3,
+                              thickness: constraints.maxHeight * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                color: base,
+                child: const RotatedBox(
+                  quarterTurns: 2,
+                  child: Icon(
+                    Icons.question_mark_rounded,
+                    color: Colors.white70,
+                  ),
+                ),
+              )),
+              Expanded(
+                child: Container(
+                  color: lightBlue,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Divider(
+                              height: constraints.maxHeight * 0.3,
+                              thickness: constraints.maxHeight * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              const VerticalDivider(width: .2),
+              Expanded(
+                child: Container(
+                  color: lightBlue,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Divider(
+                              height: constraints.maxHeight * 0.3,
+                              thickness: constraints.maxHeight * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        //CENTER ---------------------------------------------------------------
+        // current -> dest, gradient?, dots?
+        Expanded(
+          flex: majorFlex,
+          child: true
+              ? const Center()
+              : Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        children: [
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: const Center(),
+                                color: Colors.black,
+                              )),
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: const Center(
+                                  child: const Text('7'),
+                                ),
+                                color: Colors.white12,
+                              )),
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: const Center(),
+                                color: Colors.white12,
+                              )),
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: const Center(),
+                                color: Colors.white12,
+                              )),
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: const Center(),
+                                color: Colors.white12,
+                              )),
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: const Center(),
+                                color: Colors.white12,
+                              )),
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: const Center(),
+                                color: Colors.white12,
+                              )),
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: const Center(),
+                                color: Colors.white12,
+                              )),
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: const Center(),
+                                color: Colors.black,
+                              )),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 7,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              children: getNine(false),
+                            ),
+                          ),
+                          const Expanded(
+                            flex: 7,
+                            child: Center(),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              children: getNine(false),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        children: getNine(true),
+                      ),
+                    ),
+                  ],
+                ),
+        ),
+        //BOT ROW --------------------------------------------------------------
+        Expanded(
+          flex: 7,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Container(
+                  color: yellow,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Divider(
+                              height: constraints.maxHeight * 0.3,
+                              thickness: constraints.maxHeight * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: base,
+                  child: RotatedBox(
+                    quarterTurns: 2,
+                    child: Icon(Icons.water_drop_outlined,
+                        color: Colors.blue.shade200.withOpacity(.6)),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: yellow,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Divider(
+                              height: constraints.maxHeight * 0.3,
+                              thickness: constraints.maxHeight * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              const VerticalDivider(width: .2),
+              Expanded(
+                child: Container(
+                  color: yellow,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Divider(
+                              height: constraints.maxHeight * 0.3,
+                              thickness: constraints.maxHeight * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(0),
+                  color: trainBase,
+                  child: const RotatedBox(
+                    quarterTurns: 0,
+                    child: Icon(
+                      Icons.tram_rounded,
+                      color: Colors.black54,
+                      size: 28,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: red,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Divider(
+                              height: constraints.maxHeight * 0.3,
+                              thickness: constraints.maxHeight * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              const VerticalDivider(width: .2),
+              Expanded(
+                child: Container(
+                  color: red,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Divider(
+                              height: constraints.maxHeight * 0.3,
+                              thickness: constraints.maxHeight * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: base,
+                  child: const RotatedBox(
+                    quarterTurns: 0,
+                    child: Icon(
+                      Icons.question_mark_rounded,
+                      color: Colors.white70,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: red,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Divider(
+                              height: constraints.maxHeight * 0.3,
+                              thickness: constraints.maxHeight * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+_getRightColumn() {
+  return Expanded(
+    flex: 7,
+    child: Column(
+      children: [
+        Expanded(
+          flex: 7,
+          child: Stack(
+            children: [
+              Container(
+                alignment: Alignment.bottomRight,
+                padding: const EdgeInsets.only(bottom: 6, right: 6),
+                child: Transform.rotate(
+                  angle: (180) / 180 * 3.1416,
+                  child: const Icon(
+                    Icons.do_not_step_outlined,
+                    size: 20,
+                  ),
+                ),
+              ),
+              Container(
+                color: cornerBaseColor,
+                child: LayoutBuilder(builder: (context, constraints) {
+                  return CustomPaint(
+                      size: Size(constraints.maxHeight, constraints.maxHeight),
+                      painter: DrawTriangle());
+                }),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: majorFlex,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Container(
+                  color: pink,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          VerticalDivider(
+                              width: constraints.maxWidth * 0.3,
+                              thickness: constraints.maxWidth * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                color: base,
+                child: RotatedBox(
+                  quarterTurns: 3,
+                  child: Icon(
+                    Icons.lightbulb_outline_rounded,
+                    color: Colors.yellow.shade200.withOpacity(0.6),
+                  ),
+                ),
+              )),
+              Expanded(
+                child: Container(
+                  color: pink,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          VerticalDivider(
+                              width: constraints.maxWidth * 0.3,
+                              thickness: constraints.maxWidth * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              const Divider(height: .2),
+              Expanded(
+                child: Container(
+                  color: pink,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          VerticalDivider(
+                              width: constraints.maxWidth * 0.3,
+                              thickness: constraints.maxWidth * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                padding: const EdgeInsets.all(0),
+                color: trainBase,
+                child: const RotatedBox(
+                  quarterTurns: 3,
+                  child: Icon(
+                    Icons.tram_rounded,
+                    color: Colors.black54,
+                    size: 28,
+                  ),
+                ),
+              )),
+              Expanded(
+                child: Container(
+                  color: orange,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          VerticalDivider(
+                              width: constraints.maxWidth * 0.3,
+                              thickness: constraints.maxWidth * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: base,
+                  child: RotatedBox(
+                    quarterTurns: 1,
+                    child: Icon(
+                      Icons.question_mark_rounded,
+                      color: Colors.blue.shade100.withOpacity(0.8),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: orange,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          VerticalDivider(
+                              width: constraints.maxWidth * 0.3,
+                              thickness: constraints.maxWidth * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              const Divider(height: .2),
+              Expanded(
+                child: Container(
+                  color: orange,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          VerticalDivider(
+                              width: constraints.maxWidth * 0.3,
+                              thickness: constraints.maxWidth * 0.3),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 7,
+          child: Container(
+            alignment: Alignment.center,
+            color: cornerBaseColor,
+            child: Transform.rotate(
+              angle: (45 + 270) / 180 * 3.1416,
+              child: const Icon(
+                Icons.directions_bike_rounded,
+                color: Colors.white70,
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
