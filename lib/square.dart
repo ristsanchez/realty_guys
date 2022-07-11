@@ -141,19 +141,24 @@ class Railroad extends Property {
   }
 }
 
-class Utility extends Square {
-  int cost;
-  var owner;
-  bool isMortgaged;
+class Utility extends Property {
+  int multiplier = 4;
 
   Utility({
-    required this.cost,
-    required this.isMortgaged,
-    required this.owner,
-    required boardSpace,
+    required id,
     required name,
     required group,
-  }) : super(boardSpace, name, group);
+    required cost,
+  }) : super(id, name, group, cost);
+
+  factory Utility.fromJson(var jsonObject) {
+    return Utility(
+      id: jsonObject['id'],
+      name: jsonObject['name'],
+      group: jsonObject['group'],
+      cost: jsonObject['cost'],
+    );
+  }
 }
 
 
