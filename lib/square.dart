@@ -84,9 +84,6 @@ class Land extends Property {
     required cost,
   }) : super(id, name, group, cost);
 
-class Railroad extends Square {
-  int cost;
-  int rent;
   factory Land.fromJson(var jsonObject) {
     return Land(
       jsonObject['rent'],
