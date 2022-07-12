@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:realty_guys/board_ui_provider.dart';
@@ -5,7 +7,7 @@ import 'package:realty_guys/board_ui_provider.dart';
 //current tile
 // context, index of tile, size of board
 lightUpTile(BuildContext context, double max) {
-  int index = Provider.of<BoardProvider>(context, listen: true).index;
+  int index = Provider.of<BoardUIProvider>(context, listen: true).index;
 
   //corner
   switch (index) {
@@ -142,4 +144,47 @@ _stretchTile(int index, bool row) {
     Expanded(flex: rightFlex, child: const Center()),
   ];
   return row ? Row(children: temp) : Column(children: temp);
+}
+
+playersOnBoard(BuildContext context, HashMap<Icon, int> players) {
+  LayoutBuilder(
+    builder: (BuildContext context, BoxConstraints constraints) {
+      //corner
+      if (index % 10 == 0) {
+        //Corner
+        return _corner(index, constraints.maxHeight);
+      } else if (0 < index && index < 10) {
+        return Column(
+          children: [
+            Expanded(flex: 9, child: _stretchTile(index, true)),
+            const Expanded(flex: 54, child: Center()),
+          ],
+        );
+      } else if (10 < index && index < 20) {
+        return Row(
+          children: [
+            const Expanded(flex: 54, child: Center()),
+            Expanded(flex: 9, child: _stretchTile(index % 10, false)),
+          ],
+        );
+      } else if (20 < index && index < 30) {
+        return Column(
+          children: [
+            const Expanded(flex: 54, child: Center()),
+            Expanded(
+                flex: 9, child: _stretchTile(((index % 10) - 10) * -1, true)),
+          ],
+        );
+      } else if (30 < index && index < 40) {
+        return Row(
+          children: [
+            Expanded(
+                flex: 9, child: _stretchTile(((index % 10) - 10) * -1, false)),
+            const Expanded(flex: 54, child: Center()),
+          ],
+        );
+      }
+      return Center();
+    },
+  );
 }
