@@ -50,6 +50,10 @@ class Board extends ChangeNotifier {
     } else {
       _playerPositions.update(
           player, (numberOfSpaces) => (numberOfSpaces + currentPosition));
+      notifyListeners();
+      //provider positions?
+      //show movement animation?
+
     }
 
     //behavior for landing separate?
