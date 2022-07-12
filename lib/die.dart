@@ -6,6 +6,7 @@ class Die {
   Die() : _randomGenerator = Random();
 
   int roll() {
-    return _randomGenerator.nextInt(6) + 1;
+    // return int between (inclusive) 1 and 6
+    return 1 + _randomGenerator.nextInt(6);
   }
 }
