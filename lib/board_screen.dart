@@ -87,6 +87,14 @@ class BoardScreen extends StatelessWidget {
   }
 }
 
+_getPlayerPiece(BuildContext context) {
+  HashMap<Icon, int> players =
+      Provider.of<Board>(context, listen: true).getAllPositions();
+
+  //render them at respective position
+  return playersOnBoard(context, players);
+}
+
 getActionsRow(BuildContext context) {
   const double btnSize = 40;
   return Row(
