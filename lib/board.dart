@@ -19,6 +19,17 @@ class Board {
     return _playerPositions[player] ?? -1;
   }
 
+  HashMap<Icon, int> getAllPositions() {
+    HashMap<Icon, int> temp = HashMap();
+
+    _playerPositions.forEach((key, value) {
+      temp.putIfAbsent(
+          Icon(key.playerIconData, color: key.playerColor), () => value);
+    });
+
+    return temp;
+  }
+
   void advance(Player player, int numberOfSpaces) {
     int currentPosition = _playerPositions[player] ?? -1;
     if (currentPosition < 0) {
