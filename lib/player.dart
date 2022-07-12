@@ -1,10 +1,17 @@
+import 'package:flutter/material.dart';
+
 class Player {
-  int id;
+  int _id;
   int _money;
 
-  Player()
-      : _money = 0,
-        id = 0;
+  late String _name;
+
+  late IconData _playerIconData; // leave
+  late Color _playerColor;
+
+  Player(this._id, this._name) : _money = 0;
+
+  int get id => _id;
 
   int getMoney() {
     return _money;
@@ -16,6 +23,18 @@ class Player {
       return;
     }
     _money += money;
+  }
+
+  IconData get playerIconData => _playerIconData;
+
+  set playerIconData(IconData icon) {
+    _playerIconData = icon;
+  }
+
+  Color get playerColor => _playerColor;
+
+  set playerColor(Color color) {
+    _playerColor = color;
   }
 }
 
