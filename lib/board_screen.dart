@@ -156,10 +156,20 @@ getActionsRow(BuildContext context) {
           color: Colors.white10,
           borderRadius: BorderRadius.circular(5),
         ),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(0),
-            primary: Colors.transparent,
+        child: Tooltip(
+          message: 'Build houses',
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.all(0),
+              primary: Colors.transparent,
+            ),
+            onPressed: () {
+              //Call trade method from player?
+            },
+            child: Icon(
+              Icons.add_home_outlined,
+              color: Colors.green.shade200,
+            ),
           ),
           onPressed: () {
             //Call trade method from player?
