@@ -24,3 +24,19 @@ final Color pink = Colors.purpleAccent.shade200.withOpacity(0.5);
 final Color lightBlue = Colors.lightBlue.shade200.withOpacity(0.7);
 
 final Color brown = Colors.brown.shade300.withOpacity(0.5);
+
+final List<IconData> iconList = [
+  Icons.skateboarding,
+  Icons.catching_pokemon_rounded,
+  Icons.flight,
+  Icons.two_wheeler_rounded,
+  Icons.security
+];
+final List<Color> colorList = [
+  Colors.white,
+  Colors.blueAccent,
+  Colors.teal,
+  Colors.redAccent,
+  Colors.orange,
+  Colors.greenAccent
+];
