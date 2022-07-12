@@ -219,17 +219,17 @@ getActionsRow(BuildContext context) {
 
 topBar(BuildContext context) {
   bool showOwner =
-      Provider.of<BoardProvider>(context, listen: true).ownerVisibility;
+      Provider.of<BoardUIProvider>(context, listen: true).ownerVisibility;
   bool showCosts =
-      Provider.of<BoardProvider>(context, listen: true).costVisibility;
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        GestureDetector(
+      Provider.of<BoardUIProvider>(context, listen: true).costVisibility;
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GestureDetector(
           onTap: () {
-            Provider.of<BoardProvider>(context, listen: false)
+            Provider.of<BoardUIProvider>(context, listen: false)
                 .toggleCostsVisibility();
           },
           child: AnimatedContainer(
@@ -249,10 +249,12 @@ topBar(BuildContext context) {
             ),
           ),
         ),
-        const SizedBox(width: 10),
-        GestureDetector(
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GestureDetector(
           onTap: () {
-            Provider.of<BoardProvider>(context, listen: false)
+            Provider.of<BoardUIProvider>(context, listen: false)
                 .toggleOwnerVisibility();
           },
           child: AnimatedContainer(
@@ -272,8 +274,6 @@ topBar(BuildContext context) {
             ),
           ),
         ),
-      ],
-    ),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
