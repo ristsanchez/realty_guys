@@ -45,7 +45,9 @@ class BoardScreen extends StatelessWidget {
               children: [
                 topBar(context),
                 RotatedBox(
-                  quarterTurns: 2,
+                  quarterTurns:
+                      Provider.of<BoardUIProvider>(context, listen: false)
+                          .rotations,
                   child: Container(
                     width: _boardWidth,
                     height: _boardHeight,
@@ -272,6 +274,30 @@ topBar(BuildContext context) {
         ),
       ],
     ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GestureDetector(
+          onTap: () {
+            Provider.of<BoardUIProvider>(context, listen: false).rotateBoard();
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            height: 40,
+            width: 40,
+            decoration: BoxDecoration(
+              color: Colors.white24,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.rotate_90_degrees_cw_rounded,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ],
   );
 }
 
