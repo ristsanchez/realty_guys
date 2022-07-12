@@ -107,10 +107,18 @@ getActionsRow(BuildContext context) {
           color: Colors.white10,
           borderRadius: BorderRadius.circular(5),
         ),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(0),
-            primary: Colors.transparent,
+        child: Tooltip(
+          message: 'Roll the Dice',
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.all(0),
+              primary: Colors.transparent,
+            ),
+            onPressed: () {
+              some.startGame();
+              //Call trade method from player?
+            },
+            child: const Icon(Icons.casino),
           ),
           onPressed: () {
             getPropertyData();
