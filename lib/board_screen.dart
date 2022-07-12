@@ -196,19 +196,22 @@ getActionsRow(BuildContext context) {
           color: Colors.white10,
           borderRadius: BorderRadius.circular(5),
         ),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(0),
-            primary: Colors.transparent,
-          ),
-          onPressed: () {
-            Provider.of<BoardProvider>(context, listen: false).increase();
-            //Call trade method from player?
-          },
-          child: const Center(
-            child: Icon(
-              Icons.account_balance,
-              color: Colors.greenAccent,
+        child: Tooltip(
+          message: 'Unmortgage properties',
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.all(0),
+              primary: Colors.transparent,
+            ),
+            onPressed: () {
+              Provider.of<BoardUIProvider>(context, listen: false).increase();
+              //Call trade method from player?
+            },
+            child: const Center(
+              child: Icon(
+                Icons.account_balance,
+                color: Colors.greenAccent,
+              ),
             ),
           ),
         ),
