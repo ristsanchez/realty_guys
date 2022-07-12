@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:realty_guys/player.dart';
 
-class Board {
-  Map<Player, int> _playerPositions; //don't make final
+class Board extends ChangeNotifier {
+  late HashMap<Player, int> _playerPositions; //don't make final
 
   Board() : _playerPositions = HashMap();
 
