@@ -1,11 +1,15 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:realty_guys/board.dart';
 import 'package:realty_guys/board_ui_movement.dart';
 import 'package:realty_guys/board_ui_provider.dart';
 import 'package:realty_guys/color_constants.dart';
 import 'dart:math' as math;
 
 import 'package:realty_guys/custom_triangle.dart';
+import 'package:realty_guys/game.dart';
 import 'package:realty_guys/json_util_data.dart';
 import 'package:realty_guys/property_dialog.dart';
 
