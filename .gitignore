@@ -47,3 +47,4 @@ app.*.map.json
 /android/app/release
 lib/assets/sample.jpg
 lib/assets/sampleBoard.jpg
+.vscode/settings.json
