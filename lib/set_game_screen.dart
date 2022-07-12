@@ -12,22 +12,34 @@ class SetGameScreen extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            //call new route/ replace
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: ((BuildContext context) =>
-                        MultiProvider(providers: [
-                          ChangeNotifierProvider(
-                              create: (_) => BoardProvider()),
-                        ], child: const BoardScreen()))));
-          },
-          child: const Text('Go?'),
-        ),
-      ),
     );
   }
 }
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        //call new route/ replace
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: ((BuildContext context) => MultiProvider(
+                                  providers: [
+                                    ChangeNotifierProvider(
+                                      create: (_) => BoardUIProvider(),
+                                    ),
+                                    ChangeNotifierProvider(
+                                      create: (_) => Board(),
+                                    )
+                                  ],
+                                  child: const BoardScreen(),
+                                )),
+                          ),
+                        );
+                      },
+                      child: const Text('Go?'),
+                    ),
+                  ),
+                ),
