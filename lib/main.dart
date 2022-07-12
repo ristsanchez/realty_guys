@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:realty_guys/board_screen.dart';
+import 'package:realty_guys/selection_provider.dart';
 import 'package:realty_guys/set_game_screen.dart';
 
 void main() {
@@ -18,7 +20,14 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           toolbarHeight: 0,
         ),
-        body: const SetGameScreen(),
+        body: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (_) => SelectionMenuProvider(),
+            ),
+          ],
+          child: const SetGameScreen(),
+        ),
       ),
       // debugShowMaterialGrid: true,
       debugShowCheckedModeBanner: false,
