@@ -9,7 +9,10 @@ class Player {
   late IconData _playerIconData; // leave
   late Color _playerColor;
 
-  Player(this._id, this._name) : _money = 0;
+  Player(this._id, this._name)
+      : _money = 0,
+        _playerColor = Colors.red,
+        _playerIconData = Icons.cruelty_free_sharp;
 
   int get id => _id;
 
