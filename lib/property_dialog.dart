@@ -70,6 +70,8 @@ showPropertyDialog(BuildContext context, var data) {
                         Center(child: Text('house cost \$50 / mortgage \$30')),
                   ),
                 ],
+var temp2 =
+    "Advance to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled.\n\n If railRoad is unowned, you may buy it from the Bank.";
               ),
             ),
           ),
