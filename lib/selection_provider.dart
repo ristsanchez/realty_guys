@@ -11,17 +11,31 @@ class SelectionMenuProvider extends ChangeNotifier {
   int _colorIndex;
   int _index;
 
+  bool _started;
+  late HashMap _data;
+
   SelectionMenuProvider()
       : _colorIndex = 0,
         _index = 0,
         _started = false,
         _data = HashMap();
 
+  bool get isInit => _started;
+
+  HashMap get data => _data;
+
   Icon get currentIcon => Icon(
         _iconList.elementAt(_index),
         size: 40, //change this
         color: _colorList.elementAt(_colorIndex),
       );
+
+  void init() async {
+    _data = await getPropertyData();
+    await Future.delayed(const Duration(milliseconds: 500));
+    _started = true;
+    notifyListeners();
+  }
 
   void randomize() {
     _index = Random().nextInt(_iconList.length);
