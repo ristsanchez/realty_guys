@@ -79,7 +79,6 @@ showPropertyDialog(BuildContext context, var data) {
   );
 }
 
-var some = [1, 2, 3, 4, 5];
 getHouseColumn(List rentList) {
   var formatter = NumberFormat('#,###');
   List<Widget> columnOfRows = [];
