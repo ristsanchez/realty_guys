@@ -1,7 +1,8 @@
-import 'dart:ui';
+import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 import 'package:realty_guys/color_constants.dart';
+import 'package:realty_guys/square.dart';
 
 showPropertyDialog(BuildContext context, var data) {
   return showDialog(

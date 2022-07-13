@@ -11,6 +11,7 @@ import 'dart:math' as math;
 import 'package:realty_guys/custom_triangle.dart';
 import 'package:realty_guys/game.dart';
 import 'package:realty_guys/json_util_data.dart';
+import 'package:realty_guys/player.dart';
 import 'package:realty_guys/property_dialog.dart';
 
 const int majorFlex = 35;
