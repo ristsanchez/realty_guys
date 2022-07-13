@@ -81,6 +81,7 @@ showPropertyDialog(BuildContext context, var data) {
 
 var some = [1, 2, 3, 4, 5];
 getHouseColumn(List rentList) {
+  var formatter = NumberFormat('#,###');
   List<Widget> columnOfRows = [];
   List<Widget> temp = [];
   for (int i = 0; i < 5; i++) {
@@ -89,6 +90,12 @@ getHouseColumn(List rentList) {
     }
     temp.insert(temp.length, const Expanded(child: const Center()));
     temp.insert(temp.length, const Text('\$'));
+    temp.insert(
+        temp.length,
+        Text(
+          '\$ ${formatter.format(rentList[i])}',
+          style: const TextStyle(color: Colors.white70),
+        ));
 
     columnOfRows.insert(columnOfRows.length, Row(children: temp));
     // if (i < 4) {
