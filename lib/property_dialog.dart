@@ -19,57 +19,16 @@ showPropertyDialog(BuildContext context, var data) {
       ),
       // contentPadding: const EdgeInsets.fromLTRB(10, 60, 10, 0),
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(35, 25, 35, 20),
-              height: MediaQuery.of(context).size.width * 0.75,
-              width: MediaQuery.of(context).size.width * 0.75,
-              decoration: BoxDecoration(
-                color: lightBlue.withOpacity(.15),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(20),
-                ),
-                border: Border.all(
-                  width: 1.5,
-                  color: Colors.white.withOpacity(0.05),
-                ),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  const Expanded(
-                    flex: 1,
-                    child: Center(
-                        child: Text('Cost \$20',
-                            style: TextStyle(color: Colors.white70))),
-                  ),
-                  const Expanded(
-                    flex: 1,
-                    child: Center(
-                        child: Text('Rent \$2',
-                            style: TextStyle(color: Colors.white70))),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        Text('With houses:',
-                            style: TextStyle(color: Colors.white70)),
-                      ],
-                    ),
-                  ),
-                  Expanded(flex: 5, child: Center(child: getHouseColumn(some))),
-                  const Expanded(
-                    flex: 1,
-                    child:
-                        Center(child: Text('house cost \$50 / mortgage \$30')),
-                  ),
-                ],
+        SizedBox(height: maxX * .54, child: temp),
+      ],
+    ),
+  );
+}
+
+Widget _getUtilityCard(data) {
+  return const Center();
+}
+
 Widget _getRailRoadCard(Railroad railRoad) {
   var cost = railRoad.cost;
   var mort = railRoad.cost ~/ 2;
