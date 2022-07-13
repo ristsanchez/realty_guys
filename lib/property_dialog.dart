@@ -163,6 +163,61 @@ var temp2 =
       ),
     );
   }
+_getLandPropertyCard(Land land) {
+  var cost = land.cost;
+  var rent = land.rent;
+  var houseCost = land.houseCost;
+  var mort = land.cost ~/ 2;
+
+  var rentList = land.rentList;
+
+  return Column(
+    // crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+      Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Text(
+          'Cost \$$cost',
+          style: const TextStyle(color: Colors.white70),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Rent \$$rent',
+              style: const TextStyle(color: Colors.white70),
+            ),
+            const Text(
+              'With houses:',
+              style: TextStyle(color: Colors.white70),
+            ),
+          ],
+        ),
+      ),
+      Padding(
+          padding: const EdgeInsets.only(bottom: 5, top: 5),
+          child: Center(child: getHouseColumn(rentList))),
+      Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Text(
+          'House cost \$$houseCost',
+          style: const TextStyle(color: Colors.white70),
+        ),
+      ),
+      Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(vertical: 0),
+        child: Text(
+          'Mortgage \$$mort',
+          style: const TextStyle(color: Colors.white70),
+        ),
+      ),
+    ],
   );
 }
 
