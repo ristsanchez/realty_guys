@@ -13,7 +13,9 @@ class SelectionMenuProvider extends ChangeNotifier {
 
   SelectionMenuProvider()
       : _colorIndex = 0,
-        _index = 0;
+        _index = 0,
+        _started = false,
+        _data = HashMap();
 
   Icon get currentIcon => Icon(
         _iconList.elementAt(_index),
