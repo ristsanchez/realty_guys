@@ -72,6 +72,8 @@ showPropertyDialog(BuildContext context, var data) {
                 ],
 var temp2 =
     "Advance to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled.\n\n If railRoad is unowned, you may buy it from the Bank.";
+Widget _getSpecialTileCard(SpecialTile tile) {
+  Widget temp = const Center();
   if (tile.name == 'Chance') {
     temp = Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -117,6 +119,15 @@ var temp2 =
             ),
           ),
         ),
+        Expanded(
+            flex: 2,
+            child: Text(
+              temp2,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: luckyText,
+              ),
+            )),
       ],
     );
   } else if (tile.name == 'Income Tax') {
@@ -163,6 +174,10 @@ var temp2 =
       ),
     );
   }
+
+  return temp;
+}
+
 _getLandPropertyCard(Land land) {
   var cost = land.cost;
   var rent = land.rent;
