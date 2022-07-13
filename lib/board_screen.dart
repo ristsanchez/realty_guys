@@ -57,7 +57,7 @@ class BoardScreen extends StatelessWidget {
                     //Whole board as a Row
                     child: Stack(
                       children: [
-                        _getBoard(context),
+                        _getBoard(context, propertyData, maxX),
                         lightUpTile(context, _boardHeight),
                       ],
                     ),
@@ -352,22 +352,20 @@ setV(bool v) {
   showPrices = v;
 }
 
-_getBoard(BuildContext context) {
+_getBoard(BuildContext context, HashMap propertyData, double x) {
   return Row(
     children: [
       //FIRST COLUMN
-      _getLeftColumn(context),
-
+      _getLeftColumn(context, propertyData),
       //MIDDLE COLUMN
-      _getCenterColumn(),
-
+      _getCenterColumn(context, propertyData),
       //LAST COLUMN
-      _getRightColumn(),
+      _getRightColumn(context, propertyData),
     ],
   );
 }
 
-_getLeftColumn(BuildContext context) {
+_getLeftColumn(BuildContext context, HashMap propertyData) {
   return Expanded(
     flex: 7,
     child: Column(
@@ -590,7 +588,7 @@ _getLeftColumn(BuildContext context) {
   );
 }
 
-_getCenterColumn() {
+_getCenterColumn(BuildContext context, HashMap propertyData) {
   return Expanded(
     flex: majorFlex,
     child: Column(
@@ -1107,7 +1105,7 @@ _getCenterColumn() {
   );
 }
 
-_getRightColumn() {
+_getRightColumn(BuildContext context, HashMap propertyData) {
   return Expanded(
     flex: 7,
     child: Column(
