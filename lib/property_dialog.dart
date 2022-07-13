@@ -5,6 +5,24 @@ import 'package:realty_guys/color_constants.dart';
 import 'package:realty_guys/square.dart';
 
 showPropertyDialog(BuildContext context, var data) {
+  var maxX = MediaQuery.of(context).size.width;
+  var type = data.group;
+  Color dialogColor = getColorFromGroup(data.group);
+
+  Widget temp = const Center();
+
+  if (type == 'special') {
+    temp = _getSpecialTileCard(data);
+    dialogColor = getColorFromName(data.name);
+  } else if (type == 'railRoad') {
+    temp = _getRailRoadCard(data);
+  } else if (type == 'utility') {
+    temp = _getUtilityCard(data);
+  } else {
+    //property, land
+    temp = _getLandPropertyCard(data);
+  }
+// > 384 maxX * .25
   return showDialog(
     barrierColor: Colors.black12,
     context: context,
