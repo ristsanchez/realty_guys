@@ -85,6 +85,7 @@ class Land extends Property {
   int houses = 0;
 
   int get rent => _rent;
+  List<int> get rentList => _rentList;
 
   //should only be called when at least 1 house
   int get rentWithHouses => _rentList[houses - 1];
@@ -122,7 +123,7 @@ class Land extends Property {
 }
 
 class Railroad extends Property {
-  int baseRent = 25;
+  final List rentList = [25, 50, 100, 200];
 
   Railroad({
     required id,
