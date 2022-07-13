@@ -86,10 +86,13 @@ getHouseColumn(List rentList) {
   List<Widget> temp = [];
   for (int i = 0; i < 5; i++) {
     for (int j = 0; j < i + 1; j++) {
-      temp.add(const Icon(Icons.house, color: Colors.white70));
+      temp.add(const Icon(
+        Icons.house,
+        color: Colors.white60,
+        size: 18,
+      ));
     }
-    temp.insert(temp.length, const Expanded(child: const Center()));
-    temp.insert(temp.length, const Text('\$'));
+    temp.insert(temp.length, const Expanded(child: Center()));
     temp.insert(
         temp.length,
         Text(
