@@ -13,7 +13,7 @@
         250
       ],
       "houseCost": 50,
-      "group": "purple"
+      "group": "brown"
     },
     {
       "name": "Brown 2",
@@ -28,7 +28,7 @@
         450
       ],
       "houseCost": 50,
-      "group": "purple"
+      "group": "brown"
     },
     {
       "name": "Light Blue 1",
@@ -43,7 +43,7 @@
         550
       ],
       "houseCost": 50,
-      "group": "lightblue"
+      "group": "lightBlue"
     },
     {
       "name": "Light Blue 2",
@@ -58,7 +58,7 @@
         550
       ],
       "houseCost": 50,
-      "group": "lightblue"
+      "group": "lightBlue"
     },
     {
       "name": "Light Blue 3",
@@ -73,7 +73,7 @@
         600
       ],
       "houseCost": 50,
-      "group": "lightblue"
+      "group": "lightBlue"
     },
     {
       "name": "Pink 1",
@@ -313,7 +313,7 @@
         1500
       ],
       "houseCost": 200,
-      "group": "darkblue"
+      "group": "darkBlue"
     },
     {
       "name": "Dark Blue 2",
@@ -328,47 +328,52 @@
         2000
       ],
       "houseCost": 200,
-      "group": "darkblue"
+      "group": "darkBlue"
     },
     {
       "name": "Utility 1",
       "id": 12,
       "cost": 150,
-      "group": "utilities"
+      "group": "utility"
     },
     {
       "name": "Utility 2",
       "id": 28,
       "cost": 150,
-      "group": "utilities"
+      "group": "utility"
     },
     {
       "name": "Station 1",
       "id": 5,
       "cost": 200,
-      "group": "railroad"
+      "group": "railRoad"
     },
     {
       "name": "Station 2",
       "id": 15,
       "cost": 200,
-      "group": "railroad"
+      "group": "railRoad"
     },
     {
       "name": "Station 3",
       "id": 25,
       "cost": 200,
-      "group": "railroad"
+      "group": "railRoad"
     },
     {
       "name": "Station 4",
       "id": 35,
       "cost": 200,
-      "group": "railroad"
+      "group": "railRoad"
     },
     {
       "name": "Go",
       "id": 0,
+      "group": "special"
+    },
+    {
+      "name": "Lucky",
+      "id": 2,
       "group": "special"
     },
     {
@@ -377,13 +382,28 @@
       "group": "special"
     },
     {
+      "name": "Chance",
+      "id": 7,
+      "group": "special"
+    },
+    {
       "name": "Jail",
       "id": 10,
       "group": "special"
     },
     {
-      "name": "freeParking",
+      "name": "Lucky",
+      "id": 17,
+      "group": "special"
+    },
+    {
+      "name": "Parking",
       "id": 20,
+      "group": "special"
+    },
+    {
+      "name": "Chance",
+      "id": 22,
       "group": "special"
     },
     {
@@ -393,18 +413,18 @@
       "rel": "Go To Jail"
     },
     {
-      "name": "Luxury Tax",
-      "id": 38,
-      "group": "special"
-    },
-    {
-      "name": "communityChest",
-      "id": 2,
+      "name": "Lucky",
+      "id": 33,
       "group": "special"
     },
     {
       "name": "Chance",
-      "id": 7,
+      "id": 36,
+      "group": "special"
+    },
+    {
+      "name": "Luxury Tax",
+      "id": 38,
       "group": "special"
     }
   ],
@@ -431,9 +451,9 @@
       "rentmultiplier": 10
     },
     {
-      "title": "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.",
+      "title": "Advance to the nearest Rail Road and pay owner twice the rental to which he/she is otherwise entitled. \n\n If railRoad is unowned, you may buy it from the Bank.",
       "action": "movenearest",
-      "groupid": "railroad",
+      "groupid": "railRoad",
       "rentmultiplier": 2
     },
     {
@@ -468,7 +488,7 @@
       "amount": 15
     },
     {
-      "title": "Take a trip to Reading Railroad - If you pass Go, collect $200",
+      "title": "Take a trip to Reading railRoad - If you pass Go, collect $200",
       "action": "move",
       "tileid": "readingrailroad"
     },
@@ -488,7 +508,7 @@
       "amount": 50
     }
   ],
-  "communityChest": [
+  "Lucky": [
     {
       "title": "Advance to Go (Collect $200)",
       "action": "move",
