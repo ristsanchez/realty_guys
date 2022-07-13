@@ -58,28 +58,32 @@ mainBody(BuildContext context) {
                   flex: 1,
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        //call new route/ replace
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: ((BuildContext context) => MultiProvider(
-                                  providers: [
-                                    ChangeNotifierProvider(
-                                      create: (_) => BoardUIProvider(),
-                                    ),
-                                    ChangeNotifierProvider(
-                                      create: (_) => Board(),
-                                    )
-                                  ],
-                                  child: const BoardScreen(),
-                                )),
-                          ),
-                        );
-                      },
-                      child: const Text('Go?'),
-                    ),
+                    child: isGameInit
+                        ? ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: ((BuildContext context) =>
+                                      MultiProvider(
+                                        providers: [
+                                          ChangeNotifierProvider(
+                                            create: (_) => BoardUIProvider(),
+                                          ),
+                                          ChangeNotifierProvider(
+                                            create: (_) => Board(),
+                                          ),
+                                          ChangeNotifierProvider(
+                                              create: (_) => Game()),
+                                        ],
+                                        child: BoardScreen(propertyData: data),
+                                      )),
+                                ),
+                              );
+                            },
+                            child: const Text('Go?'),
+                          )
+                        : loading(),
                   ),
                 ),
                 Expanded(
