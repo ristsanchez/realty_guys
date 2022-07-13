@@ -43,8 +43,11 @@ loading() {
 }
 
 mainBody(BuildContext context) {
+  bool isGameInit =
+      Provider.of<SelectionMenuProvider>(context, listen: true).isInit;
   Icon currentIcon =
       Provider.of<SelectionMenuProvider>(context, listen: true).currentIcon;
+  var data = Provider.of<SelectionMenuProvider>(context, listen: true).data;
   const double opacity = 0.5;
   return Center(
     child: Container(
