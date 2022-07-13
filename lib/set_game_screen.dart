@@ -9,9 +9,14 @@ import 'package:realty_guys/game.dart';
 import 'package:realty_guys/json_util_data.dart';
 import 'package:realty_guys/selection_provider.dart';
 
-class SetGameScreen extends StatelessWidget {
+class SetGameScreen extends StatefulWidget {
   const SetGameScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SetGameScreen> createState() => _SetGameScreenState();
+}
+
+class _SetGameScreenState extends State<SetGameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +27,19 @@ class SetGameScreen extends StatelessWidget {
       body: mainBody(context),
     );
   }
+
+  @override
+  void initState() {
+    super.initState();
+    //init json data? after first build
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<SelectionMenuProvider>(context, listen: false).init();
+    });
+  }
+}
+
+loading() {
+  return Center(child: CircularProgressIndicator(color: Colors.teal[200]));
 }
 
 mainBody(BuildContext context) {
