@@ -32,7 +32,9 @@ class MyApp extends StatelessWidget {
       // debugShowMaterialGrid: true,
       debugShowCheckedModeBanner: false,
       routes: {
-        BoardScreen.routeName: (context) => const BoardScreen(),
+        BoardScreen.routeName: (context) => BoardScreen(
+              propertyData: HashMap(),
+            ),
       },
     );
   }
