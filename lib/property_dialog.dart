@@ -70,6 +70,67 @@ showPropertyDialog(BuildContext context, var data) {
                         Center(child: Text('house cost \$50 / mortgage \$30')),
                   ),
                 ],
+Widget _getRailRoadCard(Railroad railRoad) {
+  var cost = railRoad.cost;
+  var mort = railRoad.cost ~/ 2;
+
+  var rentList = railRoad.rentList;
+
+  return Column(
+    // crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+      Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Text(
+          'Cost \$$cost',
+          style: const TextStyle(color: Colors.white70),
+        ),
+      ),
+      Padding(
+          padding: const EdgeInsets.only(bottom: 5, top: 5),
+          child: Center(child: _getRailRoadColumn(rentList))),
+      Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(vertical: 0),
+        child: Text(
+          'Mortgage \$$mort',
+          style: const TextStyle(color: Colors.white70),
+        ),
+      ),
+    ],
+  );
+}
+
+_getRailRoadColumn(List rentList) {
+  List<Widget> columnOfRows = [];
+  List<Widget> temp = [];
+  for (int i = 0; i < rentList.length; i++) {
+    for (int j = 0; j < i + 1; j++) {
+      temp.add(const Icon(
+        Icons.tram_rounded,
+        color: Colors.white60,
+      ));
+    }
+    temp.insert(temp.length, const Expanded(child: Center()));
+    temp.insert(
+        temp.length,
+        Text(
+          '\$ ${rentList[i]}',
+          style: const TextStyle(color: Colors.white70),
+        ));
+
+    columnOfRows.insert(columnOfRows.length, Row(children: temp));
+    // if (i < 4) {
+    columnOfRows.insert(
+        columnOfRows.length, const Divider(height: 2, thickness: 1));
+
+    temp = [];
+  }
+  columnOfRows.insert(0, const Divider(height: 2, thickness: 1));
+  return Column(children: columnOfRows);
+}
+
 var temp2 =
     "Advance to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled.\n\n If railRoad is unowned, you may buy it from the Bank.";
 Widget _getSpecialTileCard(SpecialTile tile) {
