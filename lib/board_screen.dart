@@ -20,7 +20,9 @@ const double _boardWidth = 360;
 const double _boardHeight = 360;
 
 class BoardScreen extends StatelessWidget {
-  const BoardScreen({Key? key}) : super(key: key);
+  const BoardScreen({Key? key, required this.propertyData}) : super(key: key);
+  //property data
+  final HashMap propertyData;
 
   static const routeName = '/boardScreen';
 
