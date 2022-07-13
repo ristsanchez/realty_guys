@@ -4,22 +4,25 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:realty_guys/square.dart';
 
-Future<dynamic> getPropertyData() async {
+Future<HashMap> getPropertyData() async {
   String data = await rootBundle.loadString('lib/assets/tile_data.json');
   Map<String, dynamic> map = json.decode(data);
 
-  Map boardSpaces = HashMap();
+  HashMap boardSpaces = HashMap();
   List anotherTemp = map['properties'];
 
-  anotherTemp.forEach((element) {
-    //do special
+  for (var element in anotherTemp) {
     if (element['group'] == 'special') {
-    } else if (element['group'] == 'railroad') {
-    } else if (element['group'] == 'utilities') {
+      boardSpaces.putIfAbsent(
+          element['id'], () => SpecialTile.fromJson(element));
+    } else if (element['group'] == 'railRoad') {
+      boardSpaces.putIfAbsent(element['id'], () => Railroad.fromJson(element));
+    } else if (element['group'] == 'utility') {
+      boardSpaces.putIfAbsent(element['id'], () => Utility.fromJson(element));
     } else {
       //Properties colored/lands/the ones with houses
       boardSpaces.putIfAbsent(element['id'], () => Land.fromJson(element));
     }
-  });
+  }
   return boardSpaces;
 }
