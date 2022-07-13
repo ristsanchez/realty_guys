@@ -118,7 +118,51 @@ var temp2 =
           ),
         ),
       ],
-    ),
+    );
+  } else if (tile.name == 'Income Tax') {
+    temp = const Center(
+      child: Icon(
+        Icons.payment,
+        size: 45,
+      ),
+    );
+  } else if (tile.name == 'Luxury Tax') {
+    temp = const Center(
+      child: Icon(
+        Icons.payment_rounded,
+        size: 65,
+      ),
+    );
+  } else if (tile.id == 0) {
+    //Go tile
+    temp = const Center(
+      child: Icon(
+        Icons.arrow_forward_sharp,
+        size: 65,
+      ),
+    );
+  } else if (tile.id == 10) {
+    temp = const Center(
+      child: Icon(
+        Icons.join_right,
+        size: 65,
+      ),
+    );
+  } else if (tile.id == 20) {
+    temp = const Center(
+      child: Icon(
+        Icons.directions_bike_rounded,
+        size: 65,
+      ),
+    );
+  } else if (tile.id == 30) {
+    temp = const Center(
+      child: Icon(
+        Icons.sports_gymnastics_rounded,
+        size: 65,
+      ),
+    );
+  }
   );
 }
 
