@@ -418,89 +418,144 @@ _getLeftColumn(BuildContext context) {
                 ),
               ),
               Expanded(
-                child: Container(
-                  color: base,
-                  child: RotatedBox(
-                    quarterTurns: 2,
-                    child: Icon(
-                      Icons.toll,
-                      color: Colors.yellow.shade200.withOpacity(0.5),
+                child: GestureDetector(
+                  onTap: () {
+                    showPropertyDialog(context, propertyData[38]);
+                  },
+                  child: Container(
+                    color: base,
+                    child: RotatedBox(
+                      quarterTurns: 2,
+                      child: Icon(
+                        Icons.toll,
+                        color: Colors.yellow.shade200.withOpacity(0.5),
+                      ),
                     ),
                   ),
                 ),
               ),
               Expanded(
-                child: Container(
-                  color: darkBlue,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [VerticalDivider(width: 15, thickness: 15)],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: base,
-                  child: const RotatedBox(
-                    quarterTurns: 1,
-                    child: Icon(
-                      Icons.question_mark_rounded,
-                      color: Colors.white70,
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[37]);
+                  },
+                  child: Container(
+                    color: darkBlue,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        VerticalDivider(width: 15, thickness: 15)
+                      ],
                     ),
                   ),
                 ),
               ),
               Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(0),
-                  color: trainBase,
-                  child: const RotatedBox(
-                    quarterTurns: 1,
-                    child: Icon(
-                      Icons.tram_rounded,
-                      color: Colors.black54,
-                      size: 28,
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[36]);
+                  },
+                  child: Container(
+                    color: base,
+                    child: const RotatedBox(
+                      quarterTurns: 1,
+                      child: Icon(
+                        Icons.question_mark_rounded,
+                        color: Colors.white70,
+                      ),
                     ),
                   ),
                 ),
               ),
               Expanded(
-                child: Container(
-                  color: green,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [VerticalDivider(width: 15, thickness: 15)],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: base,
-                  child: RotatedBox(
-                    quarterTurns: 3,
-                    child: Icon(
-                      Icons.question_mark_rounded,
-                      color: Colors.blue.shade100.withOpacity(0.8),
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[35]);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(0),
+                    color: trainBase,
+                    child: const RotatedBox(
+                      quarterTurns: 1,
+                      child: Icon(
+                        Icons.tram_rounded,
+                        color: Colors.black54,
+                        size: 28,
+                      ),
                     ),
                   ),
                 ),
               ),
               Expanded(
-                child: Container(
-                  color: green,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [VerticalDivider(width: 15, thickness: 15)],
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[34]);
+                  },
+                  child: Container(
+                    color: green,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        VerticalDivider(width: 15, thickness: 15)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[33]);
+                  },
+                  child: Container(
+                    color: base,
+                    child: RotatedBox(
+                      quarterTurns: 3,
+                      child: Icon(
+                        Icons.question_mark_rounded,
+                        color: Colors.blue.shade100.withOpacity(0.8),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[32]);
+                  },
+                  child: Container(
+                    color: green,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        VerticalDivider(width: 15, thickness: 15)
+                      ],
+                    ),
                   ),
                 ),
               ),
               const Divider(height: .2),
               Expanded(
-                child: Container(
-                  color: green,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [VerticalDivider(width: 15, thickness: 15)],
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[31]);
+                  },
+                  child: Container(
+                    color: green,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        VerticalDivider(width: 15, thickness: 15)
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -511,14 +566,21 @@ _getLeftColumn(BuildContext context) {
         // GO TO JAIL CORNER ---------------------------------------------------
         Expanded(
           flex: 7,
-          child: Container(
-            alignment: Alignment.center,
-            color: cornerBaseColor,
-            child: Transform.rotate(
-              angle: (45) / 180 * 3.1416,
-              child: Icon(
-                Icons.front_hand_outlined,
-                color: Colors.red.withOpacity(0.6),
+          child: GestureDetector(
+            onTap: () {
+              //show info dialog
+              showPropertyDialog(context, propertyData[30]);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(0),
+              alignment: Alignment.center,
+              color: cornerBaseColor,
+              child: Transform.rotate(
+                angle: (180) / 180 * 3.1416,
+                child: Icon(
+                  Icons.block,
+                  color: Colors.redAccent.shade400.withOpacity(0.6),
+                ),
               ),
             ),
           ),
@@ -540,139 +602,194 @@ _getCenterColumn() {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
-                child: Container(
-                  color: brown,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Divider(
-                              height: constraints.maxHeight * 0.3,
-                              thickness: constraints.maxHeight * 0.3),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: base,
-                  child: RotatedBox(
-                    quarterTurns: 0,
-                    child: Icon(
-                      Icons.question_mark_rounded,
-                      color: Colors.blue.shade100.withOpacity(0.8),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: brown,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Divider(
-                              height: constraints.maxHeight * 0.3,
-                              thickness: constraints.maxHeight * 0.3),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(0),
-                  color: base,
-                  child: RotatedBox(
-                    quarterTurns: 2,
-                    child: Icon(
-                      Icons.payments,
-                      color: Colors.green.shade200.withOpacity(0.6),
-                      size: 22,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(0),
-                  color: trainBase,
-                  child: const RotatedBox(
-                    quarterTurns: 2,
-                    child: Icon(
-                      Icons.tram_rounded,
-                      color: Colors.black54,
-                      size: 28,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: lightBlue,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Divider(
-                              height: constraints.maxHeight * 0.3,
-                              thickness: constraints.maxHeight * 0.3),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[1]);
+                  },
                   child: Container(
-                color: base,
-                child: const RotatedBox(
-                  quarterTurns: 2,
-                  child: Icon(
-                    Icons.question_mark_rounded,
-                    color: Colors.white70,
+                    color: brown,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Divider(
+                                height: constraints.maxHeight * 0.3,
+                                thickness: constraints.maxHeight * 0.3),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
-              )),
+              ),
               Expanded(
-                child: Container(
-                  color: lightBlue,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Divider(
-                              height: constraints.maxHeight * 0.3,
-                              thickness: constraints.maxHeight * 0.3),
-                        ],
-                      );
-                    },
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[2]);
+                  },
+                  child: Container(
+                    color: base,
+                    child: RotatedBox(
+                      quarterTurns: 0,
+                      child: Icon(
+                        Icons.question_mark_rounded,
+                        color: Colors.blue.shade100.withOpacity(0.8),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[3]);
+                  },
+                  child: Container(
+                    color: brown,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Divider(
+                                height: constraints.maxHeight * 0.3,
+                                thickness: constraints.maxHeight * 0.3),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[4]);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(0),
+                    color: base,
+                    child: RotatedBox(
+                      quarterTurns: 2,
+                      child: Icon(
+                        Icons.payments,
+                        color: Colors.green.shade200.withOpacity(0.6),
+                        size: 22,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[5]);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(0),
+                    color: trainBase,
+                    child: const RotatedBox(
+                      quarterTurns: 2,
+                      child: Icon(
+                        Icons.tram_rounded,
+                        color: Colors.black54,
+                        size: 28,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[6]);
+                  },
+                  child: Container(
+                    color: lightBlue,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Divider(
+                                height: constraints.maxHeight * 0.3,
+                                thickness: constraints.maxHeight * 0.3),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[7]);
+                  },
+                  child: Container(
+                    color: base,
+                    child: const RotatedBox(
+                      quarterTurns: 2,
+                      child: Icon(
+                        Icons.question_mark_rounded,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[8]);
+                  },
+                  child: Container(
+                    color: lightBlue,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Divider(
+                                height: constraints.maxHeight * 0.3,
+                                thickness: constraints.maxHeight * 0.3),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
               const VerticalDivider(width: .2),
               Expanded(
-                child: Container(
-                  color: lightBlue,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Divider(
-                              height: constraints.maxHeight * 0.3,
-                              thickness: constraints.maxHeight * 0.3),
-                        ],
-                      );
-                    },
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[9]);
+                  },
+                  child: Container(
+                    color: lightBlue,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Divider(
+                                height: constraints.maxHeight * 0.3,
+                                thickness: constraints.maxHeight * 0.3),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -789,142 +906,196 @@ _getCenterColumn() {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
-                child: Container(
-                  color: yellow,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Divider(
-                              height: constraints.maxHeight * 0.3,
-                              thickness: constraints.maxHeight * 0.3),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: base,
-                  child: RotatedBox(
-                    quarterTurns: 2,
-                    child: Icon(Icons.water_drop_outlined,
-                        color: Colors.blue.shade200.withOpacity(.6)),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: yellow,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Divider(
-                              height: constraints.maxHeight * 0.3,
-                              thickness: constraints.maxHeight * 0.3),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              const VerticalDivider(width: .2),
-              Expanded(
-                child: Container(
-                  color: yellow,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Divider(
-                              height: constraints.maxHeight * 0.3,
-                              thickness: constraints.maxHeight * 0.3),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(0),
-                  color: trainBase,
-                  child: const RotatedBox(
-                    quarterTurns: 0,
-                    child: Icon(
-                      Icons.tram_rounded,
-                      color: Colors.black54,
-                      size: 28,
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[29]);
+                  },
+                  child: Container(
+                    color: yellow,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Divider(
+                                height: constraints.maxHeight * 0.3,
+                                thickness: constraints.maxHeight * 0.3),
+                          ],
+                        );
+                      },
                     ),
                   ),
                 ),
               ),
               Expanded(
-                child: Container(
-                  color: red,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Divider(
-                              height: constraints.maxHeight * 0.3,
-                              thickness: constraints.maxHeight * 0.3),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              const VerticalDivider(width: .2),
-              Expanded(
-                child: Container(
-                  color: red,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Divider(
-                              height: constraints.maxHeight * 0.3,
-                              thickness: constraints.maxHeight * 0.3),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: base,
-                  child: const RotatedBox(
-                    quarterTurns: 0,
-                    child: Icon(
-                      Icons.question_mark_rounded,
-                      color: Colors.white70,
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[28]);
+                  },
+                  child: Container(
+                    color: base,
+                    child: RotatedBox(
+                      quarterTurns: 2,
+                      child: Icon(Icons.water_drop_outlined,
+                          color: Colors.blue.shade200.withOpacity(.6)),
                     ),
                   ),
                 ),
               ),
               Expanded(
-                child: Container(
-                  color: red,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Divider(
-                              height: constraints.maxHeight * 0.3,
-                              thickness: constraints.maxHeight * 0.3),
-                        ],
-                      );
-                    },
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[27]);
+                  },
+                  child: Container(
+                    color: yellow,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Divider(
+                                height: constraints.maxHeight * 0.3,
+                                thickness: constraints.maxHeight * 0.3),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              const VerticalDivider(width: .2),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[26]);
+                  },
+                  child: Container(
+                    color: yellow,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Divider(
+                                height: constraints.maxHeight * 0.3,
+                                thickness: constraints.maxHeight * 0.3),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[25]);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(0),
+                    color: trainBase,
+                    child: const RotatedBox(
+                      quarterTurns: 0,
+                      child: Icon(
+                        Icons.tram_rounded,
+                        color: Colors.black54,
+                        size: 28,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[24]);
+                  },
+                  child: Container(
+                    color: red,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Divider(
+                                height: constraints.maxHeight * 0.3,
+                                thickness: constraints.maxHeight * 0.3),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              const VerticalDivider(width: .2),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[23]);
+                  },
+                  child: Container(
+                    color: red,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Divider(
+                                height: constraints.maxHeight * 0.3,
+                                thickness: constraints.maxHeight * 0.3),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[22]);
+                  },
+                  child: Container(
+                    color: base,
+                    child: const RotatedBox(
+                      quarterTurns: 0,
+                      child: Icon(
+                        Icons.question_mark_rounded,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[21]);
+                  },
+                  child: Container(
+                    color: red,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Divider(
+                                height: constraints.maxHeight * 0.3,
+                                thickness: constraints.maxHeight * 0.3),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -943,28 +1114,35 @@ _getRightColumn() {
       children: [
         Expanded(
           flex: 7,
-          child: Stack(
-            children: [
-              Container(
-                alignment: Alignment.bottomRight,
-                padding: const EdgeInsets.only(bottom: 6, right: 6),
-                child: Transform.rotate(
-                  angle: (180) / 180 * 3.1416,
-                  child: const Icon(
-                    Icons.do_not_step_outlined,
-                    size: 20,
+          child: GestureDetector(
+            onTap: () {
+              //show info dialog
+              showPropertyDialog(context, propertyData[10]);
+            },
+            child: Stack(
+              children: [
+                Container(
+                  alignment: Alignment.bottomRight,
+                  padding: const EdgeInsets.only(bottom: 6, right: 6),
+                  child: Transform.rotate(
+                    angle: (180) / 180 * 3.1416,
+                    child: const Icon(
+                      Icons.do_not_step_outlined,
+                      size: 20,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                color: cornerBaseColor,
-                child: LayoutBuilder(builder: (context, constraints) {
-                  return CustomPaint(
-                      size: Size(constraints.maxHeight, constraints.maxHeight),
-                      painter: DrawTriangle());
-                }),
-              ),
-            ],
+                Container(
+                  color: cornerBaseColor,
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    return CustomPaint(
+                        size:
+                            Size(constraints.maxHeight, constraints.maxHeight),
+                        painter: DrawTriangle());
+                  }),
+                ),
+              ],
+            ),
           ),
         ),
         Expanded(
@@ -973,142 +1151,198 @@ _getRightColumn() {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
-                child: Container(
-                  color: pink,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          VerticalDivider(
-                              width: constraints.maxWidth * 0.3,
-                              thickness: constraints.maxWidth * 0.3),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[11]);
+                  },
                   child: Container(
-                color: base,
-                child: RotatedBox(
-                  quarterTurns: 3,
-                  child: Icon(
-                    Icons.lightbulb_outline_rounded,
-                    color: Colors.yellow.shade200.withOpacity(0.6),
-                  ),
-                ),
-              )),
-              Expanded(
-                child: Container(
-                  color: pink,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          VerticalDivider(
-                              width: constraints.maxWidth * 0.3,
-                              thickness: constraints.maxWidth * 0.3),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              const Divider(height: .2),
-              Expanded(
-                child: Container(
-                  color: pink,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          VerticalDivider(
-                              width: constraints.maxWidth * 0.3,
-                              thickness: constraints.maxWidth * 0.3),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                  child: Container(
-                padding: const EdgeInsets.all(0),
-                color: trainBase,
-                child: const RotatedBox(
-                  quarterTurns: 3,
-                  child: Icon(
-                    Icons.tram_rounded,
-                    color: Colors.black54,
-                    size: 28,
-                  ),
-                ),
-              )),
-              Expanded(
-                child: Container(
-                  color: orange,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          VerticalDivider(
-                              width: constraints.maxWidth * 0.3,
-                              thickness: constraints.maxWidth * 0.3),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: base,
-                  child: RotatedBox(
-                    quarterTurns: 1,
-                    child: Icon(
-                      Icons.question_mark_rounded,
-                      color: Colors.blue.shade100.withOpacity(0.8),
+                    color: pink,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            VerticalDivider(
+                                width: constraints.maxWidth * 0.3,
+                                thickness: constraints.maxWidth * 0.3),
+                          ],
+                        );
+                      },
                     ),
                   ),
                 ),
               ),
               Expanded(
-                child: Container(
-                  color: orange,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          VerticalDivider(
-                              width: constraints.maxWidth * 0.3,
-                              thickness: constraints.maxWidth * 0.3),
-                        ],
-                      );
-                    },
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[12]);
+                  },
+                  child: Container(
+                    color: base,
+                    child: RotatedBox(
+                      quarterTurns: 3,
+                      child: Icon(
+                        Icons.lightbulb_outline_rounded,
+                        color: Colors.yellow.shade200.withOpacity(0.6),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[13]);
+                  },
+                  child: Container(
+                    color: pink,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            VerticalDivider(
+                                width: constraints.maxWidth * 0.3,
+                                thickness: constraints.maxWidth * 0.3),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
               const Divider(height: .2),
               Expanded(
-                child: Container(
-                  color: orange,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          VerticalDivider(
-                              width: constraints.maxWidth * 0.3,
-                              thickness: constraints.maxWidth * 0.3),
-                        ],
-                      );
-                    },
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[14]);
+                  },
+                  child: Container(
+                    color: pink,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            VerticalDivider(
+                                width: constraints.maxWidth * 0.3,
+                                thickness: constraints.maxWidth * 0.3),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[15]);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(0),
+                    color: trainBase,
+                    child: const RotatedBox(
+                      quarterTurns: 3,
+                      child: Icon(
+                        Icons.tram_rounded,
+                        color: Colors.black54,
+                        size: 28,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[16]);
+                  },
+                  child: Container(
+                    color: orange,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            VerticalDivider(
+                                width: constraints.maxWidth * 0.3,
+                                thickness: constraints.maxWidth * 0.3),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[17]);
+                  },
+                  child: Container(
+                    color: base,
+                    child: RotatedBox(
+                      quarterTurns: 1,
+                      child: Icon(
+                        Icons.question_mark_rounded,
+                        color: Colors.blue.shade100.withOpacity(0.8),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[18]);
+                  },
+                  child: Container(
+                    color: orange,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            VerticalDivider(
+                                width: constraints.maxWidth * 0.3,
+                                thickness: constraints.maxWidth * 0.3),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              const Divider(height: .2),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    //show info dialog
+                    showPropertyDialog(context, propertyData[19]);
+                  },
+                  child: Container(
+                    color: orange,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            VerticalDivider(
+                                width: constraints.maxWidth * 0.3,
+                                thickness: constraints.maxWidth * 0.3),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -1117,14 +1351,20 @@ _getRightColumn() {
         ),
         Expanded(
           flex: 7,
-          child: Container(
-            alignment: Alignment.center,
-            color: cornerBaseColor,
-            child: Transform.rotate(
-              angle: (45 + 270) / 180 * 3.1416,
-              child: const Icon(
-                Icons.directions_bike_rounded,
-                color: Colors.white70,
+          child: GestureDetector(
+            onTap: () {
+              //show info dialog
+              showPropertyDialog(context, propertyData[20]);
+            },
+            child: Container(
+              alignment: Alignment.center,
+              color: cornerBaseColor,
+              child: Transform.rotate(
+                angle: (45 + 270) / 180 * 3.1416,
+                child: const Icon(
+                  Icons.directions_bike_rounded,
+                  color: Colors.white70,
+                ),
               ),
             ),
           ),
