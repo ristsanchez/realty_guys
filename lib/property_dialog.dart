@@ -72,7 +72,27 @@ showPropertyDialog(BuildContext context, var data) {
                 ],
 var temp2 =
     "Advance to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled.\n\n If railRoad is unowned, you may buy it from the Bank.";
+  if (tile.name == 'Chance') {
+    temp = Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        const Expanded(
+            flex: 1,
+            child: Icon(
+              Icons.question_mark_rounded,
+              size: 38,
+            )),
+        Expanded(
+            flex: 2,
+            child: Text(
+              temp2,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white70,
               ),
+            )),
+      ],
+    );
   } else if (tile.name == 'Lucky') {
     var temp500 = const Center(
       child: RotatedBox(
