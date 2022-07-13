@@ -27,15 +27,14 @@ showPropertyDialog(BuildContext context, var data) {
     barrierColor: Colors.black12,
     context: context,
     builder: (context) => SimpleDialog(
-      insetPadding: const EdgeInsets.fromLTRB(48, 74, 48, 0),
+      contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 10),
+      insetPadding: EdgeInsets.fromLTRB(maxX * .20, maxX * .31, maxX * .20, 0),
       titlePadding: const EdgeInsets.all(0),
-
       alignment: Alignment.topCenter,
-      backgroundColor: Colors.transparent,
+      backgroundColor: dialogColor,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        borderRadius: BorderRadius.all(Radius.circular(15.0)),
       ),
-      // contentPadding: const EdgeInsets.fromLTRB(10, 60, 10, 0),
       children: [
         SizedBox(height: maxX * .54, child: temp),
       ],
