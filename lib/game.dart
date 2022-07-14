@@ -8,10 +8,15 @@ class Game {
   late Board _board;
   late Set<Player> _players;
 
-  late Player _currentPlayer;
+  late int _currentPlayerId;
+
+  final Die _die = Die();
+
   late int _rollAttempt;
-  late Die _die;
-  late bool goAgain;
+  late bool _isGameGoing;
+
+  late int time;
+  late TickTimer timer;
   // que of actions
 
   Game();
