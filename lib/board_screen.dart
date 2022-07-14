@@ -196,11 +196,39 @@ getActionsRow(BuildContext context) {
                 padding: const EdgeInsets.only(left: 12.0, top: 12),
                 child: Icon(
                   Icons.remove_circle,
+      Container(
+        height: btnSize,
+        width: btnSize,
+        decoration: BoxDecoration(
+          color: Colors.white10,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Tooltip(
+          message: 'Sell houses',
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.all(0),
+              primary: Colors.transparent,
+            ),
+            onPressed: () {
+              //Call trade method from player?
+            },
+            child: Stack(
+              children: [
+                Icon(
+                  Icons.add_home_outlined,
                   color: Colors.red.shade200,
-                  size: 12,
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 12.0, top: 12),
+                  child: Icon(
+                    Icons.remove_circle,
+                    color: Colors.red.shade200,
+                    size: 12,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
