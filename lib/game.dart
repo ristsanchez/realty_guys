@@ -34,6 +34,13 @@ class Game {
     return temp;
   }
 
+  Game(Board boardFromProvider)
+      : _board = boardFromProvider,
+        _currentPlayerId = -1,
+        _players = {},
+        _isGameGoing = false,
+        _rollAttempt = 0,
+        time = 0;
     _players.add(Player(id: 0, name: 'Yoko', color: Colors.red));
     _players
         .add(Player(id: 1, name: 'John', color: Colors.greenAccent.shade700));
