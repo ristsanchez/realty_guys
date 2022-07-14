@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:realty_guys/color_constants.dart';
 import 'package:realty_guys/json_util_data.dart';
 
-class SelectionMenuProvider extends ChangeNotifier {
+class GameSettings extends ChangeNotifier {
   final _colorList = colorList;
   final _iconList = iconList;
   int _colorIndex;
   int _index;
 
   bool _started;
-  late HashMap _data;
+  late HashMap<int, dynamic> _data;
 
-  SelectionMenuProvider()
+  GameSettings()
       : _colorIndex = 0,
         _index = 0,
         _started = false,
@@ -22,7 +22,7 @@ class SelectionMenuProvider extends ChangeNotifier {
 
   bool get isInit => _started;
 
-  HashMap get data => _data;
+  HashMap<int, dynamic> get data => _data;
 
   Icon get currentIcon => Icon(
         _iconList.elementAt(_index),
