@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 
 class Player {
-  int _id;
-  int _money;
+  late int id;
+  late int _money;
 
-  late String _name;
+  late String name;
 
   late IconData _playerIconData; // leave
   late Color _playerColor;
 
-  Player(this._id, this._name)
-      : _money = 0,
-        _playerColor = Colors.red,
+  Player({
+    this.id = -1,
+    this.name = 'Default',
+    color = Colors.red,
+  })  : _money = 0,
+        _playerColor = color,
         _playerIconData = Icons.cruelty_free_sharp;
-
-  int get id => _id;
 
   int getMoney() {
     return _money;
