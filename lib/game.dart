@@ -28,8 +28,50 @@ class Game {
 
     _currentPlayer = _players.firstWhere((element) => element.id == 1);
 
-    while (!_gameFinished) {
-      //current player turn
+    //   _gameOn = true;
+    // }
+    //exit?
+  }
+
+  void rollDice() {
+    //set top of que state to rolling?
+    int die1 = _die.roll();
+    int die2 = _die.roll();
+    print('roll is $die1 + $die2');
+
+    if (die1 == die2) {
+      if (_rollAttempt == 2) {
+        //go to jail
+        _board.sendToJail(_currentPlayerId);
+        _currentPlayerId++;
+        _currentPlayerId %= 3;
+        _rollAttempt = 0;
+        //pass to ui
+      } else {
+        //regular move
+        _board.advance(_currentPlayerId, die1 + die2);
+        //go again
+        _rollAttempt++;
+        //pass to ui
+      }
+    } else {
+      //regular move
+      _board.advance(_currentPlayerId, die1 + die2);
+      //add timer/ animation to match time
+      //pass to ui
+      _currentPlayerId++;
+      _currentPlayerId %= 3;
+      _rollAttempt = 0;
+    }
+
+    //this goes into game controller
+  }
+}
+
+
+//comment section
+
+//current player turn
 
       //await user actions/ from provider probably
       //auto roll in 30 secs
@@ -143,34 +185,3 @@ class Game {
       //jailOut nothing
       //parking nothing
       //goToJail relocate and jail them
-
-      _rollDice();
-
-      _gameFinished = true;
-    }
-    //exit?
-  }
-
-  void _rollDice() {
-    //set top of que state to rolling?
-    int die1 = _die.roll();
-    int die2 = _die.roll();
-
-    if (die1 == die2) {
-      if (_rollAttempt == 3) {
-        //go to jail
-        //pass to ui
-      } else {
-        //regular move
-        //go again
-        //pass to ui
-        goAgain = true;
-      }
-    } else {
-      //regular move
-      _board.advance(_currentPlayer, die1 + die2);
-      //add timer/ animation to match time
-      //pass to ui
-    }
-  }
-}
