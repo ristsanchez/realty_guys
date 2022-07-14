@@ -118,6 +118,64 @@ _corner(int index, double max) {
 }
 
 _stretchTile(int index, bool row) {
+_corner2(List<Map> iconDataList, int index, int rotations) {
+  List<Widget> temp = [
+    ...iconDataList.map((iconDataMap) {
+      return Icon(iconDataMap['iconData'], color: iconDataMap['color']);
+    })
+  ];
+  //group into center?
+
+  Widget child;
+  if (temp.length > 1) {
+    child = temp.first;
+  } else {
+    //just 1 icon
+    child = RotatedBox(quarterTurns: rotations, child: temp.first);
+  }
+
+  //define icon default size? A: yes somewhere
+
+  Widget corner = Expanded(
+    flex: 9,
+    child: child,
+  );
+
+  Widget filler = const Expanded(flex: 54, child: Center());
+  Widget ali = const Center();
+  switch (index) {
+    case 0:
+      ali = Column(children: [
+        Expanded(flex: 9, child: Row(children: [corner, filler])),
+        filler
+      ]);
+      break;
+    case 10:
+      ali = Column(children: [
+        Expanded(flex: 9, child: Row(children: [filler, corner])),
+        filler
+      ]);
+      break;
+    case 20:
+      ali = Column(children: [
+        filler,
+        Expanded(flex: 9, child: Row(children: [filler, corner])),
+      ]);
+      break;
+    case 30:
+      ali = Column(children: [
+        filler,
+        Expanded(
+            flex: 9,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [corner, filler])),
+      ]);
+      break;
+  }
+  return ali;
+}
+
   // board flex [9, [45/9, 5 each], 9] total of 63
   int leftFlex = 9;
 
