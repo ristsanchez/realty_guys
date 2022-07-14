@@ -34,8 +34,13 @@ class Game {
     return temp;
   }
 
-    _players.add(Player(1, 'john'));
-    _players.add(Player(2, 'lennon'));
+    _players.add(Player(id: 0, name: 'Yoko', color: Colors.red));
+    _players
+        .add(Player(id: 1, name: 'John', color: Colors.greenAccent.shade700));
+    _players.add(
+        Player(id: 2, name: 'Lennon', color: Colors.orangeAccent.shade700));
+
+    // _players.add(Player(2, 'lennon'));
 
     _board.initialize(_players);
 
