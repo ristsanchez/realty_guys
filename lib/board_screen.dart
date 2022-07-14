@@ -590,7 +590,14 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
   );
 }
 
-_getCenterColumn(BuildContext context, HashMap propertyData) {
+Expanded _getCenterColumn(
+    BuildContext context, HashMap propertyData, int rotations) {
+  bool showRolls =
+      Provider.of<BoardUIProvider>(context, listen: false).ownerVisibility;
+
+  int position =
+      Provider.of<Game>(context, listen: false).currentPlayerPosition;
+
   return Expanded(
     flex: majorFlex,
     child: Column(
