@@ -262,37 +262,72 @@ playersOnBoard(BuildContext context, HashMap<int, Map> playerIcons,
         //Corner
         return _corner(index, constraints.maxHeight);
       } else if (0 < index && index < 10) {
-        return Column(
-          children: [
-            Expanded(flex: 9, child: _stretchTile(index, true)),
-            const Expanded(flex: 54, child: Center()),
-          ],
+        stackLayers.add(
+          Column(
+            children: [
+              Expanded(
+                  flex: 9,
+                  child: _stretchTile(index, true, element, rotations)),
+              const Expanded(flex: 54, child: Center()),
+            ],
+          ),
         );
       } else if (10 < index && index < 20) {
-        return Row(
-          children: [
-            const Expanded(flex: 54, child: Center()),
-            Expanded(flex: 9, child: _stretchTile(index % 10, false)),
-          ],
+        stackLayers.add(
+          Row(
+            children: [
+              const Expanded(flex: 54, child: Center()),
+              Expanded(
+                  flex: 9,
+                  child: _stretchTile(index % 10, false, element, rotations)),
+            ],
+          ),
         );
       } else if (20 < index && index < 30) {
-        return Column(
-          children: [
-            const Expanded(flex: 54, child: Center()),
-            Expanded(
-                flex: 9, child: _stretchTile(((index % 10) - 10) * -1, true)),
-          ],
+        stackLayers.add(
+          Column(
+            children: [
+              const Expanded(flex: 54, child: Center()),
+              Expanded(
+                flex: 9,
+                child: _stretchTile(
+                    //remove tens places, subtract 10, get absolute value
+                    //this is done to reverse the order from up to down 1st
+                    //Normally it goes 0->1->2... this makes it 2<-1<-0 in the UI
+                    ((index % 10) - 10) * -1,
+                    true,
+                    element,
+                    rotations),
+              ),
+            ],
+          ),
         );
       } else if (30 < index && index < 40) {
-        return Row(
-          children: [
-            Expanded(
-                flex: 9, child: _stretchTile(((index % 10) - 10) * -1, false)),
-            const Expanded(flex: 54, child: Center()),
-          ],
+        stackLayers.add(
+          Row(
+            children: [
+              Expanded(
+                flex: 9,
+                child: _stretchTile(
+                    //remove tens places, subtract 10, get absolute value
+                    //this is done to reverse the order from left to right 1st
+                    //Normally it goes 0->1->2... this makes it 2<-1<-0 in the UI
+                    (((index % 10) - 10) * -1),
+                    false,
+                    element,
+                    rotations),
+              ),
+              const Expanded(flex: 54, child: Center()),
+            ],
+          ),
         );
       }
-      return Center();
-    },
-  );
+    });
+
+    //all been added
+
+    return Stack(children: stackLayers);
+  }
+
+  return const Center();
 }
