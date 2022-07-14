@@ -30,7 +30,7 @@ lightUpTile(BuildContext context, double max) {
     case 9:
       return Column(
         children: [
-          Expanded(flex: 9, child: _stretchTile(index, true)),
+          Expanded(flex: 9, child: _stretchTile2(index, true)),
           const Expanded(flex: 54, child: Center()),
         ],
       );
@@ -47,7 +47,7 @@ lightUpTile(BuildContext context, double max) {
       return Row(
         children: [
           const Expanded(flex: 54, child: Center()),
-          Expanded(flex: 9, child: _stretchTile(index % 10, false)),
+          Expanded(flex: 9, child: _stretchTile2(index % 10, false)),
         ],
       );
 
@@ -65,7 +65,7 @@ lightUpTile(BuildContext context, double max) {
         children: [
           const Expanded(flex: 54, child: Center()),
           Expanded(
-              flex: 9, child: _stretchTile(((index % 10) - 10) * -1, true)),
+              flex: 9, child: _stretchTile2(((index % 10) - 10) * -1, true)),
         ],
       );
 
@@ -82,14 +82,14 @@ lightUpTile(BuildContext context, double max) {
       return Row(
         children: [
           Expanded(
-              flex: 9, child: _stretchTile(((index % 10) - 10) * -1, false)),
+              flex: 9, child: _stretchTile2(((index % 10) - 10) * -1, false)),
           const Expanded(flex: 54, child: Center()),
         ],
       );
     default:
   }
 
-  return const Center(child: Icon(Icons.hourglass_empty_rounded));
+  return const Center();
 }
 
 _corner(int index, double max) {
@@ -117,7 +117,6 @@ _corner(int index, double max) {
   );
 }
 
-_stretchTile(int index, bool row) {
 _corner2(List<Map> iconDataList, int index, int rotations) {
   List<Widget> temp = [
     ...iconDataList.map((iconDataMap) {
@@ -176,6 +175,7 @@ _corner2(List<Map> iconDataList, int index, int rotations) {
   return ali;
 }
 
+_stretchTile2(int index, bool isRow) {
   // board flex [9, [45/9, 5 each], 9] total of 63
   int leftFlex = 9;
 
@@ -201,7 +201,7 @@ _corner2(List<Map> iconDataList, int index, int rotations) {
     ),
     Expanded(flex: rightFlex, child: const Center()),
   ];
-  return row ? Row(children: temp) : Column(children: temp);
+  return isRow ? Row(children: temp) : Column(children: temp);
 }
 
 _stretchTile(int index, bool isRow, List<Map> iconDataList, int rotations) {
