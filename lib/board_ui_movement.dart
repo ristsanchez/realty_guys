@@ -260,7 +260,7 @@ playersOnBoard(BuildContext context, HashMap<int, Map> playerIcons,
       //corner
       if (index % 10 == 0) {
         //Corner
-        return _corner(index, constraints.maxHeight);
+        stackLayers.add(_corner2(element, index, rotations));
       } else if (0 < index && index < 10) {
         stackLayers.add(
           Column(
