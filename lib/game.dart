@@ -23,6 +23,15 @@ class Game extends ChangeNotifier {
   // que of actions
 
   Game();
+  Board get board => _board;
+  set board(Board b) => _board = b;
+
+  int get currentPlayerId => _currentPlayerId;
+
+  int get currentPlayerPosition => board.getPlayerPosition(_currentPlayerId);
+
+  int get rollAttempt => _rollAttempt;
+  bool get isGameGoing => _isGameGoing;
 
   void startGame() {
     _gameFinished = false;
