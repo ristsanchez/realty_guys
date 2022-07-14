@@ -204,9 +204,59 @@ _corner2(List<Map> iconDataList, int index, int rotations) {
   return row ? Row(children: temp) : Column(children: temp);
 }
 
-playersOnBoard(BuildContext context, HashMap<Icon, int> players) {
-  LayoutBuilder(
-    builder: (BuildContext context, BoxConstraints constraints) {
+_stretchTile(int index, bool isRow, List<Map> iconDataList, int rotations) {
+  // board flex [9, [45/9, 5 each], 9] total of 63
+  List<Widget> temp = [
+    ...iconDataList.map((iconDataMap) {
+      return Icon(iconDataMap['iconData'], color: iconDataMap['color']);
+    })
+  ];
+  Widget child;
+  if (temp.length > 1) {
+    child = temp.first;
+  } else {
+    //just 1 icon
+
+    child = RotatedBox(quarterTurns: rotations, child: temp.first);
+  }
+
+  int leftFlex = 9;
+
+  leftFlex += ((index - 1) * 5);
+
+  int rightFlex = (63 - 5) - leftFlex;
+
+  List<Widget> long = [
+    Expanded(flex: leftFlex, child: const Center()),
+    Expanded(flex: 5, child: Center(child: child)),
+    Expanded(flex: rightFlex, child: const Center()),
+  ];
+  return isRow ? Row(children: long) : Column(children: long);
+}
+
+playersOnBoard(BuildContext context, HashMap<int, Map> playerIcons,
+    HashMap<int, int> playerPositions, int rotations) {
+  //current board quarter rotations (clock-wise) needed to leave icons up
+
+  if (playerPositions.isNotEmpty && playerIcons.isNotEmpty) {
+    List<Widget> stackLayers = [];
+
+    int difference = playerPositions.entries.toSet().length;
+
+    HashMap<int, List<Map>> groups = HashMap();
+    playerPositions.forEach((id, position) {
+      groups.putIfAbsent(position, () => []);
+    });
+
+    playerIcons.forEach((id, iconDataMap) {
+      groups[playerPositions[id]]!.add(iconDataMap);
+    });
+
+    if (playerPositions.length != difference) {
+      //2 or more players share the same position, group same together
+
+    }
+    groups.forEach((index, element) {
       //corner
       if (index % 10 == 0) {
         //Corner
