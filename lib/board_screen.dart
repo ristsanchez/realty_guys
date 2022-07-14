@@ -71,17 +71,18 @@ class BoardScreen extends StatelessWidget {
                 ),
                 getActionsRow(context),
                 const Divider(
-                  height: 5,
+                  height: 55,
                 ),
-                getPlayer(),
-                const Divider(
-                  height: 2,
+                Text('Testing panel'),
+                ElevatedButton(
+                  onPressed: () {
+                    //initgame
+                    Provider.of<Game>(context, listen: false).initGame();
+                  },
+                  child: Text('Init  game'),
                 ),
-                getPlayer(),
-                const Divider(
-                  height: 2,
-                ),
-                getPlayer(),
+                Text(
+                    'Time left: ${Provider.of<Game>(context, listen: false).time}'),
               ],
             ),
           ),
@@ -108,6 +109,7 @@ _playerPiecesOnBoard(BuildContext context, int rotations) {
 }
 
 getActionsRow(BuildContext context) {
+  //ADD a house build/sell mortgage do/undo LOCK for confirmation when doing it
   const double btnSize = 40;
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -127,16 +129,11 @@ getActionsRow(BuildContext context) {
               primary: Colors.transparent,
             ),
             onPressed: () {
-              some.startGame();
               //Call trade method from player?
+              Provider.of<Game>(context, listen: false).rollDice();
             },
             child: const Icon(Icons.casino),
           ),
-          onPressed: () {
-            getPropertyData();
-            //Call trade method from player?
-          },
-          child: const Icon(Icons.compare_arrows_rounded),
         ),
       ),
       Container(
@@ -183,19 +180,8 @@ getActionsRow(BuildContext context) {
               color: Colors.green.shade200,
             ),
           ),
-          onPressed: () {
-            //Call trade method from player?
-          },
-          child: Stack(
-            children: [
-              Icon(
-                Icons.add_home_outlined,
-                color: Colors.red.shade200,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 12.0, top: 12),
-                child: Icon(
-                  Icons.remove_circle,
+        ),
+      ),
       Container(
         height: btnSize,
         width: btnSize,
@@ -392,12 +378,13 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
     flex: 7,
     child: Column(
       children: [
-        //CORNER -----------------------------------------------
+        //GO CORNER; ID : 0 ---------------------------------------------------
         Expanded(
           flex: 7,
           child: GestureDetector(
             onTap: () {
-              showPropertyDialog(context, '');
+              //show info dialog
+              showPropertyDialog(context, propertyData[0]);
             },
             child: Container(
               color: cornerBaseColor,
@@ -424,7 +411,7 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, 'data39');
+                    showPropertyDialog(context, propertyData[39]);
                   },
                   child: Container(
                     color: darkBlue,
