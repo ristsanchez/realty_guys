@@ -20,6 +20,19 @@ class Game {
     _gameFinished = false;
     _players = {};
     _die = Die();
+  HashMap<int, Map> get playerIcons {
+    HashMap<int, Map> temp = HashMap();
+    for (Player player in _players) {
+      temp.putIfAbsent(
+        player.id,
+        () => {
+          'iconData': player.playerIconData,
+          'color': player.playerColor,
+        },
+      );
+    }
+    return temp;
+  }
 
     _players.add(Player(1, 'john'));
     _players.add(Player(2, 'lennon'));
