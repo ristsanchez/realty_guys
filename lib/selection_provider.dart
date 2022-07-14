@@ -30,6 +30,9 @@ class SelectionMenuProvider extends ChangeNotifier {
         color: _colorList.elementAt(_colorIndex),
       );
 
+  IconData get selectedIconData => _iconList.elementAt(_index);
+  Color get selectedColor => _colorList.elementAt(_colorIndex);
+
   void init() async {
     _data = await getPropertyData();
     await Future.delayed(const Duration(milliseconds: 500));
