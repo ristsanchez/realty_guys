@@ -91,12 +91,10 @@ class BoardScreen extends StatelessWidget {
   }
 }
 
-_getPlayerPiece(BuildContext context) {
-  HashMap<Icon, int> players =
-      Provider.of<Board>(context, listen: true).getAllPositions();
+_playerPiecesOnBoard(BuildContext context, int rotations) {
 
   //render them at respective position
-  return playersOnBoard(context, players);
+  return playersOnBoard(context, playerIcons, playerPositions, rotations);
 }
 
 getActionsRow(BuildContext context) {
@@ -338,13 +336,13 @@ topBar(BuildContext context) {
   );
 }
 
-_getBoard(BuildContext context, HashMap propertyData, double x) {
+_getBoard(BuildContext context, HashMap propertyData, int rotations) {
   return Row(
     children: [
       //FIRST COLUMN
       _getLeftColumn(context, propertyData),
       //MIDDLE COLUMN
-      _getCenterColumn(context, propertyData),
+      _getCenterColumn(context, propertyData, rotations),
       //LAST COLUMN
       _getRightColumn(context, propertyData),
     ],
