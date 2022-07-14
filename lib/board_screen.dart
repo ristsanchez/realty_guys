@@ -92,6 +92,16 @@ class BoardScreen extends StatelessWidget {
 }
 
 _playerPiecesOnBoard(BuildContext context, int rotations) {
+//  boardTableTopUI doesn't care about any players fields except id, position, icon
+
+  //hashmap of player id and position
+  HashMap<int, int> playerPositions =
+      Provider.of<Board>(context, listen: true).getPositions;
+
+//listen should be set to false when the players component is initiated on
+//  game build constructor|| see later when introducing disconnections -> AI
+  HashMap<int, Map> playerIcons =
+      Provider.of<Game>(context, listen: true).playerIcons;
 
   //render them at respective position
   return playersOnBoard(context, playerIcons, playerPositions, rotations);
