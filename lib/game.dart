@@ -7,8 +7,7 @@ import 'package:realty_guys/die.dart';
 import 'package:realty_guys/player.dart';
 import 'package:realty_guys/timer_local.dart';
 
-class Game {
-  late bool _gameFinished;
+class Game extends ChangeNotifier {
   late Board _board;
   late Set<Player> _players;
 
