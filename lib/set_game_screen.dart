@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:realty_guys/board.dart';
 import 'package:realty_guys/board_screen.dart';
 import 'package:realty_guys/board_ui_provider.dart';
+import 'package:realty_guys/die.dart';
 import 'package:realty_guys/game.dart';
 import 'package:realty_guys/json_util_data.dart';
 import 'package:realty_guys/selection_provider.dart';
@@ -82,25 +83,7 @@ mainBody(BuildContext context) {
                     child: isGameInit
                         ? ElevatedButton(
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: ((BuildContext context) =>
-                                      MultiProvider(
-                                        providers: [
-                                          ChangeNotifierProvider(
-                                            create: (_) => BoardUIProvider(),
-                                          ),
-                                          ChangeNotifierProvider(
-                                            create: (_) => Board(),
-                                          ),
-                                          ChangeNotifierProvider(
-                                              create: (_) => Game()),
-                                        ],
-                                        child: BoardScreen(propertyData: data),
-                                      )),
-                                ),
-                              );
+                              _goToGame(context, data);
                             },
                             child: const Text('Go?'),
                           )
@@ -170,6 +153,34 @@ mainBody(BuildContext context) {
           ],
         ),
       ),
+    ),
+  );
+}
+
+void _goToGame(BuildContext context, HashMap data) {
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: ((BuildContext context) => MultiProvider(
+            providers: [
+              //Board ui provider, user interface settings
+              ChangeNotifierProvider<BoardUIProvider>(
+                  create: (_) => BoardUIProvider()),
+              //
+              //Board provider, provider players locations, movement functions
+              ChangeNotifierProvider<Board>(create: (_) => Board()),
+              //
+              //ProxyProvider, init a board instance to be controlled by Game
+              ChangeNotifierProxyProvider<Board, Game>(
+                  create: (BuildContext context) =>
+                      Game(Provider.of<Board>(context, listen: false)),
+                  update: (BuildContext context, Board board, Game? game) {
+                    game?.board = board;
+                    return game ?? Game(board);
+                  }),
+            ],
+            child: BoardScreen(propertyData: data),
+          )),
     ),
   );
 }
