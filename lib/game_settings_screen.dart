@@ -8,16 +8,16 @@ import 'package:realty_guys/board_ui_provider.dart';
 import 'package:realty_guys/die.dart';
 import 'package:realty_guys/game.dart';
 import 'package:realty_guys/json_util_data.dart';
-import 'package:realty_guys/selection_provider.dart';
+import 'package:realty_guys/game_settings_provider.dart';
 
-class SetGameScreen extends StatefulWidget {
-  const SetGameScreen({Key? key}) : super(key: key);
+class GameSettingsScreen extends StatefulWidget {
+  const GameSettingsScreen({Key? key}) : super(key: key);
 
   @override
-  State<SetGameScreen> createState() => _SetGameScreenState();
+  State<GameSettingsScreen> createState() => _GameSettingsScreenState();
 }
 
-class _SetGameScreenState extends State<SetGameScreen> {
+class _GameSettingsScreenState extends State<GameSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +34,7 @@ class _SetGameScreenState extends State<SetGameScreen> {
     super.initState();
     //init json data? after first build
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<SelectionMenuProvider>(context, listen: false).init();
+      Provider.of<GameSettings>(context, listen: false).init();
     });
   }
 }
@@ -44,11 +44,11 @@ loading() {
 }
 
 mainBody(BuildContext context) {
-  bool isGameInit =
-      Provider.of<SelectionMenuProvider>(context, listen: true).isInit;
+  bool isGameInit = Provider.of<GameSettings>(context, listen: true).isInit;
   Icon currentIcon =
-      Provider.of<SelectionMenuProvider>(context, listen: true).currentIcon;
-  var data = Provider.of<SelectionMenuProvider>(context, listen: true).data;
+      Provider.of<GameSettings>(context, listen: true).currentIcon;
+  HashMap<int, dynamic> data =
+      Provider.of<GameSettings>(context, listen: true).data;
   const double opacity = 0.5;
   return Center(
     child: Container(
@@ -98,8 +98,7 @@ mainBody(BuildContext context) {
                         opacity: opacity,
                         child: IconButton(
                             onPressed: () {
-                              Provider.of<SelectionMenuProvider>(context,
-                                      listen: false)
+                              Provider.of<GameSettings>(context, listen: false)
                                   .randomize();
                             },
                             icon: const Icon(Icons.casino)),
@@ -112,7 +111,7 @@ mainBody(BuildContext context) {
                             opacity: opacity,
                             child: IconButton(
                               onPressed: () {
-                                Provider.of<SelectionMenuProvider>(context,
+                                Provider.of<GameSettings>(context,
                                         listen: false)
                                     .previousIcon();
                               },
@@ -126,7 +125,7 @@ mainBody(BuildContext context) {
                             opacity: opacity,
                             child: IconButton(
                               onPressed: () {
-                                Provider.of<SelectionMenuProvider>(context,
+                                Provider.of<GameSettings>(context,
                                         listen: false)
                                     .nextIcon();
                               },
@@ -139,8 +138,7 @@ mainBody(BuildContext context) {
                         opacity: opacity,
                         child: IconButton(
                             onPressed: () {
-                              Provider.of<SelectionMenuProvider>(context,
-                                      listen: false)
+                              Provider.of<GameSettings>(context, listen: false)
                                   .changeColor();
                             },
                             icon: const Icon(Icons.color_lens_rounded)),
@@ -157,7 +155,7 @@ mainBody(BuildContext context) {
   );
 }
 
-void _goToGame(BuildContext context, HashMap data) {
+void _goToGame(BuildContext context, HashMap<int, dynamic> data) {
   Navigator.pushReplacement(
     context,
     MaterialPageRoute(
@@ -173,10 +171,10 @@ void _goToGame(BuildContext context, HashMap data) {
               //ProxyProvider, init a board instance to be controlled by Game
               ChangeNotifierProxyProvider<Board, Game>(
                   create: (BuildContext context) =>
-                      Game(Provider.of<Board>(context, listen: false)),
+                      Game(Provider.of<Board>(context, listen: false), data),
                   update: (BuildContext context, Board board, Game? game) {
                     game?.board = board;
-                    return game ?? Game(board);
+                    return game ?? Game(board, data);
                   }),
             ],
             child: BoardScreen(propertyData: data),
