@@ -30,6 +30,9 @@ class BoardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final double maxX = MediaQuery.of(context).size.width;
     final double maxY = MediaQuery.of(context).size.height;
+
+    int rotations =
+        Provider.of<BoardUIProvider>(context, listen: false).rotations;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
@@ -48,9 +51,7 @@ class BoardScreen extends StatelessWidget {
               children: [
                 topBar(context),
                 RotatedBox(
-                  quarterTurns:
-                      Provider.of<BoardUIProvider>(context, listen: false)
-                          .rotations,
+                  quarterTurns: rotations,
                   child: Container(
                     width: _boardWidth,
                     height: _boardHeight,
@@ -59,8 +60,9 @@ class BoardScreen extends StatelessWidget {
                     //Whole board as a Row
                     child: Stack(
                       children: [
-                        _getBoard(context, propertyData, maxX),
+                        _getBoard(context, propertyData, rotations),
                         lightUpTile(context, _boardHeight),
+                        _playerPiecesOnBoard(context, 4 - rotations),
                       ],
                     ),
                   ),
