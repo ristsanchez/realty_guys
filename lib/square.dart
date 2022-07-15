@@ -32,8 +32,7 @@ class Property {
   final String _name;
   final String _group;
 
-  late Player _owner; //id from player object
-  bool _hasOwner = false;
+  late int _owner = -1; //id from player object
   bool _isMortgaged = false;
 
   Property(
@@ -51,9 +50,9 @@ class Property {
 
   String get group => _group;
 
-  bool get hasOwner => _hasOwner;
+  bool get hasOwner => _owner > -1;
 
-  Player get owner => _owner;
+  int get ownerId => _owner;
 
   bool get isMortgaged => _isMortgaged;
 
@@ -61,12 +60,8 @@ class Property {
     _isMortgaged = condition;
   }
 
-  set setIsOwned(bool condition) {
-    _hasOwner = condition;
-  }
-
-  set setOwner(Player player) {
-    _owner = player;
+  set setOwner(int playerId) {
+    _owner = playerId;
   }
 }
 
@@ -82,6 +77,7 @@ class Land extends Property {
   final int _rent;
   final int _houseCost;
   final List<int> _rentList;
+
   int houses = 0;
 
   int get rent => _rent;
