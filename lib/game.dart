@@ -96,14 +96,112 @@ class Game extends ChangeNotifier {
         _rollAttempt++;
         //pass to ui
       }
+  void resolveLanding(int oldPosition, int newPosition) {
+    Player _currentPlayer = Player();
+    int currentPlayerId = 0;
+    var tileType = _tileData[newPosition].group;
+
+    // passed go, landing on it handled separately
+    if (currentPlayerPosition > 0 && _oldPosition < 40) {
+      //collect $200
+      _pay(200, collector: currentPlayerId);
+    }
+
+    if (tileType == 'special') {
+      //not buyable
+      SpecialTile tile = _tileData[newPosition];
+
+      //landed on go
+      if (tile.id == 0) {
+        _pay(200, collector: currentPlayerId);
+      }
+      //landed on chance tile
+      else if (tile.name == 'Chance') {
+        //get random chance card and resolve effect
+      }
+      //landed on lucky tile
+      else if (tile.name == 'Lucky') {
+        //get random lucky card and resolve effect
+      }
+      //landed on an income/luxury tax tile
+      else if (tile.id == 4 || tile.id == 38) {
+        //pay 200 to bank, aka the payments void
+        _pay(200, debtor: currentPlayerId);
+      }
+      //landed on just-visiting/jail
+      else if (tile.id == 10) {
+      }
+      //landed on free parking
+      else if (tile.id == 20) {
+        //depending on settings e.g., players collect accumulated taxes
+      }
+      //landed on go to jail
+      else if (tile.id == 30) {
+        //send to jail tile
+        _board.sendToJail(currentPlayerId);
+        _players
+            .firstWhere((player) => player.id == currentPlayerId)
+            .sendToJail();
+      }
+      //all special tiles covered
     } else {
-      //regular move
-      _board.advance(_currentPlayerId, die1 + die2);
-      //add timer/ animation to match time
-      //pass to ui
-      _currentPlayerId++;
-      _currentPlayerId %= 3;
-      _rollAttempt = 0;
+      //landed on Property
+      Property property = _tileData[newPosition];
+
+      //If the property doesn't have an owner
+      if (!property.hasOwner) {
+        //if player can afford the property
+        if (_currentPlayer.money > property.cost) {
+          //enable buy option in the UI
+          // await player input
+          var playerSelectedBuy;
+          if (playerSelectedBuy) {
+            //property set owner to current player id
+            //FIND where to get the notify for the UI
+          }
+        } else {
+          //check auction settings
+          //auction
+        }
+      }
+      //Property has an owner
+      else {
+        //player is not the owner of property
+        if (currentPlayerId != property.ownerId) {
+          //If property is not mortgaged
+          if (!property.isMortgaged) {
+            //pay accordingly
+            if (property.group == 'railroad') {
+              //check how many railroad cards owner has
+            } else if (property.group == 'utility') {
+              //check if whole group owned
+              //check roll to calculate rent roll * 4(1 owned) or 10(2 owned)
+            } else {
+              //regular land
+              Land land = _tileData[newPosition];
+              //check if land has houses
+              if (land.hasHouses) {
+                _pay(land.rentWithHouses,
+                    collector: land.ownerId, debtor: currentPlayerId);
+              }
+              //if owner has all from group
+              else if (1 == 2) {
+                _pay(land.rent * 2,
+                    collector: land.ownerId, debtor: currentPlayerId);
+              }
+              //regular rent
+              _pay(land.rent, collector: land.ownerId, debtor: currentPlayerId);
+            }
+            //payed to owner: land rent
+          }
+          //didn't pay: mortgaged property
+        }
+        //didn't pay: own property
+      }
+      //regular property, buyable
+    }
+  }
+
     }
 
     //this goes into game controller
