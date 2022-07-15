@@ -14,7 +14,7 @@ showPropertyDialog(BuildContext context, var data) {
   if (type == 'special') {
     temp = _getSpecialTileCard(data);
     dialogColor = getColorFromName(data.name);
-  } else if (type == 'railRoad') {
+  } else if (type == 'railroad') {
     temp = _getRailRoadCard(data);
   } else if (type == 'utility') {
     temp = _getUtilityCard(data);
