@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:realty_guys/player.dart';
 
-const int jail = 10;
+const int jail = 30;
 
 class Board extends ChangeNotifier {
   // player id and then its position
@@ -28,6 +28,12 @@ class Board extends ChangeNotifier {
     }
     notifyListeners();
     print('initialized player positions');
+  }
+
+  void sendToGoToJail(int playerId) {
+    _playerPositions.update(playerId, (value) => jail);
+    //notify landing?
+    notifyListeners();
   }
 
   void sendToJail(int playerId) {
