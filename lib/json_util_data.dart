@@ -2,20 +2,21 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:realty_guys/luck_card.dart';
 import 'package:realty_guys/square.dart';
 
-Future<HashMap> getPropertyData() async {
+Future<HashMap<int, dynamic>> getPropertyData() async {
   String data = await rootBundle.loadString('lib/assets/tile_data.json');
   Map<String, dynamic> map = json.decode(data);
 
-  HashMap boardSpaces = HashMap();
+  HashMap<int, dynamic> boardSpaces = HashMap();
   List anotherTemp = map['properties'];
 
   for (var element in anotherTemp) {
     if (element['group'] == 'special') {
       boardSpaces.putIfAbsent(
           element['id'], () => SpecialTile.fromJson(element));
-    } else if (element['group'] == 'railRoad') {
+    } else if (element['group'] == 'railroad') {
       boardSpaces.putIfAbsent(element['id'], () => Railroad.fromJson(element));
     } else if (element['group'] == 'utility') {
       boardSpaces.putIfAbsent(element['id'], () => Utility.fromJson(element));
