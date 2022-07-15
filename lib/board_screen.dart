@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:realty_guys/board.dart';
 import 'package:realty_guys/board_inner_ring.dart';
+import 'package:realty_guys/board_player_info_widget.dart';
 import 'package:realty_guys/board_ui_movement.dart';
 import 'package:realty_guys/board_ui_provider.dart';
 import 'package:realty_guys/color_constants.dart';
@@ -11,6 +12,7 @@ import 'package:realty_guys/color_constants.dart';
 import 'package:realty_guys/custom_triangle.dart';
 import 'package:realty_guys/game.dart';
 import 'package:realty_guys/json_util_data.dart';
+import 'package:realty_guys/player.dart';
 import 'package:realty_guys/property_dialog.dart';
 
 const int majorFlex = 35;
@@ -70,9 +72,9 @@ class BoardScreen extends StatelessWidget {
                   height: 15,
                 ),
                 getActionsRow(context),
-                const Divider(
-                  height: 55,
-                ),
+                const Divider(height: 5),
+                getPlayerInfo(context),
+                const Divider(height: 5),
                 Text('Testing panel'),
                 ElevatedButton(
                   onPressed: () {
@@ -82,7 +84,7 @@ class BoardScreen extends StatelessWidget {
                   child: Text('Init  game'),
                 ),
                 Text(
-                    'Time left: ${Provider.of<Game>(context, listen: false).time}'),
+                    'Time left: ${Provider.of<Game>(context, listen: false).timeLeft}'),
               ],
             ),
           ),
@@ -90,6 +92,11 @@ class BoardScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+getPlayerInfo(BuildContext context) {
+  Set<Player> temp = Provider.of<Game>(context, listen: false).playerInfo;
+  return playerInfo(temp);
 }
 
 _playerPiecesOnBoard(BuildContext context, int rotations) {
