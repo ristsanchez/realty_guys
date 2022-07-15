@@ -26,3 +26,27 @@ Future<HashMap> getPropertyData() async {
   }
   return boardSpaces;
 }
+
+Future<List<LuckCard>> getLuckyCardsData(String type) async {
+  String data = await rootBundle.loadString('lib/assets/tile_data.json');
+  Map<String, dynamic> map = json.decode(data);
+
+  List jsonCardList = map[type];
+  List<LuckCard> cardList = [];
+
+  for (var jsonCard in jsonCardList) {
+    //add chance card to game card que
+    cardList.add(LuckCard.fromJson(jsonCard));
+  }
+  cardList.shuffle();
+  return cardList;
+  //game will generate a random sequence of card ids of length cardList
+  //    notify clients of sequence
+  //each time a player lands on chance pop id from stack
+  //if stack gets empty remake stack and notify
+  //    notify clients of new sequence
+  //clients get id of chance card got from socket/net...
+  //this way the actual card data is not passed through the network,
+  //and client only needs to initialize card with title and id
+  //or maybe not
+}
