@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class LuckCard {
   int id;
   String title;
@@ -23,9 +21,9 @@ class LuckCard {
 
   factory LuckCard.fromJson(var jsonData) {
     return LuckCard(
-      id: jsonData['id'],
-      title: jsonData['title'],
-      action: jsonData['action'],
+      id: jsonData['id'] ?? -1,
+      title: jsonData['title'] ?? '',
+      action: jsonData['action'] ?? '',
       tileId: jsonData['tileId'] ?? -1,
       group: jsonData['group'] ?? '',
       rentMultiplier: jsonData['rentMultiplier'] ?? 1,
