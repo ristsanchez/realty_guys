@@ -1,45 +1,39 @@
 import 'package:flutter/material.dart';
 
 class Player {
-  late int id;
+  late final int _id;
+  late final String _name;
+
   late int _money;
+  bool _isJailed = false;
 
-  late String name;
-
-  late IconData _playerIconData; // leave
-  late Color _playerColor;
+  late Color color;
+  late IconData iconData;
 
   Player({
-    this.id = -1,
-    this.name = 'Default',
-    color = Colors.red,
-  })  : _money = 0,
-        _playerColor = color,
-        _playerIconData = Icons.cruelty_free_sharp;
+    id = -1,
+    name = 'Default',
+    this.color = Colors.red,
+    this.iconData = Icons.attachment_outlined,
+  })  : _id = id,
+        _name = name,
+        _money = 0;
 
-  int getMoney() {
-    return _money;
-  }
+  int get id => _id;
 
-  void addMoney(int money) {
-    if (money < 0) {
-      // throw new IllegalArgumentException("Attempted robbery.");
-      return;
-    }
-    _money += money;
-  }
+  int get money => _money;
 
-  IconData get playerIconData => _playerIconData;
+  bool get isJailed => _isJailed;
 
-  set playerIconData(IconData icon) {
-    _playerIconData = icon;
-  }
+  String get name => _name;
 
-  Color get playerColor => _playerColor;
+  void addMoney(int money) => _money += money;
 
-  set playerColor(Color color) {
-    _playerColor = color;
-  }
+  void takeMoney(int money) => _money -= money;
+
+  void sendToJail() => _isJailed = true;
+
+  void getOutOfJail() => _isJailed = false;
 }
 
 
