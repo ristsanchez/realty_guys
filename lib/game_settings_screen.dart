@@ -155,30 +155,43 @@ mainBody(BuildContext context) {
   );
 }
 
-void _goToGame(BuildContext context, HashMap<int, dynamic> data) {
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: ((BuildContext context) => MultiProvider(
-            providers: [
-              //Board ui provider, user interface settings
-              ChangeNotifierProvider<BoardUIProvider>(
-                  create: (_) => BoardUIProvider()),
-              //
-              //Board provider, provider players locations, movement functions
-              ChangeNotifierProvider<Board>(create: (_) => Board()),
-              //
-              //ProxyProvider, init a board instance to be controlled by Game
-              ChangeNotifierProxyProvider<Board, Game>(
-                  create: (BuildContext context) =>
-                      Game(Provider.of<Board>(context, listen: false), data),
-                  update: (BuildContext context, Board board, Game? game) {
-                    game?.board = board;
-                    return game ?? Game(board, data);
-                  }),
-            ],
-            child: BoardScreen(propertyData: data),
-          )),
-    ),
-  );
+  void _goToGame(BuildContext context) {
+    HashMap<int, dynamic> tileData =
+        Provider.of<GameSettings>(context, listen: false).tileData;
+    List<LuckCard> chanceCardData =
+        Provider.of<GameSettings>(context, listen: false).chanceCards;
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: ((BuildContext context) => MultiProvider(
+              providers: [
+                //Board ui provider, user interface settings
+                ChangeNotifierProvider<BoardUIProvider>(
+                    create: (_) => BoardUIProvider()),
+                //
+                //Board provider, provider players locations, movement functions
+                ChangeNotifierProvider<Board>(create: (_) => Board()),
+                //
+                //ProxyProvider, init a board instance to be controlled by Game
+                ChangeNotifierProxyProvider<Board, Game>(
+                    create: (BuildContext context) => Game(
+                          Provider.of<Board>(context, listen: false),
+                          tileData,
+                          chanceCardData,
+                          chanceCardData,
+                          players,
+                        ),
+                    update: (BuildContext context, Board board, Game? game) {
+                      game?.board = board;
+                      return game ??
+                          Game(board, tileData, chanceCardData, chanceCardData,
+                              players);
+                    }),
+              ],
+              child: BoardScreen(propertyData: tileData),
+            )),
+      ),
+    );
+  }
 }
