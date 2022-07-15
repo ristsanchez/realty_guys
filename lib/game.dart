@@ -202,7 +202,15 @@ class Game extends ChangeNotifier {
     }
   }
 
+  void _pay(int amount, {int collector = -1, int debtor = -1}) {
+    if (collector > -1) {
+      _players.firstWhere((player) => player.id == collector).addMoney(amount);
     }
+    if (debtor > -1) {
+      _players.firstWhere((player) => player.id == debtor).takeMoney(amount);
+    }
+    //notify each player in the UI
+  }
 
     //this goes into game controller
   }
