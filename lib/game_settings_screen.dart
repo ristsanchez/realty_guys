@@ -181,7 +181,7 @@ mainBody(BuildContext context) {
                           chanceCardData,
                           chanceCardData,
                           players,
-                        ),
+                        )..initGame(),
                     update: (BuildContext context, Board board, Game? game) {
                       game?.board = board;
                       return game ??
