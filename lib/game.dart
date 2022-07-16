@@ -1,93 +1,131 @@
+import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:realty_guys/board.dart';
 import 'package:realty_guys/die.dart';
+import 'package:realty_guys/luck_card.dart';
 import 'package:realty_guys/player.dart';
-import 'package:realty_guys/timer_local.dart';
+import 'package:realty_guys/square.dart';
 
 class Game extends ChangeNotifier {
   late Board _board;
   late Set<Player> _players;
 
-  late int _currentPlayerId;
+  final HashMap<int, dynamic> _tileData;
+
+  final List<LuckCard> _chanceCards;
+  final List<LuckCard> _luckyCards;
 
   final Die _die = Die();
 
   late int _rollAttempt;
   late bool _isGameGoing;
 
-  late int time;
-  late TickTimer timer;
-  // que of actions
+  late int _oldPosition;
 
-  Game();
+  late int _currentPlayerId;
+
+  late Timer timer;
+
   Board get board => _board;
   set board(Board b) => _board = b;
 
-  int get currentPlayerId => _currentPlayerId;
+  Set<Player> get playerInfo => _players;
 
-  int get currentPlayerPosition => board.getPlayerPosition(_currentPlayerId);
+  int get currentPlayerPosition =>
+      _board.getPlayerPosition(_currentPlayerId); //dep
+
+  String get currentPlayerName =>
+      _players.firstWhere((player) => player.id == _currentPlayerId).name;
 
   int get rollAttempt => _rollAttempt;
   bool get isGameGoing => _isGameGoing;
 
-  void startGame() {
-    _gameFinished = false;
-    _players = {};
-    _die = Die();
   HashMap<int, Map> get playerIcons {
     HashMap<int, Map> temp = HashMap();
     for (Player player in _players) {
       temp.putIfAbsent(
         player.id,
         () => {
-          'iconData': player.playerIconData,
-          'color': player.playerColor,
+          'iconData': player.iconData,
+          'color': player.color,
         },
       );
     }
     return temp;
   }
 
-  Game(Board boardFromProvider)
-      : _board = boardFromProvider,
-        _currentPlayerId = -1,
-        _players = {},
-        _isGameGoing = false,
-        _rollAttempt = 0,
-        time = 0;
-    _players.add(Player(id: 0, name: 'Yoko', color: Colors.red));
-    _players
-        .add(Player(id: 1, name: 'John', color: Colors.greenAccent.shade700));
-    _players.add(
-        Player(id: 2, name: 'Lennon', color: Colors.orangeAccent.shade700));
+  int timeLeft = 0;
 
-    // _players.add(Player(2, 'lennon'));
+  Game(
+    this._board,
+    this._tileData,
+    this._chanceCards,
+    this._luckyCards,
+    this._players,
+  )   : _rollAttempt = 0,
+        _currentPlayerId = 0,
+        _isGameGoing = false;
 
+  void initGame() {
     _board.initialize(_players);
+    for (Player player in _players) {
+      player.addMoney(1500);
+    }
+    _currentPlayerId = _players.firstWhere((element) => element.id == 0).id;
+  }
 
-    _currentPlayer = _players.firstWhere((element) => element.id == 1);
+  void startGame() {
+    _isGameGoing = true;
+    notifyListeners();
+    startTurn();
+  }
 
-    //   _gameOn = true;
-    // }
-    //exit?
+  void startTurn() {
+    timeLeft = 10;
+    //user can trade/sell/buy, etc
+
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
+      if (timeLeft <= 0) {
+        rollDice();
+
+        timeLeft = 10;
+      } else {
+        timeLeft--;
+      }
+      notifyListeners();
+    });
+    //resolve landing
+  }
+
+  void playerPressedRoll() {
+    timer.cancel();
+    rollDice();
+
+    startTurn();
+  }
+
+  void _updateCurrentPlayer() {
+    _currentPlayerId++;
+    _currentPlayerId %= _players.length;
+    notifyListeners();
   }
 
   void rollDice() {
     //set top of que state to rolling?
     int die1 = _die.roll();
     int die2 = _die.roll();
-    print('roll is $die1 + $die2');
 
+    //set doubles to false
     if (die1 == die2) {
       if (_rollAttempt == 2) {
         //go to jail
-        _board.sendToJail(_currentPlayerId);
-        _currentPlayerId++;
-        _currentPlayerId %= 3;
+        _board.sendToGoToJail(_currentPlayerId);
+
         _rollAttempt = 0;
+        _updateCurrentPlayer();
         //pass to ui
       } else {
         //regular move
@@ -96,6 +134,17 @@ class Game extends ChangeNotifier {
         _rollAttempt++;
         //pass to ui
       }
+      //set doubles to true
+    } else {
+      _board.advance(_currentPlayerId, die1 + die2);
+      // resolveLanding(currentPlayerPosition, currentPlayerPosition + die2 + die1);
+      //add timer/ animation to match time
+      //pass to ui
+      _rollAttempt = 0;
+      _updateCurrentPlayer();
+    }
+  }
+
   void resolveLanding(int oldPosition, int newPosition) {
     Player _currentPlayer = Player();
     int currentPlayerId = 0;
