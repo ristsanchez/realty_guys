@@ -48,4 +48,3 @@ app.*.map.json
 lib/assets/sample.jpg
 lib/assets/sampleBoard.jpg
 .vscode/settings.json
-lib/continental-world-map.jpg
