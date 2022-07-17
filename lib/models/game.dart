@@ -13,7 +13,10 @@ class Game extends ChangeNotifier {
   late Board _board;
   late Set<Player> _players;
 
-  final HashMap<int, dynamic> _tileData;
+  ///
+  late final HashMap<int, dynamic> _tileData;
+  //idk we shall see
+  late Map<int, int> _ownerData;
 
   final List<LuckCard> _chanceCards;
   final List<LuckCard> _luckyCards;
@@ -43,6 +46,17 @@ class Game extends ChangeNotifier {
   int get rollAttempt => _rollAttempt;
   bool get isGameGoing => _isGameGoing;
 
+  //property id and player id
+  Map<int, int> get propertyOwnerInfo {
+    Map<int, int> list = {};
+    _tileData.forEach((id, tileOrProp) {
+      if (tileOrProp is Property) {
+        list.putIfAbsent(id, () => tileOrProp.ownerId);
+      }
+    });
+    return {};
+  }
+
   HashMap<int, Map> get playerIcons {
     HashMap<int, Map> temp = HashMap();
     for (Player player in _players) {
@@ -67,7 +81,9 @@ class Game extends ChangeNotifier {
     this._players,
   )   : _rollAttempt = 0,
         _currentPlayerId = 0,
-        _isGameGoing = false;
+        _isGameGoing = false,
+        _ownerData = {for (var i = 0; i < 40; i++) i: -1};
+  //    ^ this is the default setting, no one owns a property
 
   void initGame() {
     _board.initialize(_players);
