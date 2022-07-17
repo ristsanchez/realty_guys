@@ -110,6 +110,51 @@ class BoardScreen extends StatelessWidget {
   }
 }
 
+getPropertyBuy(BuildContext context) {
+  //wrap into consumer from  some provider
+
+  return ChangeNotifierProvider(
+    create: (_) => PurchaseProvider(),
+    child: Consumer<PurchaseProvider>(
+      builder: (context, value, child) {
+        return Visibility(
+            visible: value.ifCanBuy,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    value.toggleVisibility();
+                    //toggle it
+                    //if toggled to true pop dialog
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    height: 60,
+                    width: 60,
+                    decoration: BoxDecoration(
+                      color: value.purchaseVisibility
+                          ? AppColors.activated
+                          : AppColors.deactivated,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        value.purchaseVisibility
+                            ? Icons.layers_rounded
+                            : Icons.layers_clear_rounded,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ));
+      },
+    ),
+  );
+}
+
 getPlayerInfo(BuildContext context) {
   Set<Player> temp = Provider.of<Game>(context, listen: false).playerInfo;
   return playerInfo(temp);
