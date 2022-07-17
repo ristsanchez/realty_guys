@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:realty_guys/player.dart';
+import 'package:realty_guys/models/player.dart';
 
 playerInfo(Set<Player> players) {
   if (players.isEmpty) return const Center();

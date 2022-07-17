@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 getInnerRing(int position, int rotations) {
   if (position < 0) {
-    return Center();
+    return const Center();
   }
   //where N:0, E:1, S:2, W:3
   int orientation = position ~/ 10;

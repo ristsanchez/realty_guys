@@ -2,23 +2,25 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:realty_guys/board.dart';
-import 'package:realty_guys/board_inner_ring.dart';
-import 'package:realty_guys/board_player_info_widget.dart';
-import 'package:realty_guys/board_ui_movement.dart';
-import 'package:realty_guys/board_ui_provider.dart';
-import 'package:realty_guys/color_constants.dart';
+import 'package:realty_guys/models/board.dart';
+import 'package:realty_guys/presentation/board_inner_ring.dart';
+import 'package:realty_guys/presentation/board_player_info_widget.dart';
+import 'package:realty_guys/presentation/board_ui_movement.dart';
+import 'package:realty_guys/providers/board_ui_provider.dart';
+import 'package:realty_guys/presentation/property_card_widget.dart';
+import 'package:realty_guys/presentation/color_constants.dart';
 
-import 'package:realty_guys/custom_triangle.dart';
-import 'package:realty_guys/game.dart';
-import 'package:realty_guys/json_util_data.dart';
-import 'package:realty_guys/player.dart';
-import 'package:realty_guys/property_dialog.dart';
+import 'package:realty_guys/presentation/custom_triangle.dart';
+import 'package:realty_guys/models/game.dart';
+import 'package:realty_guys/utils/json_utils.dart';
+import 'package:realty_guys/models/player.dart';
 
-const int majorFlex = 35;
+import '../dialogs/index.dart';
+
+const int innerFlex = 5;
+const int cornerFlex = 1;
+
 bool showPrices = true;
-const double _boardWidth = 360;
-const double _boardHeight = 360;
 
 class BoardScreen extends StatelessWidget {
   const BoardScreen({Key? key, required this.propertyData}) : super(key: key);
@@ -34,6 +36,12 @@ class BoardScreen extends StatelessWidget {
 
     int rotations =
         Provider.of<BoardUIProvider>(context, listen: false).rotations;
+
+    double timeLeft = Provider.of<Game>(context, listen: false).timeLeft / 10;
+
+    bool ifGameIsRunning =
+        Provider.of<Game>(context, listen: false).isGameGoing;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
@@ -42,52 +50,60 @@ class BoardScreen extends StatelessWidget {
         appBar: AppBar(
           toolbarHeight: 0,
         ),
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-          child: Container(
-            width: maxX,
-            height: maxY,
-            // color: Colors.white12,
-            child: Column(
-              children: [
-                topBar(context),
-                RotatedBox(
-                  quarterTurns: rotations,
-                  child: Container(
-                    width: _boardWidth,
-                    height: _boardHeight,
-                    color: backBoard,
-
-                    //Whole board as a Row
-                    child: Stack(
-                      children: [
-                        _getBoard(context, propertyData, rotations),
-                        lightUpTile(context, _boardHeight),
-                        _playerPiecesOnBoard(context, 4 - rotations),
-                      ],
+        body: Column(
+          children: [
+            Visibility(
+              visible: ifGameIsRunning,
+              child: LinearProgressIndicator(
+                semanticsLabel: 'Time left in turn',
+                value: timeLeft,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(10, ifGameIsRunning ? 0 : 4, 10, 10),
+              child: Column(
+                children: [
+                  topBar(context),
+                  RotatedBox(
+                    quarterTurns: rotations,
+                    child: Container(
+                      color: AppColors.backBoard,
+                      width: maxX - 20,
+                      height: maxX - 20,
+                      //Whole board as a Row
+                      child: Stack(
+                        children: [
+                          _getBoard(context, propertyData, rotations),
+                          lightUpTile(context, maxX - 20),
+                          _playerPiecesOnBoard(context, 4 - rotations),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                const Divider(
-                  height: 15,
-                ),
-                getActionsRow(context),
-                const Divider(height: 5),
-                getPlayerInfo(context),
-                const Divider(height: 5),
-                Text('Testing panel'),
-                ElevatedButton(
-                  onPressed: () {
-                    //initgame
-                    Provider.of<Game>(context, listen: false).initGame();
-                  },
-                  child: Text('Init  game'),
-                ),
-                Text(
-                    'Time left: ${Provider.of<Game>(context, listen: false).timeLeft}'),
-              ],
+                  const Divider(
+                    height: 2,
+                  ),
+                  Visibility(
+                    visible: ifGameIsRunning,
+                    child: getActionsRow(context),
+                  ),
+                  const Divider(height: 2),
+                  getPlayerInfo(context),
+                  const Divider(height: 2),
+                  Visibility(
+                    visible: !ifGameIsRunning,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        //init game
+                        Provider.of<Game>(context, listen: false).startGame();
+                      },
+                      child: Text('Start game'),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -137,7 +153,7 @@ getActionsRow(BuildContext context) {
             ),
             onPressed: () {
               //Call trade method from player?
-              Provider.of<Game>(context, listen: false).rollDice();
+              Provider.of<Game>(context, listen: false).playerPressedRoll();
             },
             child: const Icon(Icons.casino),
           ),
@@ -158,7 +174,6 @@ getActionsRow(BuildContext context) {
               primary: Colors.transparent,
             ),
             onPressed: () {
-              getPropertyData();
               //Call trade method from player?
             },
             child: const Icon(Icons.compare_arrows_rounded),
@@ -288,9 +303,22 @@ topBar(BuildContext context) {
       Provider.of<BoardUIProvider>(context, listen: true).ownerVisibility;
   bool showCosts =
       Provider.of<BoardUIProvider>(context, listen: true).costVisibility;
+
+  String curPlayerName =
+      Provider.of<Game>(context, listen: false).currentPlayerName;
+  int timeLeft = Provider.of<Game>(context, listen: false).timeLeft;
   return Row(
-    mainAxisAlignment: MainAxisAlignment.end,
     children: [
+      Expanded(
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text("$curPlayerName's turn")],
+      )),
+      Padding(
+          padding: EdgeInsets.all(8),
+          child: Center(
+            child: Text('$timeLeft'),
+          )),
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: GestureDetector(
@@ -299,7 +327,7 @@ topBar(BuildContext context) {
                 .toggleCostsVisibility();
           },
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 400),
+            duration: const Duration(milliseconds: 200),
             height: 40,
             width: 40,
             decoration: BoxDecoration(
@@ -382,19 +410,19 @@ _getBoard(BuildContext context, HashMap propertyData, int rotations) {
 
 _getLeftColumn(BuildContext context, HashMap propertyData) {
   return Expanded(
-    flex: 7,
+    flex: cornerFlex,
     child: Column(
       children: [
         //GO CORNER; ID : 0 ---------------------------------------------------
         Expanded(
-          flex: 7,
+          flex: cornerFlex,
           child: GestureDetector(
             onTap: () {
               //show info dialog
-              showPropertyDialog(context, propertyData[0]);
+              showTileDialog(context, propertyData[0]);
             },
             child: Container(
-              color: cornerBaseColor,
+              color: AppColors.cornerBaseColor,
               alignment: Alignment.center,
               child: Transform.rotate(
                 angle: (45 + 90) / 180 * 3.1416,
@@ -410,7 +438,7 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
 
         //LEFT COLUMN ------------------------------------------
         Expanded(
-          flex: majorFlex,
+          flex: innerFlex,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -418,10 +446,10 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[39]);
+                    showTileDialog(context, propertyData[39]);
                   },
                   child: Container(
-                    color: darkBlue,
+                    color: AppColors.darkBlue,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: const [
@@ -434,10 +462,10 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    showPropertyDialog(context, propertyData[38]);
+                    showTileDialog(context, propertyData[38]);
                   },
                   child: Container(
-                    color: base,
+                    color: AppColors.base,
                     child: RotatedBox(
                       quarterTurns: 2,
                       child: Icon(
@@ -452,10 +480,10 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[37]);
+                    showTileDialog(context, propertyData[37]);
                   },
                   child: Container(
-                    color: darkBlue,
+                    color: AppColors.darkBlue,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: const [
@@ -469,10 +497,10 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[36]);
+                    showTileDialog(context, propertyData[36]);
                   },
                   child: Container(
-                    color: base,
+                    color: AppColors.base,
                     child: const RotatedBox(
                       quarterTurns: 1,
                       child: Icon(
@@ -487,11 +515,11 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[35]);
+                    showTileDialog(context, propertyData[35]);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(0),
-                    color: trainBase,
+                    color: AppColors.trainBase,
                     child: const RotatedBox(
                       quarterTurns: 1,
                       child: Icon(
@@ -507,10 +535,10 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[34]);
+                    showTileDialog(context, propertyData[34]);
                   },
                   child: Container(
-                    color: green,
+                    color: AppColors.green,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: const [
@@ -524,10 +552,10 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[33]);
+                    showTileDialog(context, propertyData[33]);
                   },
                   child: Container(
-                    color: base,
+                    color: AppColors.base,
                     child: RotatedBox(
                       quarterTurns: 3,
                       child: Icon(
@@ -542,10 +570,10 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[32]);
+                    showTileDialog(context, propertyData[32]);
                   },
                   child: Container(
-                    color: green,
+                    color: AppColors.green,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: const [
@@ -560,10 +588,10 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[31]);
+                    showTileDialog(context, propertyData[31]);
                   },
                   child: Container(
-                    color: green,
+                    color: AppColors.green,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: const [
@@ -579,16 +607,16 @@ _getLeftColumn(BuildContext context, HashMap propertyData) {
 
         // GO TO JAIL CORNER ---------------------------------------------------
         Expanded(
-          flex: 7,
+          flex: cornerFlex,
           child: GestureDetector(
             onTap: () {
               //show info dialog
-              showPropertyDialog(context, propertyData[30]);
+              showTileDialog(context, propertyData[30]);
             },
             child: Container(
               padding: const EdgeInsets.all(0),
               alignment: Alignment.center,
-              color: cornerBaseColor,
+              color: AppColors.cornerBaseColor,
               child: Transform.rotate(
                 angle: (180) / 180 * 3.1416,
                 child: Icon(
@@ -613,12 +641,13 @@ Expanded _getCenterColumn(
       Provider.of<Game>(context, listen: false).currentPlayerPosition;
 
   return Expanded(
-    flex: majorFlex,
+    flex: innerFlex,
     child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         //TOP ROW
         Expanded(
-          flex: 7,
+          flex: cornerFlex,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -626,10 +655,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[1]);
+                    showTileDialog(context, propertyData[1]);
                   },
                   child: Container(
-                    color: brown,
+                    color: AppColors.brown,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Column(
@@ -649,10 +678,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[2]);
+                    showTileDialog(context, propertyData[2]);
                   },
                   child: Container(
-                    color: base,
+                    color: AppColors.base,
                     child: RotatedBox(
                       quarterTurns: 0,
                       child: Icon(
@@ -667,10 +696,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[3]);
+                    showTileDialog(context, propertyData[3]);
                   },
                   child: Container(
-                    color: brown,
+                    color: AppColors.brown,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Column(
@@ -690,11 +719,11 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[4]);
+                    showTileDialog(context, propertyData[4]);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(0),
-                    color: base,
+                    color: AppColors.base,
                     child: RotatedBox(
                       quarterTurns: 2,
                       child: Icon(
@@ -710,11 +739,11 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[5]);
+                    showTileDialog(context, propertyData[5]);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(0),
-                    color: trainBase,
+                    color: AppColors.trainBase,
                     child: const RotatedBox(
                       quarterTurns: 2,
                       child: Icon(
@@ -730,10 +759,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[6]);
+                    showTileDialog(context, propertyData[6]);
                   },
                   child: Container(
-                    color: lightBlue,
+                    color: AppColors.lightBlue,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Column(
@@ -753,10 +782,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[7]);
+                    showTileDialog(context, propertyData[7]);
                   },
                   child: Container(
-                    color: base,
+                    color: AppColors.base,
                     child: const RotatedBox(
                       quarterTurns: 2,
                       child: Icon(
@@ -771,10 +800,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[8]);
+                    showTileDialog(context, propertyData[8]);
                   },
                   child: Container(
-                    color: lightBlue,
+                    color: AppColors.lightBlue,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Column(
@@ -795,10 +824,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[9]);
+                    showTileDialog(context, propertyData[9]);
                   },
                   child: Container(
-                    color: lightBlue,
+                    color: AppColors.lightBlue,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Column(
@@ -820,12 +849,13 @@ Expanded _getCenterColumn(
         //CENTER ---------------------------------------------------------------
         // current -> dest, gradient?, dots?
         Expanded(
-          flex: majorFlex,
+          flex: innerFlex,
           child: showRolls ? getInnerRing(position, rotations) : const Center(),
+          // child: Center(child: PropertyCard(color: Colors.blue.withOpacity(.2))),
         ),
         //BOT ROW --------------------------------------------------------------
         Expanded(
-          flex: 7,
+          flex: cornerFlex,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -833,10 +863,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[29]);
+                    showTileDialog(context, propertyData[29]);
                   },
                   child: Container(
-                    color: yellow,
+                    color: AppColors.yellow,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Column(
@@ -856,10 +886,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[28]);
+                    showTileDialog(context, propertyData[28]);
                   },
                   child: Container(
-                    color: base,
+                    color: AppColors.base,
                     child: RotatedBox(
                       quarterTurns: 2,
                       child: Icon(Icons.water_drop_outlined,
@@ -872,10 +902,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[27]);
+                    showTileDialog(context, propertyData[27]);
                   },
                   child: Container(
-                    color: yellow,
+                    color: AppColors.yellow,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Column(
@@ -896,10 +926,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[26]);
+                    showTileDialog(context, propertyData[26]);
                   },
                   child: Container(
-                    color: yellow,
+                    color: AppColors.yellow,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Column(
@@ -919,11 +949,11 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[25]);
+                    showTileDialog(context, propertyData[25]);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(0),
-                    color: trainBase,
+                    color: AppColors.trainBase,
                     child: const RotatedBox(
                       quarterTurns: 0,
                       child: Icon(
@@ -939,10 +969,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[24]);
+                    showTileDialog(context, propertyData[24]);
                   },
                   child: Container(
-                    color: red,
+                    color: AppColors.red,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Column(
@@ -963,10 +993,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[23]);
+                    showTileDialog(context, propertyData[23]);
                   },
                   child: Container(
-                    color: red,
+                    color: AppColors.red,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Column(
@@ -986,10 +1016,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[22]);
+                    showTileDialog(context, propertyData[22]);
                   },
                   child: Container(
-                    color: base,
+                    color: AppColors.base,
                     child: const RotatedBox(
                       quarterTurns: 0,
                       child: Icon(
@@ -1004,10 +1034,10 @@ Expanded _getCenterColumn(
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[21]);
+                    showBuyDialog(context, propertyData[21]);
                   },
                   child: Container(
-                    color: red,
+                    color: AppColors.red,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Column(
@@ -1033,15 +1063,15 @@ Expanded _getCenterColumn(
 
 _getRightColumn(BuildContext context, HashMap propertyData) {
   return Expanded(
-    flex: 7,
+    flex: cornerFlex,
     child: Column(
       children: [
         Expanded(
-          flex: 7,
+          flex: cornerFlex,
           child: GestureDetector(
             onTap: () {
               //show info dialog
-              showPropertyDialog(context, propertyData[10]);
+              showTileDialog(context, propertyData[10]);
             },
             child: Stack(
               children: [
@@ -1057,7 +1087,7 @@ _getRightColumn(BuildContext context, HashMap propertyData) {
                   ),
                 ),
                 Container(
-                  color: cornerBaseColor,
+                  color: AppColors.cornerBaseColor,
                   child: LayoutBuilder(builder: (context, constraints) {
                     return CustomPaint(
                         size:
@@ -1070,7 +1100,7 @@ _getRightColumn(BuildContext context, HashMap propertyData) {
           ),
         ),
         Expanded(
-          flex: majorFlex,
+          flex: innerFlex,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -1078,10 +1108,10 @@ _getRightColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[11]);
+                    showTileDialog(context, propertyData[11]);
                   },
                   child: Container(
-                    color: pink,
+                    color: AppColors.pink,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Row(
@@ -1101,10 +1131,10 @@ _getRightColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[12]);
+                    showTileDialog(context, propertyData[12]);
                   },
                   child: Container(
-                    color: base,
+                    color: AppColors.base,
                     child: RotatedBox(
                       quarterTurns: 3,
                       child: Icon(
@@ -1119,10 +1149,10 @@ _getRightColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[13]);
+                    showTileDialog(context, propertyData[13]);
                   },
                   child: Container(
-                    color: pink,
+                    color: AppColors.pink,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Row(
@@ -1143,10 +1173,10 @@ _getRightColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[14]);
+                    showTileDialog(context, propertyData[14]);
                   },
                   child: Container(
-                    color: pink,
+                    color: AppColors.pink,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Row(
@@ -1166,11 +1196,11 @@ _getRightColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[15]);
+                    showTileDialog(context, propertyData[15]);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(0),
-                    color: trainBase,
+                    color: AppColors.trainBase,
                     child: const RotatedBox(
                       quarterTurns: 3,
                       child: Icon(
@@ -1186,10 +1216,10 @@ _getRightColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[16]);
+                    showTileDialog(context, propertyData[16]);
                   },
                   child: Container(
-                    color: orange,
+                    color: AppColors.orange,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Row(
@@ -1209,10 +1239,10 @@ _getRightColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[17]);
+                    showTileDialog(context, propertyData[17]);
                   },
                   child: Container(
-                    color: base,
+                    color: AppColors.base,
                     child: RotatedBox(
                       quarterTurns: 1,
                       child: Icon(
@@ -1227,10 +1257,10 @@ _getRightColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[18]);
+                    showTileDialog(context, propertyData[18]);
                   },
                   child: Container(
-                    color: orange,
+                    color: AppColors.orange,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Row(
@@ -1251,10 +1281,10 @@ _getRightColumn(BuildContext context, HashMap propertyData) {
                 child: GestureDetector(
                   onTap: () {
                     //show info dialog
-                    showPropertyDialog(context, propertyData[19]);
+                    showTileDialog(context, propertyData[19]);
                   },
                   child: Container(
-                    color: orange,
+                    color: AppColors.orange,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Row(
@@ -1274,15 +1304,15 @@ _getRightColumn(BuildContext context, HashMap propertyData) {
           ),
         ),
         Expanded(
-          flex: 7,
+          flex: cornerFlex,
           child: GestureDetector(
             onTap: () {
               //show info dialog
-              showPropertyDialog(context, propertyData[20]);
+              showTileDialog(context, propertyData[20]);
             },
             child: Container(
               alignment: Alignment.center,
-              color: cornerBaseColor,
+              color: AppColors.cornerBaseColor,
               child: Transform.rotate(
                 angle: (45 + 270) / 180 * 3.1416,
                 child: const Icon(
@@ -1296,32 +1326,4 @@ _getRightColumn(BuildContext context, HashMap propertyData) {
       ],
     ),
   );
-}
-
-getNine(bool condition) {
-  List<Widget> temp = [];
-  var colors = [
-    lightBlue,
-    pink,
-    orange,
-    red,
-    yellow,
-    green,
-    darkBlue,
-  ];
-
-  colors.forEach((element) {
-    temp.add(Expanded(
-      flex: 1,
-      child: Container(
-        color: element,
-      ),
-    ));
-  });
-  if (condition) {
-    temp.insert(0, const Expanded(flex: 1, child: const Center()));
-
-    temp.insert(temp.length, const Expanded(flex: 1, child: const Center()));
-  }
-  return temp;
 }

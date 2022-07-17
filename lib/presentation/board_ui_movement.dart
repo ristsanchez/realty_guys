@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:realty_guys/board_ui_provider.dart';
+import 'package:realty_guys/providers/board_ui_provider.dart';
 
 //current tile
 // context, index of tile, size of board
