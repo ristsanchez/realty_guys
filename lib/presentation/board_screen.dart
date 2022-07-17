@@ -12,6 +12,7 @@ import 'package:realty_guys/presentation/color_constants.dart';
 
 import 'package:realty_guys/presentation/custom_triangle.dart';
 import 'package:realty_guys/models/game.dart';
+import 'package:realty_guys/providers/purchase_ui_provider.dart';
 import 'package:realty_guys/utils/json_utils.dart';
 import 'package:realty_guys/models/player.dart';
 
@@ -90,6 +91,7 @@ class BoardScreen extends StatelessWidget {
                   const Divider(height: 2),
                   getPlayerInfo(context),
                   const Divider(height: 2),
+                  getPropertyBuy(context),
                   Visibility(
                     visible: !ifGameIsRunning,
                     child: ElevatedButton(
@@ -397,7 +399,7 @@ topBar(BuildContext context) {
                 .toggleOwnerVisibility();
           },
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 200),
             height: 40,
             width: 40,
             decoration: BoxDecoration(
