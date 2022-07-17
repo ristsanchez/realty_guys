@@ -9,6 +9,10 @@ class AppColors {
   static const Color base = Colors.white12;
   static const Color base2 = Colors.white24;
 
+  static const Color deactivated = Colors.white10;
+
+  static const Color activated = Colors.white24;
+
   static final Color lucky = Colors.blue.shade300.withOpacity(.6);
 
   static final Color luckyText = Colors.blue.shade100.withOpacity(.7);
