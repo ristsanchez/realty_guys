@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:realty_guys/presentation/board_ui_constraints.dart';
+import 'package:realty_guys/presentation/card_widgets/property_card_widget.dart';
 import 'package:realty_guys/presentation/color_constants.dart';
-import 'package:realty_guys/presentation/property_card_widget.dart';
 
 class BuyPropertyDialog extends StatelessWidget {
   const BuyPropertyDialog({
