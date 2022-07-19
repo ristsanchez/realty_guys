@@ -4,9 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:realty_guys/models/player.dart';
 
-const int jail = 30;
-
 class Board extends ChangeNotifier {
+  static const int jail = 30;
   // player id and then its position
   late HashMap<int, int> _playerPositions;
 
@@ -16,7 +15,7 @@ class Board extends ChangeNotifier {
 
   HashMap<int, int> get getPositions => _playerPositions;
 
-  int getPlayerPosition(int id) => _playerPositions[id] ?? -1;
+  int playerPosition(int id) => _playerPositions[id] ?? -1;
 
   void setPositions(HashMap<int, int> positions) {
     _playerPositions = positions;
@@ -30,13 +29,13 @@ class Board extends ChangeNotifier {
 
   void sendToGoToJail(int playerId) {
     _playerPositions.update(playerId, (value) => jail);
-    //notify landing?
+    //notify landing? A: what let me see
     notifyListeners();
   }
 
   void sendToJail(int playerId) {
     _playerPositions.update(playerId, (value) => jail);
-    //notify landing?
+
     notifyListeners();
   }
 
@@ -44,17 +43,7 @@ class Board extends ChangeNotifier {
     int currentPosition = _playerPositions[playerId] ?? -1;
     int newPosition = (numberOfSpaces + currentPosition) % 40;
 
-    if (currentPosition < 0) {
-      // throw new IllegalArgumentException("Player does not play in the game.");
-    } else if (numberOfSpaces <= 0) {
-      // throw new IllegalArgumentException("numberOfFields must be positive: " + numberOfFields);
-    } else {
-      _playerPositions.update(playerId, (value) => newPosition);
-      notifyListeners();
-      //provider positions?
-      //show movement animation?
-    }
-
-    //behavior for landing separate? A: yes
+    _playerPositions.update(playerId, (value) => newPosition);
+    notifyListeners();
   }
 }

@@ -1,5 +1,3 @@
-import 'package:realty_guys/models/player.dart';
-
 class SpecialTile {
   SpecialTile(
     this.id,
@@ -28,19 +26,20 @@ class SpecialTile {
 
 abstract class Property {
   final int _id;
-  final int _cost;
   final String _name;
   final String _group;
+  final int _cost;
 
-  late int _owner = -1; //id from player object
-  bool _isMortgaged = false;
+  int _owner = -1; //id from player object
+  bool _isMortgaged;
 
   Property(
     this._id,
     this._name,
     this._group,
     this._cost,
-  );
+  )   : _owner = -1,
+        _isMortgaged = false;
 
   int get id => _id;
 
