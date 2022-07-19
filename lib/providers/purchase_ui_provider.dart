@@ -1,17 +1,22 @@
 import 'package:flutter/foundation.dart';
 
-class PurchaseProvider extends ChangeNotifier {
-  late bool _landedOnProperty;
-  late bool _buttonVisibility;
+class Purchase extends ChangeNotifier {
+  bool _purchaseState;
+
+  bool _buttonVisibility;
+
+  late bool _purchaseCompleted; //----------this
 
   bool get purchaseVisibility => _buttonVisibility;
-  bool get ifCanBuy => _landedOnProperty;
-  PurchaseProvider()
-      : _landedOnProperty = true,
+
+  bool get ifCanBuy => _purchaseState;
+
+  Purchase()
+      : _purchaseState = true, // testing default false
         _buttonVisibility = false;
 
   void landedOnProperty() {
-    _landedOnProperty = true;
+    _purchaseState = true;
     _buttonVisibility;
     notifyListeners();
   }
@@ -19,6 +24,12 @@ class PurchaseProvider extends ChangeNotifier {
   void toggleVisibility() {
     _buttonVisibility = !_buttonVisibility;
     //if true relaunch dialog? A: not here
+    notifyListeners();
+  }
+
+  //this notifies game player pressed purchased button
+  void purchase() {
+    _purchaseCompleted = true;
     notifyListeners();
   }
 }

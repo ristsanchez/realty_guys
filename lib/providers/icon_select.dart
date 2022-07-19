@@ -4,18 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:realty_guys/presentation/color_constants.dart';
 
 /// client join game settings
-class GameSettingsProvider extends ChangeNotifier {
+class IconSelectionProvider extends ChangeNotifier {
   final _colorList = AppColors.colorList;
   final _iconList = AppColors.iconList;
   int _colorIndex;
   int _iconIndex;
 
-  //later
-  //  timer settings
-  //  auction settings
-  //    ALSO separation of host and client UI/functions
-
-  GameSettingsProvider()
+  //later name, text controller?
+  IconSelectionProvider()
       : _colorIndex = 0,
         _iconIndex = 0;
 
