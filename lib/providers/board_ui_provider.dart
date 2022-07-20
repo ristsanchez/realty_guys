@@ -2,17 +2,17 @@ import 'package:flutter/foundation.dart';
 
 class BoardUIProvider extends ChangeNotifier {
   bool _showCosts;
-  bool _showOwner;
+  bool _showRolls;
   int _quarterTurns;
 
   bool get costVisibility => _showCosts;
-  bool get ownerVisibility => _showOwner;
+  bool get rollsVisibility => _showRolls;
 
   int get rotations => _quarterTurns;
 
   BoardUIProvider()
       : _showCosts = false,
-        _showOwner = false,
+        _showRolls = false,
         _quarterTurns = 0;
 
   void toggleCostsVisibility() {
@@ -21,7 +21,7 @@ class BoardUIProvider extends ChangeNotifier {
   }
 
   void toggleOwnerVisibility() {
-    _showOwner = !_showOwner;
+    _showRolls = !_showRolls;
     notifyListeners();
   }
 
