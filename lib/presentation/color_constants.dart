@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   AppColors._();
+
+  static const Color baseGray = Color.fromARGB(255, 19, 19, 19);
+
+  static const Color solidWhite70 = Color.fromARGB(255, 206, 206, 206);
   static const Color cornerBaseColor = Colors.white12;
 
   static const Color trainBase = Colors.white38;
