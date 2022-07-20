@@ -6,7 +6,7 @@ import 'package:realty_guys/models/game_settings.dart';
 import 'package:realty_guys/presentation/color_constants.dart';
 
 /// client join game settings
-class HostSettings extends ChangeNotifier {
+class GameSettingsProvider extends ChangeNotifier {
   GameSettings gameSettings;
 
   //later
@@ -14,7 +14,7 @@ class HostSettings extends ChangeNotifier {
   //  auction settings
   //    ALSO separation of host and client UI/functions
 
-  HostSettings() : gameSettings = GameSettings();
+  GameSettingsProvider() : gameSettings = GameSettings();
 
   bool get auctionMode => gameSettings.auctionMode;
   bool get collectIfJailed => gameSettings.collectIfJailed;
