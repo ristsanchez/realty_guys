@@ -12,17 +12,19 @@ class PlayerInfoBar extends StatelessWidget {
   Widget build(BuildContext context) {
     //we might need order for styling and animations
 
-    Set<Player> players =
-        Provider.of<GameController>(context, listen: false).playerInfo;
+    return Selector<GameController, Set<Player>>(
+      selector: (_, gameController) => gameController.playerInfo,
+      builder: (context, playerSet, child) {
+        if (playerSet.isEmpty) return const Center();
 
-    if (players.isEmpty) return const Center();
+        List<Widget> list = [];
 
-    List<Widget> list = [];
-
-    for (Player player in players) {
-      list.add(_playerInfoSingle(player));
-    }
-    return Row(children: list);
+        for (Player player in playerSet) {
+          list.add(_playerInfoSingle(player));
+        }
+        return Row(children: list);
+      },
+    );
   }
 
   Widget _playerInfoSingle(Player player) {
