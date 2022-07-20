@@ -11,13 +11,13 @@ class InnerRingStack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<BoardUIProvider>(
       builder: ((context, boardUIProvider, child) {
-        bool ifShowRolls = boardUIProvider.costVisibility;
-        bool ifShowOwners = true;
+        bool ifShowPrice = boardUIProvider.costVisibility;
+        bool ifShowRolls = boardUIProvider.rollsVisibility;
 
         //Stack places widgets from back->front of the screen
         return Stack(
           children: [
-            Visibility(visible: ifShowOwners, child: const PropertyOwners()),
+            Visibility(visible: ifShowPrice, child: const PropertyOwners()),
             Visibility(visible: ifShowRolls, child: const RingRolls()),
             //more settings here
           ],
