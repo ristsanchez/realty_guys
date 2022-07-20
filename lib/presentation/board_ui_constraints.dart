@@ -22,5 +22,5 @@ class BoardConstraints {
   }
 
 // linear progess indicator thickness + button with padding
-  static const double topRowPadding = 4 + 8 + 40 + 8;
+  static const double topRowPadding = 4 + 4 + 8 + 40 + 8;
 }

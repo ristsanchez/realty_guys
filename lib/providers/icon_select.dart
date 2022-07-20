@@ -23,7 +23,7 @@ class IconSelectionProvider extends ChangeNotifier {
         color: _colorList.elementAt(_colorIndex),
         //07/17, not fine, this needs to be obtained from a constant file
         //depending on screen size
-        size: 40,
+        size: 35,
       );
 
   void randomize() {

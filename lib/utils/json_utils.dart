@@ -75,7 +75,7 @@ abstract class JsonUtils {
         color: Colors.orangeAccent.shade700,
         iconData: Icons.insert_emoticon));
 
-    return Future.delayed(const Duration(seconds: 4), () {
+    return Future.delayed(const Duration(seconds: 2), () {
       return players;
     });
   }
