@@ -28,6 +28,8 @@ class GameController extends ChangeNotifier {
 
   List get tileData => _game.tileData;
 
+  int get totalTime => _game.timeLimit;
+
   int get rollAttempt => _rollAttempt;
   bool get isGameGoing => _isGameGoing;
 
@@ -41,7 +43,8 @@ class GameController extends ChangeNotifier {
       : _isGameGoing = false,
         _rollAttempt = 0,
         currentPlayerId = 0,
-        currentPlayer = _game.playerById(0);
+        currentPlayer = _game.playerById(0),
+        timeLeft = 0;
 
   HashMap<int, Map> get playerIcons {
     HashMap<int, Map> temp = HashMap();
@@ -68,34 +71,28 @@ class GameController extends ChangeNotifier {
   void _updateCurrentPlayer() {
     currentPlayerId++;
     currentPlayerId %= _game.numberOfPlayers;
-
     currentPlayer = _game.playerById(currentPlayerId);
-
     notifyListeners();
-  }
-
-  void initGame() {
-    _game.initPlayers();
   }
 
   void startGame() {
     _isGameGoing = true;
+    _game.initPlayers();
     notifyListeners();
     startTurn();
   }
 
   void startTurn() {
-    timeLeft = 30;
+    timeLeft = _game.timeLimit;
 
     //user can trade/sell/buy, etc
-
     timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       if (timeLeft <= 0) {
         rollDice();
-
-//        timeLeft = 10;
+        timer.cancel();
       } else {
         timeLeft--;
+        notifyListeners();
       }
     });
     //resolve landing
@@ -132,7 +129,6 @@ class GameController extends ChangeNotifier {
       if (_rollAttempt == 2) {
         //go to jail
         _game.sendPlayerToJail(currentPlayer.id);
-
         _rollAttempt = 0;
         _updateCurrentPlayer();
         //pass to ui
@@ -146,7 +142,6 @@ class GameController extends ChangeNotifier {
       //set doubles to true
     } else {
       _game.advancePlayer(currentPlayer.id, die2 + die1);
-
       // resolveLanding(currentPlayerPosition, currentPlayerPosition + die2 + die1);
       //add timer/ animation to match time
       //pass to ui
