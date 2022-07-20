@@ -2,14 +2,15 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:realty_guys/icon_selection.dart';
-import 'package:realty_guys/models/board.dart';
+import 'package:realty_guys/presentation/color_constants.dart';
+import 'package:realty_guys/presentation/layout/online_layout.dart';
+import 'package:realty_guys/presentation/views/components/icon_selection.dart';
 import 'package:realty_guys/models/game_settings.dart';
 import 'package:realty_guys/presentation/views/board_screen.dart';
-import 'package:realty_guys/providers/board_ui_provider.dart';
+import 'package:realty_guys/presentation/views/components/join_room_bar.dart';
+import 'package:realty_guys/presentation/views/components/players_panel.dart';
 import 'package:realty_guys/models/game.dart';
 import 'package:realty_guys/providers/game_controller.dart';
-import 'package:realty_guys/providers/game_settings_provider.dart';
 import 'package:realty_guys/models/luck_card.dart';
 import 'package:realty_guys/models/player.dart';
 import 'package:realty_guys/utils/json_utils.dart';
@@ -19,126 +20,17 @@ class GameSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.black,
-        appBar: AppBar(
-          toolbarHeight: 0,
+    return const Scaffold(
+      backgroundColor: AppColors.baseGray,
+      body: ClientHostLayout(children: [
+        Center(
+          child: Text('Join Game',
+              style: TextStyle(fontSize: 22, color: Colors.white70)),
         ),
-        body: Column(
-          children: [mainBody(context), IconSelectorPanel()],
-        ));
-  }
-
-  mainBody(BuildContext context) {
-    const double opacity = 0.5;
-    return ChangeNotifierProvider(
-      create: (context) => GameSettingsProvider(),
-      builder: (context, child) {
-        return Center(
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              color: Colors.white10,
-            ),
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.height * 0.3,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    child: SizedBox(
-                      height: 30,
-                      child: TextField(
-                        textAlignVertical: TextAlignVertical.bottom,
-                        decoration: InputDecoration(
-                          hintText: 'Name',
-                        ),
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: buttonWhenDataReady(),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          children: [
-                            Opacity(
-                              opacity: opacity,
-                              child: IconButton(
-                                  onPressed: () {
-                                    Provider.of<GameSettingsProvider>(context,
-                                            listen: false)
-                                        .randomize();
-                                  },
-                                  icon: const Icon(Icons.casino)),
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Opacity(
-                                  opacity: opacity,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      Provider.of<GameSettingsProvider>(context,
-                                              listen: false)
-                                          .previousIcon();
-                                    },
-                                    icon:
-                                        const Icon(Icons.skip_previous_rounded),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(0),
-                                  child: Selector<GameSettingsProvider, Icon>(
-                                    selector: (_, settings) =>
-                                        settings.currentIcon,
-                                    builder: (_, icon, child) => icon,
-                                  ),
-                                ),
-                                Opacity(
-                                  opacity: opacity,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      Provider.of<GameSettingsProvider>(context,
-                                              listen: false)
-                                          .nextIcon();
-                                    },
-                                    icon: const Icon(Icons.skip_next_rounded),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Opacity(
-                              opacity: opacity,
-                              child: IconButton(
-                                  onPressed: () {
-                                    Provider.of<GameSettingsProvider>(context,
-                                            listen: false)
-                                        .changeColor();
-                                  },
-                                  icon: const Icon(Icons.color_lens_rounded)),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
+        JoinBar(),
+        IconSelectorPanel(),
+        PlayersConnectedPanel(),
+      ]),
     );
   }
 
