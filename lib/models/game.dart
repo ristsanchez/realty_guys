@@ -25,7 +25,7 @@ class Game {
     this.luckyCards,
     this.players,
     this.settings,
-  )   : _board = Board()..initialize(players),
+  )   : _board = Board(),
         houseCount = settings.houseLimit,
         hotelCount = settings.houseLimit;
 
@@ -41,6 +41,10 @@ class Game {
 
   Player get anyPlayer => players.first;
 
+  int get roll => die.roll;
+
+  int get timeLimit => settings.timeLimit;
+
   Player playerById(int id) =>
       players.firstWhere((element) => element.id == id);
 
@@ -48,8 +52,6 @@ class Game {
 
   String playerName(int id) =>
       players.firstWhere((player) => player.id == id).name;
-
-  int get roll => die.roll;
 
   void advancePlayer(int playerId, int numberOfSpaces) =>
       _board.advance(playerId, numberOfSpaces);
