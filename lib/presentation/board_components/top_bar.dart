@@ -71,7 +71,7 @@ class BoardTopBar extends StatelessWidget {
                   .toggleOwnerVisibility();
             },
             child: Selector<BoardUIProvider, bool>(
-              selector: (_, boardUIProvider) => boardUIProvider.ownerVisibility,
+              selector: (_, boardUIProvider) => boardUIProvider.rollsVisibility,
               builder: (context, showOwner, child) {
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
