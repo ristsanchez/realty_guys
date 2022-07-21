@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:realty_guys/models/player.dart';
 
 class Board extends ChangeNotifier {
-  static const int jail = 30;
+  final int _jail = 30;
   // player id and then its position
   late HashMap<int, int> _playerPositions;
 
@@ -25,18 +25,16 @@ class Board extends ChangeNotifier {
     for (Player player in playerSet) {
       _playerPositions.putIfAbsent(player.id, () => 0);
     }
+    notifyListeners();
   }
 
   void sendToGoToJail(int playerId) {
-    _playerPositions.update(playerId, (value) => jail);
+    _playerPositions.update(playerId, (value) => _jail);
     //notify landing? A: what let me see
-    notifyListeners();
   }
 
   void sendToJail(int playerId) {
-    _playerPositions.update(playerId, (value) => jail);
-
-    notifyListeners();
+    _playerPositions.update(playerId, (value) => _jail);
   }
 
   void advance(int playerId, int numberOfSpaces) {
@@ -44,6 +42,5 @@ class Board extends ChangeNotifier {
     int newPosition = (numberOfSpaces + currentPosition) % 40;
 
     _playerPositions.update(playerId, (value) => newPosition);
-    notifyListeners();
   }
 }
