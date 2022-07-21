@@ -15,8 +15,8 @@ import 'package:realty_guys/models/luck_card.dart';
 import 'package:realty_guys/models/player.dart';
 import 'package:realty_guys/utils/json_utils.dart';
 
-class GameSettingsScreen extends StatelessWidget {
-  const GameSettingsScreen({Key? key}) : super(key: key);
+class ClientSettingsView extends StatelessWidget {
+  const ClientSettingsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
