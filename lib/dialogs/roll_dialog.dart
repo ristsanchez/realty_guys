@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:realty_guys/models/die.dart';
 import 'package:realty_guys/presentation/board_ui_constraints.dart';
-import 'package:realty_guys/presentation/card_widgets/property_card_widget.dart';
 import 'package:realty_guys/presentation/color_constants.dart';
 
 class RollDiceDialog extends StatelessWidget {
@@ -14,7 +13,7 @@ class RollDiceDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 4), () {
       Navigator.of(context).pop(true);
     });
     double boardSide = (MediaQuery.of(context).size.width - 20) / 7;
@@ -42,7 +41,6 @@ class DiceAnim extends ChangeNotifier {
   late Timer timer;
   late int die1, die2;
   late int old1, old2;
-  List nums = [1, 2, 3, 4, 5, 6];
 
   DiceAnim()
       : die1 = 1,
@@ -50,14 +48,20 @@ class DiceAnim extends ChangeNotifier {
         old1 = 1,
         old2 = 1;
   init() {
-    timer = Timer.periodic(const Duration(milliseconds: 200), (timer) {
+    timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       while (die1 == old1) {
         die1 = die.roll;
       }
       old1 = die1;
 
-      if (timer.tick >= 10) {
-        die1 += 200;
+      while (die2 == old2) {
+        die2 = die.roll;
+      }
+      old2 = die2;
+
+      if (timer.tick >= 16) {
+        //set them to original val when initially rolled
+
         timer.cancel();
       }
       notifyListeners();
@@ -74,12 +78,155 @@ class DiceView extends StatelessWidget {
       create: (context) => DiceAnim()..init(),
       child: Consumer<DiceAnim>(
         builder: (context, instance, child) {
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text('${instance.die1}')],
+          return Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(child: DieFace(number: instance.die1)),
+                const SizedBox(width: 20),
+                Center(child: DieFace(number: instance.die2)),
+              ],
+            ),
           );
         },
+      ),
+    );
+  }
+}
+
+class DieFace extends StatelessWidget {
+  const DieFace({Key? key, required this.number}) : super(key: key);
+  final int number;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget temp = const Icon(Icons.question_mark_rounded);
+    if (number == 6) {
+      temp = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [Dot(), Dot(), Dot()],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [Dot(), Dot(), Dot()],
+          ),
+        ],
+      );
+    }
+    if (number == 5) {
+      temp = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [Dot(), Dot()],
+          ),
+          Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Container(
+              height: 10,
+              width: 10,
+              decoration: const BoxDecoration(
+                color: Colors.black,
+                shape: BoxShape.circle,
+              ),
+            ),
+          ]),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [Dot(), Dot()],
+          ),
+        ],
+      );
+    }
+    if (number == 4) {
+      temp = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [Dot(), Dot()],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [Dot(), Dot()],
+          ),
+        ],
+      );
+    }
+    if (number == 3) {
+      temp = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: const [
+              Dot(),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Dot(),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: const [
+              Dot(),
+            ],
+          ),
+        ],
+      );
+    }
+    if (number == 2) {
+      temp = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: const [
+              Dot(),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: const [
+              Dot(),
+            ],
+          ),
+        ],
+      );
+    }
+    if (number == 1) {
+      temp = Column(
+          mainAxisAlignment: MainAxisAlignment.center, children: const [Dot()]);
+    }
+    return Container(
+        padding: const EdgeInsets.all(8),
+        height: 60,
+        width: 60,
+        decoration: const BoxDecoration(
+          color: Colors.white54,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        child: temp);
+  }
+}
+
+class Dot extends StatelessWidget {
+  const Dot({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 10,
+      width: 10,
+      decoration: const BoxDecoration(
+        color: Colors.black,
+        shape: BoxShape.circle,
       ),
     );
   }
