@@ -1,23 +1,29 @@
 import 'dart:collection';
 
+import 'package:flutter/cupertino.dart';
 import 'package:realty_guys/models/board.dart';
 import 'package:realty_guys/models/die.dart';
 import 'package:realty_guys/models/game_settings.dart';
 import 'package:realty_guys/models/luck_card.dart';
 import 'package:realty_guys/models/player.dart';
 
-class Game {
+class Game extends ChangeNotifier {
   //game objects
+
+  String val;
   HashSet<Player> players;
+
   List tileData; //property ownership A: at property obj lvl
-  Board _board;
-  final GameSettings settings;
+
+  Board board;
+
   final List<LuckCard> chanceCards;
   final List<LuckCard> luckyCards;
   final Die die = Die();
+  final GameSettings settings;
 
-  late int houseCount;
-  late int hotelCount;
+  late final int houseCount;
+  late final int hotelCount;
 
   Game(
     this.tileData,
@@ -25,17 +31,24 @@ class Game {
     this.luckyCards,
     this.players,
     this.settings,
-  )   : _board = Board(),
+  )   : board = Board(),
+        val = 'default',
         houseCount = settings.houseLimit,
         hotelCount = settings.houseLimit;
 
+  void initBoardPositions() {
+    board.initialize(players);
+  }
+
   void initPlayers() {
+    val = 'init';
     for (Player player in players) {
       player.money = settings.money;
     }
+    notifyListeners();
   }
 
-  Board get board => _board;
+  HashMap<int, int> get boardPositions => board.getPositions;
 
   int get numberOfPlayers => players.length;
 
@@ -48,16 +61,16 @@ class Game {
   Player playerById(int id) =>
       players.firstWhere((element) => element.id == id);
 
-  int playerPosition(int playerId) => _board.playerPosition(playerId);
+  int playerPosition(int playerId) => board.playerPosition(playerId);
 
   String playerName(int id) =>
       players.firstWhere((player) => player.id == id).name;
 
   void advancePlayer(int playerId, int numberOfSpaces) =>
-      _board.advance(playerId, numberOfSpaces);
+      board.advance(playerId, numberOfSpaces);
 
   void sendPlayerToJail(int playerId) {
-    _board.sendToGoToJail(playerId);
+    board.sendToGoToJail(playerId);
     playerById(playerId).isJailed = true;
   }
 
