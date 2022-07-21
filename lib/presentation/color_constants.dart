@@ -13,6 +13,9 @@ class AppColors {
   static const Color base = Colors.white12;
   static const Color base2 = Colors.white24;
 
+  static const Color actionRed = Color.fromARGB(180, 255, 56, 56);
+  static const Color actionGreen = Color.fromARGB(180, 56, 255, 116);
+
   static const Color deactivated = Colors.white10;
 
   static const Color activated = Colors.white24;
