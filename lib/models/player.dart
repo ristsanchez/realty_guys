@@ -18,4 +18,10 @@ class Player {
     required this.iconData,
   })  : money = -1,
         isJailed = false;
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return '$id, $money, $isJailed, $name';
+  }
 }
