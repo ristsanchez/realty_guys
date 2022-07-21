@@ -9,46 +9,48 @@ import 'package:realty_guys/models/tile.dart';
 
 ///Game Controller for local 'pass and play' (single device)
 class GameController extends ChangeNotifier {
-  Game _game;
-  //_game data
+  Game game;
+
+  bool _isGameGoing;
+  //game data
 
   Player currentPlayer;
   int currentPlayerId;
 
   int _rollAttempt;
 
-  bool _isGameGoing;
-
-  late int timeLeft;
   late Timer timer;
+  late int timeLeft;
 
   late int _oldPosition; //???
 
-  Board get board => _game.board;
+  Board get board => game.board;
 
-  List get tileData => _game.tileData;
+  List get tileData => game.tileData;
 
-  int get totalTime => _game.timeLimit;
+  int get totalTime => game.timeLimit;
 
   int get rollAttempt => _rollAttempt;
   bool get isGameGoing => _isGameGoing;
 
-  Set<Player> get playerInfo => _game.players;
+  HashMap<int, int> get boardPositions => game.boardPositions;
 
-  int get currentPlayerPosition => _game.playerPosition(currentPlayer.id);
+  Set<Player> get playerInfo => game.players;
 
-  String get currentPlayerName => _game.playerName(currentPlayer.id);
+  int get currentPlayerPosition => game.playerPosition(currentPlayer.id);
 
-  GameController(this._game)
+  String get currentPlayerName => game.playerName(currentPlayer.id);
+
+  GameController(this.game)
       : _isGameGoing = false,
         _rollAttempt = 0,
         currentPlayerId = 0,
-        currentPlayer = _game.playerById(0),
+        currentPlayer = game.playerById(0),
         timeLeft = 0;
 
   HashMap<int, Map> get playerIcons {
     HashMap<int, Map> temp = HashMap();
-    for (Player player in _game.players) {
+    for (Player player in game.players) {
       temp.putIfAbsent(
         player.id,
         () => {
@@ -62,7 +64,6 @@ class GameController extends ChangeNotifier {
 
   void setPlayerOrder() {
     // all players roll, assign order
-
     //timer 20 secs
     // wait for user rolls
     //all roll
@@ -70,26 +71,26 @@ class GameController extends ChangeNotifier {
 
   void _updateCurrentPlayer() {
     currentPlayerId++;
-    currentPlayerId %= _game.numberOfPlayers;
-    currentPlayer = _game.playerById(currentPlayerId);
+    currentPlayerId %= game.numberOfPlayers;
+    currentPlayer = game.playerById(currentPlayerId);
     notifyListeners();
   }
 
   void startGame() {
     _isGameGoing = true;
-    _game.initPlayers();
-    notifyListeners();
+    game.initPlayers();
+    game.initBoardPositions();
     startTurn();
   }
 
   void startTurn() {
-    timeLeft = _game.timeLimit;
+    timeLeft = game.timeLimit;
 
     //user can trade/sell/buy, etc
     timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       if (timeLeft <= 0) {
-        rollDice();
         timer.cancel();
+        rollDice();
       } else {
         timeLeft--;
         notifyListeners();
@@ -121,27 +122,27 @@ class GameController extends ChangeNotifier {
 
   void rollDice() {
     //set top of que state to rolling?
-    int die1 = _game.roll;
-    int die2 = _game.roll;
+    int die1 = game.roll;
+    int die2 = game.roll;
 
     //set doubles to false
     if (die1 == die2) {
       if (_rollAttempt == 2) {
         //go to jail
-        _game.sendPlayerToJail(currentPlayer.id);
+        game.sendPlayerToJail(currentPlayer.id);
         _rollAttempt = 0;
         _updateCurrentPlayer();
         //pass to ui
       } else {
         //regular move
-        _game.advancePlayer(currentPlayer.id, die2 + die1);
+        game.advancePlayer(currentPlayer.id, die2 + die1);
         //go again
         _rollAttempt++;
         //pass to ui
       }
       //set doubles to true
     } else {
-      _game.advancePlayer(currentPlayer.id, die2 + die1);
+      game.advancePlayer(currentPlayer.id, die2 + die1);
       // resolveLanding(currentPlayerPosition, currentPlayerPosition + die2 + die1);
       //add timer/ animation to match time
       //pass to ui
@@ -153,7 +154,7 @@ class GameController extends ChangeNotifier {
   }
 
   void resolveLanding(int oldPosition, int newPosition) {
-    var tileType = _game.tileData[newPosition].group;
+    var tileType = game.tileData[newPosition].group;
 
     // passed go, landing on it handled separately
     if (currentPlayerPosition > 0 && _oldPosition < 40) {
@@ -163,7 +164,7 @@ class GameController extends ChangeNotifier {
 
     if (tileType == 'special') {
       //not buyable
-      SpecialTile tile = _game.tileData[newPosition];
+      SpecialTile tile = game.tileData[newPosition];
 
       //landed on go
       if (tile.id == 0) {
@@ -192,12 +193,12 @@ class GameController extends ChangeNotifier {
       //landed on go to jail
       else if (tile.id == 30) {
         //send to jail tile
-        _game.sendPlayerToJail(currentPlayerId);
+        game.sendPlayerToJail(currentPlayerId);
       }
       //all special tiles covered
     } else {
       //landed on Property
-      Property property = _game.tileData[newPosition];
+      Property property = game.tileData[newPosition];
 
       //If the property doesn't have an owner
       if (!property.hasOwner) {
@@ -229,7 +230,7 @@ class GameController extends ChangeNotifier {
               //check roll to calculate rent roll * 4(1 owned) or 10(2 owned)
             } else {
               //regular land
-              Land land = _game.tileData[newPosition];
+              Land land = game.tileData[newPosition];
               //check if land has houses
               if (land.hasHouses) {
                 _pay(land.rentWithHouses,
@@ -255,8 +256,8 @@ class GameController extends ChangeNotifier {
   }
 
   void _pay(int amount, {int collector = -1, int debtor = -1}) {
-    if (collector > -1) _game.payMoney(collector, amount);
-    if (debtor > -1) _game.collectMoney(debtor, amount);
+    if (collector > -1) game.payMoney(collector, amount);
+    if (debtor > -1) game.collectMoney(debtor, amount);
     //notify each player in the UI
   }
 }
