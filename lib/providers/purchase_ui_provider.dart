@@ -1,35 +1,45 @@
 import 'package:flutter/foundation.dart';
 
 class Purchase extends ChangeNotifier {
-  bool _purchaseState;
+  bool purchaseState;
 
-  bool _buttonVisibility;
+  bool buttonVisibility;
 
-  late bool _purchaseCompleted; //----------this
+  bool purchaseCompleted; //----------this
 
-  bool get purchaseVisibility => _buttonVisibility;
+  bool get purchaseVisibility => buttonVisibility;
 
-  bool get ifCanBuy => _purchaseState;
+  bool get ifCanBuy => purchaseState;
 
   Purchase()
-      : _purchaseState = true, // testing default false
-        _buttonVisibility = false;
+      : purchaseState = true,
+        purchaseCompleted = false,
+        buttonVisibility = false;
 
-  void landedOnProperty() {
-    _purchaseState = true;
-    _buttonVisibility;
+  void resetPurchase() {
+    //for the controller to call either after timer or after purchase completion;
+  }
+
+  void enablePurchase() {
+    purchaseState = true;
+    buttonVisibility = true;
     notifyListeners();
+    //tile data from game prov,  index from current position
   }
 
   void toggleVisibility() {
-    _buttonVisibility = !_buttonVisibility;
+    //on dismiss dialog nothing happens
+    //on button press, relaunch dialog
+    //this behavior is done at the ui level, no nee for provider class
+
+    buttonVisibility = !buttonVisibility;
     //if true relaunch dialog? A: not here
     notifyListeners();
   }
 
   //this notifies game player pressed purchased button
-  void purchase() {
-    _purchaseCompleted = true;
+  void acceptPurchase() {
+    purchaseCompleted = true;
     notifyListeners();
   }
 }
