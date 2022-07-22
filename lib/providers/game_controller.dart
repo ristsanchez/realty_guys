@@ -153,61 +153,52 @@ class GameController extends ChangeNotifier {
     //after the roll we update our board
   }
 
-  void resolveLanding(int oldPosition, int newPosition) {
-    var tileType = game.tileData[newPosition].group;
-
-    // passed go, landing on it handled separately
-    if (currentPlayerPosition > 0 && _oldPosition < 40) {
+  //pay 200 if player passes or lands on the Go tile
+  void passedGo(int oldPosition, int newPosition) {
+    if (oldPosition < 40 && newPosition >= 0) {
       //collect $200
       _pay(200, collector: currentPlayer.id);
     }
+  }
 
-    if (tileType == 'special') {
-      //not buyable
-      SpecialTile tile = game.tileData[newPosition];
+  void resolveLanding() {
+    //Landed on a non-property tile
+    if (game.tileData[currentPosition] is SpecialTile) {
+      SpecialTile tile = game.tileData[currentPosition];
 
-      //landed on go
-      if (tile.id == 0) {
-        _pay(200, collector: currentPlayer.id);
-      }
+      //excluded because they do nothing
+      //0: Go, 10: JustVisiting, 20: FreeParking(for now)
       //landed on chance tile
-      else if (tile.name == 'Chance') {
+      if (tile.name == 'Chance') {
         //get random chance card and resolve effect
-      }
-      //landed on lucky tile
-      else if (tile.name == 'Lucky') {
+      } else if (tile.name == 'Lucky') {
         //get random lucky card and resolve effect
       }
       //landed on an income/luxury tax tile
       else if (tile.id == 4 || tile.id == 38) {
-        //pay 200 to bank, aka the payments void
-        _pay(200, debtor: currentPlayer.id);
-      }
-      //landed on just-visiting/jail
-      else if (tile.id == 10) {
-      }
-      //landed on free parking
-      else if (tile.id == 20) {
-        //depending on settings e.g., players collect accumulated taxes
+        _pay(200, debtor: currentPlayer.id); //pay 200 to bank (no one)
       }
       //landed on go to jail
       else if (tile.id == 30) {
-        //send to jail tile
-        game.sendPlayerToJail(currentPlayerId);
+        game.sendPlayerToJail(currentPlayerId); //send to jail tile
       }
-      //all special tiles covered
-    } else {
+    }
+    if (game.tileData[currentPosition] is Property) {
       //landed on Property
-      Property property = game.tileData[newPosition];
+      Property property = game.tileData[currentPosition];
 
       //If the property doesn't have an owner
       if (!property.hasOwner) {
         //if player can afford the property
         if (currentPlayer.money > property.cost) {
           //enable buy option in the UI
+          // showBuyDialog(context, data)
+          //turn on purchase provider with this data
+
           // await player input
           var playerSelectedBuy;
           if (playerSelectedBuy) {
+            game.playerBuys(currentPlayerId, currentPosition);
             //property set owner to current player id
             //FIND where to get the notify for the UI
           }
@@ -230,7 +221,7 @@ class GameController extends ChangeNotifier {
               //check roll to calculate rent roll * 4(1 owned) or 10(2 owned)
             } else {
               //regular land
-              Land land = game.tileData[newPosition];
+              Land land = game.tileData[currentPosition];
               //check if land has houses
               if (land.hasHouses) {
                 _pay(land.rentWithHouses,
