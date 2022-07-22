@@ -126,8 +126,15 @@ void _goToGame(BuildContext context, List<dynamic> tileData,
 
       return ChangeNotifierProvider<GameController>(
         create: (BuildContext context) => GameController(newGame),
-        child: const BoardScreen(),
+        builder: (context, child) {
+          return const BoardScreen();
+        },
       );
     })),
   );
 }
+/**
+ * ChangeNotifierProvider.value(
+            value: Provider.of<GameController>(context, listen: false).game,
+            child: const
+ */
