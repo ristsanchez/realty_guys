@@ -2,17 +2,21 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
+import 'package:realty_guys/dialogs/index.dart';
 import 'package:realty_guys/models/board.dart';
 import 'package:realty_guys/models/game.dart';
 import 'package:realty_guys/models/player.dart';
 import 'package:realty_guys/models/tile.dart';
+import 'package:realty_guys/providers/purchase_ui_provider.dart';
 
 ///Game Controller for local 'pass and play' (single device)
 class GameController extends ChangeNotifier {
   Game game;
 
-  bool _isGameGoing;
+  bool isGameGoing;
   //game data
+
+  Purchase purchase = Purchase();
 
   Player currentPlayer;
   int currentPlayerId;
@@ -21,32 +25,28 @@ class GameController extends ChangeNotifier {
 
   late Timer timer;
   late int timeLeft;
+  final int timeLimit;
 
-  late int _oldPosition; //???
+  late int _oldPosition; //???wait
 
   Board get board => game.board;
 
   List get tileData => game.tileData;
 
-  int get totalTime => game.timeLimit;
-
-  int get rollAttempt => _rollAttempt;
-  bool get isGameGoing => _isGameGoing;
-
-  HashMap<int, int> get boardPositions => game.boardPositions;
-
   Set<Player> get playerInfo => game.players;
 
-  int get currentPlayerPosition => game.playerPosition(currentPlayer.id);
+  int get currentPosition => game.playerPosition(currentPlayer.id);
 
   String get currentPlayerName => game.playerName(currentPlayer.id);
 
   GameController(this.game)
-      : _isGameGoing = false,
+      : isGameGoing = false,
         _rollAttempt = 0,
         currentPlayerId = 0,
         currentPlayer = game.playerById(0),
-        timeLeft = 0;
+        timeLeft = 0,
+        //final values, from settings
+        timeLimit = game.timeLimit;
 
   HashMap<int, Map> get playerIcons {
     HashMap<int, Map> temp = HashMap();
@@ -77,11 +77,17 @@ class GameController extends ChangeNotifier {
   }
 
   void startGame() {
-    _isGameGoing = true;
-    game.initPlayers();
-    game.initBoardPositions();
+    isGameGoing = true;
+    game.init();
     startTurn();
+    notifyListeners();
   }
+
+  void pauseGame() {
+    timer.cancel();
+  }
+
+  void resumeGame() {}
 
   void startTurn() {
     timeLeft = game.timeLimit;
@@ -89,8 +95,8 @@ class GameController extends ChangeNotifier {
     //user can trade/sell/buy, etc
     timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       if (timeLeft <= 0) {
-        timer.cancel();
-        rollDice();
+        //cancel current actions, buying, selling, trading etc.
+        playerPressedRoll();
       } else {
         timeLeft--;
         notifyListeners();
@@ -104,6 +110,7 @@ class GameController extends ChangeNotifier {
     rollDice();
 
     startTurn();
+
     //for timer constants make a pre-made option e.g., fast mode, regular
     //  OR make each timer customizable, action, buy, trade, etc.
     //and show interval
@@ -125,6 +132,8 @@ class GameController extends ChangeNotifier {
     int die1 = game.roll;
     int die2 = game.roll;
 
+    //dice animation here
+
     //set doubles to false
     if (die1 == die2) {
       if (_rollAttempt == 2) {
@@ -135,21 +144,28 @@ class GameController extends ChangeNotifier {
         //pass to ui
       } else {
         //regular move
+        passedGo(currentPosition, currentPosition + die2 + die1);
+
         game.advancePlayer(currentPlayer.id, die2 + die1);
+
+        resolveLanding();
         //go again
         _rollAttempt++;
         //pass to ui
       }
       //set doubles to true
     } else {
+      //check if passed go, then
+      passedGo(currentPosition, currentPosition + die2 + die1);
+
       game.advancePlayer(currentPlayer.id, die2 + die1);
-      // resolveLanding(currentPlayerPosition, currentPlayerPosition + die2 + die1);
-      //add timer/ animation to match time
-      //pass to ui
+
+      resolveLanding();
+
+      //reset roll attempt, and update who's current player
       _rollAttempt = 0;
       _updateCurrentPlayer();
     }
-
     //after the roll we update our board
   }
 
